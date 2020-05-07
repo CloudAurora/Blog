@@ -2,14 +2,14 @@ import React from 'react'
 import Link from 'next/link'
 import { withApollo } from '../apollo/client'
 import gql from 'graphql-tag'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation, useApolloClient } from '@apollo/react-hooks'
 import Field from '../components/field'
 import { getErrorMessage } from '../lib/form'
 import { useRouter } from 'next/router'
 
-const SignUpMutation = gql`
-  mutation SignUpMutation($email: String!, $password: String!) {
-    signUp(input: { email: $email, password: $password }) {
+const SignInMutation = gql`
+  mutation SignInMutation($email: String!, $password: String!) {
+    signIn(input: { email: $email, password: $password }) {
       user {
         id
         email
@@ -18,25 +18,29 @@ const SignUpMutation = gql`
   }
 `
 
-function SignUp() {
-  const [signUp] = useMutation(SignUpMutation)
+function SignIn() {
+  const client = useApolloClient()
+  const [signIn] = useMutation(SignInMutation)
   const [errorMsg, setErrorMsg] = React.useState()
   const router = useRouter()
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const emailElement = event.currentTarget.elements.email
-    const passwordElement = event.currentTarget.elements.password
+
+    const emailElement = event.currentTarget.elements.namedItem('email');
+    const passwordElement = event.currentTarget.elements.namedItem('password');
 
     try {
-      await signUp({
+      await client.resetStore()
+      const { data } = await signIn({
         variables: {
-          email: emailElement.value,
-          password: passwordElement.value,
+          email: emailElement,
+          password: passwordElement,
         },
       })
-
-      router.push('/signin')
+      if (data.signIn.user) {
+        await router.push('/')
+      }
     } catch (error) {
       setErrorMsg(getErrorMessage(error))
     }
@@ -44,7 +48,7 @@ function SignUp() {
 
   return (
     <>
-      <h1>Sign Up</h1>
+      <h1>Sign In</h1>
       <form onSubmit={handleSubmit}>
         {errorMsg && <p>{errorMsg}</p>}
         <Field
@@ -61,13 +65,13 @@ function SignUp() {
           required
           label="Password"
         />
-        <button type="submit">Sign up</button> or{' '}
-        <Link href="signin">
-          <a>Sign in</a>
+        <button type="submit">Sign in</button> or{' '}
+        <Link href="signup">
+          <a>Sign up</a>
         </Link>
       </form>
     </>
   )
 }
 
-export default withApollo(SignUp)
+export default withApollo(SignIn)

@@ -1,4 +1,11 @@
-export default function Field(props) {
+interface FieldProps {
+  name: string,
+  label: string,
+  required?: boolean,
+  autoComplete?: string,
+  type?: string
+}
+export default function Field(props: FieldProps) {
   return (
     <div>
       <label
