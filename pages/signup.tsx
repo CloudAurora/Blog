@@ -25,14 +25,14 @@ function SignUp() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const emailElement = event.currentTarget.elements.namedItem('email');
-    const passwordElement = event.currentTarget.elements.namedItem('password');
+    const emailElement = event.currentTarget.elements.namedItem('email') as HTMLInputElement;
+    const passwordElement = event.currentTarget.elements.namedItem('password') as HTMLInputElement;
 
     try {
       await signUp({
         variables: {
-          email: emailElement,
-          password: passwordElement,
+          email: emailElement.value,
+          password: passwordElement.value,
         },
       })
 

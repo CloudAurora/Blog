@@ -1,35 +1,41 @@
-import { AuthenticationError, UserInputError } from 'apollo-server-micro'
+import { AuthenticationError, UserInputError, IResolvers } from 'apollo-server-micro'
 import cookie from 'cookie'
 import jwt from 'jsonwebtoken'
 import getConfig from 'next/config'
 import bcrypt from 'bcrypt'
 import v4 from 'uuid/v4'
+import { NextPageContext } from 'next'
 
-const JWT_SECRET = getConfig().serverRuntimeConfig.JWT_SECRET
+const JWT_SECRET: jwt.Secret = getConfig().serverRuntimeConfig.JWT_SECRET
 
-const users = []
-
-function createUser(data) {
+const users: User[] = []
+interface User {
+  id: string;
+  email: string;
+  password?: string;
+  hashedPassword?: string
+}
+function createUser(data: User) {
   const salt = bcrypt.genSaltSync()
 
   return {
     id: v4(),
     email: data.email,
-    hashedPassword: bcrypt.hashSync(data.password, salt),
+    hashedPassword: bcrypt.hashSync(data.password!, salt),
   }
 }
 
-function validPassword(user, password) {
-  return bcrypt.compareSync(password, user.hashedPassword)
+function validPassword(user: User, password: string) {
+  return bcrypt.compareSync(password, user.hashedPassword!)
 }
 
-export const resolvers = {
+export const resolvers: IResolvers<any, NextPageContext> = {
   Query: {
     async viewer(_parent, _args, context, _info) {
-      const { token } = cookie.parse(context.req.headers.cookie ?? '')
+      const { token } = cookie.parse(context.req?.headers.cookie ?? '')
       if (token) {
         try {
-          const { id, email } = jwt.verify(token, JWT_SECRET)
+          const { id, email } = jwt.verify(token, JWT_SECRET) as Record<string, string>
 
           return users.find(user => user.id === id && user.email === email)
         } catch {
@@ -61,7 +67,7 @@ export const resolvers = {
           }
         )
 
-        context.res.setHeader(
+        context.res?.setHeader(
           'Set-Cookie',
           cookie.serialize('token', token, {
             httpOnly: true,
@@ -78,7 +84,7 @@ export const resolvers = {
       throw new UserInputError('Invalid email and password combination')
     },
     async signOut(_parent, _args, context, _info) {
-      context.res.setHeader(
+      context.res?.setHeader(
         'Set-Cookie',
         cookie.serialize('token', '', {
           httpOnly: true,

@@ -10,6 +10,17 @@ import { HttpLink } from 'apollo-link-http';
 type SchemaContext = SchemaLink.ResolverContextFunction | Record<string, any>;
 let globalApolloClient: ApolloClient<NormalizedCacheObject> | null = null
 
+interface Config {
+  ssr?: boolean
+}
+
+
+
+interface ApolloPageBaseProps {
+  apolloClient?: ApolloClient<NormalizedCacheObject> | null;
+  apolloState?: NormalizedCacheObject;
+}
+
 /**
  * Creates and provides the apolloContext
  * to a next.js PageTree. Use it by wrapping
@@ -18,17 +29,6 @@ let globalApolloClient: ApolloClient<NormalizedCacheObject> | null = null
  * @param {Object} [config]
  * @param {Boolean} [config.ssr=true]
  */
-interface Config {
-  ssr?: boolean
-}
-
-
-interface ApolloPageBaseProps {
-  apolloClient?: ApolloClient<NormalizedCacheObject> | null;
-  apolloState?: NormalizedCacheObject;
-}
-
-
 export function withApollo<PageProps>
   (PageComponent: NextPage<PageProps>, { ssr = true }: Config = {}) {
   type ApolloPageProps = ApolloPageBaseProps & PageProps

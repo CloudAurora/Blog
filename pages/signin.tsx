@@ -6,8 +6,9 @@ import { useMutation, useApolloClient } from '@apollo/react-hooks'
 import Field from '../components/field'
 import { getErrorMessage } from '../lib/form'
 import { useRouter } from 'next/router'
+import { DocumentNode } from 'graphql'
 
-const SignInMutation = gql`
+const SignInMutation: DocumentNode = gql`
   mutation SignInMutation($email: String!, $password: String!) {
     signIn(input: { email: $email, password: $password }) {
       user {
@@ -20,25 +21,25 @@ const SignInMutation = gql`
 
 function SignIn() {
   const client = useApolloClient()
-  const [signIn] = useMutation(SignInMutation)
+  const [signIn] = useMutation<{ signIn: { user: { id: string, email: string } } }>(SignInMutation)
   const [errorMsg, setErrorMsg] = React.useState()
   const router = useRouter()
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const emailElement = event.currentTarget.elements.namedItem('email');
-    const passwordElement = event.currentTarget.elements.namedItem('password');
+    const emailElement = event.currentTarget.elements.namedItem('email') as HTMLInputElement;
+    const passwordElement = event.currentTarget.elements.namedItem('password') as HTMLInputElement;
 
     try {
       await client.resetStore()
       const { data } = await signIn({
         variables: {
-          email: emailElement,
-          password: passwordElement,
+          email: emailElement.value,
+          password: passwordElement.value,
         },
       })
-      if (data.signIn.user) {
+      if (data?.signIn.user) {
         await router.push('/')
       }
     } catch (error) {
