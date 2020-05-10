@@ -1,4 +1,4 @@
-import { withApollo, createStaticPropsFunc } from '../apollo/client'
+import { withApollo, createStaticPropsFunc, createServerSidePropsFunc } from '../apollo/client'
 import gql from 'graphql-tag'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -13,14 +13,13 @@ const ViewerQuery = gql`
 `
 
 interface Props {
-    viewer: {
+    viewer?: {
         id: string
         email: string
     }
 }
-const Index = (props: Props) => {
+const Index = ({viewer}: Props) => {
     const router = useRouter()
-    const { viewer } = props
 
     if (viewer === null && typeof window !== 'undefined') {
         router.push('/signin')
@@ -44,10 +43,10 @@ const Index = (props: Props) => {
     return <p>Loading...</p>
 }
 
-export const getStaticProps = createStaticPropsFunc<Props>(
+export const getServerSideProps = createServerSidePropsFunc<Props>(
     async (_context, client) => {
-        const result = await client.query<Props>(ViewerQuery)
-        return { props: { viewer: result.data.viewer } }
+        const result = await client.query<Props>({ query: ViewerQuery })
+        return { props: { viewer: result.data?.viewer } }
     }
 )
 

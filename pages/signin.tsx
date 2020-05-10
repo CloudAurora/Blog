@@ -83,4 +83,4 @@ function SignIn() {
 
 export default withApollo(SignIn)
 
-export const getStaticProps = createStaticPropsFunc()
+// export const getStaticProps = createStaticPropsFunc()

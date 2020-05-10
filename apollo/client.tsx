@@ -16,7 +16,6 @@ import {
 
 let globalApolloClient: ApolloClient<NormalizedCacheObject> | null = null
 
-
 export function withApollo<PageProps>(
     PageComponent: React.ComponentType<PageProps>
 ) {
@@ -33,40 +32,45 @@ export function withApollo<PageProps>(
     }
 }
 
-const defaultPropsFunc = () => Promise.reject({ props: {} })
-
-export async function createStaticPropsFunc<
+export function createStaticPropsFunc<
     P extends StrDict = StrDict,
     Q extends ParsedUrlQuery = ParsedUrlQuery
->(func: GetStaticPropsWIthApollo<P, Q> = defaultPropsFunc) {
+>(func?: GetStaticPropsWIthApollo<P, Q>) {
     return async (context: StaticContext<P, Q>) => {
+        if (!func) return { props: {} }
         const apolloClient = initApolloClient()
-        const props = await func(context, apolloClient)
+        const { props, unstable_revalidate } = await func(context, apolloClient)
         const apolloState = apolloClient.cache.extract()
         return {
-            ...props,
-            apolloState,
+            props: {
+                ...props,
+                apolloState,
+            },
+            unstable_revalidate,
         }
     }
 }
 
-export async function createServerSidePropsFunc<
+export function createServerSidePropsFunc<
     P extends StrDict = StrDict,
     Q extends ParsedUrlQuery = ParsedUrlQuery
->(func: GetServerPropsWithApollo<P, Q> = defaultPropsFunc) {
+>(func: GetServerPropsWithApollo<P, Q>) {
     return async (context: ServerSideContext<P, Q>) => {
+        if (!func) return { props: {} }
         const apolloClient = initApolloClient({
             res: context.res,
             req: context.req,
         })
-        const props = await func(context, apolloClient)
+        const { props } = await func(context, apolloClient)
         if (context.res?.finished) {
             return props
         }
         const apolloState = apolloClient.cache.extract()
         return {
-            ...props,
-            apolloState,
+            props: {
+                ...props,
+                apolloState,
+            },
         }
     }
 }
@@ -111,7 +115,7 @@ function createApolloClient(
 
 function createIsomorphLink(ctx: SchemaContext) {
     if (typeof window === 'undefined') {
-        const schema = require('./schema')
+        const { schema } = require('./schema')
         return new SchemaLink({ schema, context: ctx })
     } else {
         return new HttpLink({
