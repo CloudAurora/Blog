@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory'
-import { NextPage } from 'next'
+import { NextPage, NextComponentType, NextPageContext } from 'next'
 import { SchemaLink } from 'apollo-link-schema';
 import { HttpLink } from 'apollo-link-http';
 
@@ -29,10 +29,19 @@ interface ApolloPageBaseProps {
  * @param {Object} [config]
  * @param {Boolean} [config.ssr=true]
  */
+
+
+interface NextApolloPageContext extends NextPageContext {
+  apolloClient: ApolloClient<NormalizedCacheObject>
+}
+
+type NextApolloPage<P = {}, IP = P> =
+  NextComponentType<NextApolloPageContext, IP, P>
+
 export function withApollo<PageProps>
-  (PageComponent: NextPage<PageProps>, { ssr = true }: Config = {}) {
+  (PageComponent: NextApolloPage<PageProps>, { ssr = false }: Config = {}) {
   type ApolloPageProps = ApolloPageBaseProps & PageProps
-  const WithApollo: NextPage<ApolloPageProps> = ({ apolloClient, apolloState, ...pageProps }) => {
+  const WithApollo: NextApolloPage<ApolloPageProps> = ({ apolloClient, apolloState, ...pageProps }) => {
     const client = apolloClient || initApolloClient(undefined, apolloState)
     return (
       <ApolloProvider client={client}>
@@ -64,7 +73,7 @@ export function withApollo<PageProps>
         req: ctx.req,
       });
 
-      (ctx as any).apollClient = apolloClient;
+      ctx.apolloClient = apolloClient;
 
       // Run wrapped getInitialProps methods
       let props = {} as any;

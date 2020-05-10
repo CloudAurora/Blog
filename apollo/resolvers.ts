@@ -1,12 +1,13 @@
 import { AuthenticationError, UserInputError, IResolvers } from 'apollo-server-micro'
 import cookie from 'cookie'
 import jwt from 'jsonwebtoken'
-import getConfig from 'next/config'
 import bcrypt from 'bcrypt'
 import v4 from 'uuid/v4'
 import { NextPageContext } from 'next'
+import { ServerConfig } from './server-config'
 
-const JWT_SECRET: jwt.Secret = getConfig().serverRuntimeConfig.JWT_SECRET
+
+const JWT_SECRET: jwt.Secret = ServerConfig.jwt.secret; 
 
 const users: User[] = []
 interface User {
@@ -15,6 +16,7 @@ interface User {
   password?: string;
   hashedPassword?: string
 }
+
 function createUser(data: User) {
   const salt = bcrypt.genSaltSync()
 
@@ -29,7 +31,13 @@ function validPassword(user: User, password: string) {
   return bcrypt.compareSync(password, user.hashedPassword!)
 }
 
-export const resolvers: IResolvers<any, NextPageContext> = {
+
+interface ResolveContext extends NextPageContext {
+
+}
+
+
+export const resolvers: IResolvers<any, ResolveContext> = {
   Query: {
     async viewer(_parent, _args, context, _info) {
       const { token } = cookie.parse(context.req?.headers.cookie ?? '')

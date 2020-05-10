@@ -1,6 +1,12 @@
 import gql from 'graphql-tag'
 
 export const typeDefs = gql`
+  
+  type HttpResult {
+    code: Int!
+    message: String
+  }
+
   type User {
     id: ID!
     email: String!
