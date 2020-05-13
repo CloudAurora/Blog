@@ -1,13 +1,14 @@
-import { GetServerSideProps, GetStaticProps } from "next";
-import ApolloClient from "apollo-client";
-import { NormalizedCacheObject } from "apollo-cache-inmemory";
-import SchemaLink from "apollo-link-schema";
+import { GetServerSideProps, GetStaticProps } from 'next'
+import ApolloClient from 'apollo-client'
+import { NormalizedCacheObject } from 'apollo-cache-inmemory'
+import SchemaLink from 'apollo-link-schema'
+import { Sequelize } from 'sequelize'
 
 export type Config = {
     common: {
         timeFormatter: string
         siteName: string
-    },
+    }
     server: {
         jwt: {
             secret: string
@@ -15,11 +16,14 @@ export type Config = {
     }
 }
 
-export type ServerRuntimeConfig = Config['server'];
-export type PublicRuntimeConfig = Omit<Config, 'server'>;
+// Client
 
+export type ServerRuntimeConfig = Config['server']
+export type PublicRuntimeConfig = Omit<Config, 'server'>
 
-export type SchemaContext = SchemaLink.ResolverContextFunction | Record<string, any>
+export type SchemaContext =
+    | SchemaLink.ResolverContextFunction
+    | Record<string, any>
 
 export type ParsedUrlQuery = Record<string, string | string[] | undefined>
 export type StrDict<T = any> = Record<string, T>
@@ -41,3 +45,13 @@ export type GetStaticPropsWIthApollo<P, Q extends ParsedUrlQuery> = (
     context: StaticContext<P, Q>,
     client: ApolloClient<NormalizedCacheObject>
 ) => ReturnType<GetStaticProps<P, Q>>
+
+//Server
+export interface ServerContext {
+    db: Sequelize
+}
+
+export interface CommonListOptions {
+    offset?: number
+    limit?: number
+}

@@ -1,44 +1,70 @@
 import gql from 'graphql-tag'
 
+/**
+ * https://stackoverflow.com/questions/47874344/should-i-handle-a-graphql-id-as-a-string-on-the-client
+ */
 export const typeDefs = gql`
-  
-  type HttpResult {
-    code: Int!
-    message: String
+  enum Role {
+    ADMIN,
+    AUTHOR,
+    USER
   }
 
   type User {
     id: ID!
+    name: String!
     email: String!
+    avatar: String
+    role: Role!
   }
 
-  input SignUpInput {
-    email: String!
-    password: String!
+  type PostTag {
+    id: ID!
+    name: String!
+    # slug: String! @slurg
   }
 
-  input SignInInput {
-    email: String!
-    password: String!
+  type Page {
+    id: ID!
+    slug: String!
+    title: String!
+    body: String!
+    draft: Boolean
   }
 
-  type SignUpPayload {
-    user: User!
+  type Post {
+    id: ID!
+    slug: String!
+    author: User!
+    contentHash: String! @hash(from: ["body"])
+    title: String!
+    date: Date!
+    excerpt(pruneLength: Int = 160): String
+    body: String!
+    html: String
+    timeToRead: Int
+    tags: [PostTag]
+    banner: String
+    draft: Boolean
   }
 
-  type SignInPayload {
-    user: User!
+  type PostQueryResult {
+    total: Int!
+    items: [Post]!
   }
+
 
   type Query {
-    user(id: ID!): User!
-    users: [User]!
-    viewer: User
+    posts(authorID: ID, tagID: ID, keyword: String, offset: Int = 0, limit: Int = 20): PostQueryResult!
+    post(id: ID!): Post
+    userByID(id: ID!): User
+    tags: [PostTag]!
+    # searchUser(name: String!, role: Role = WRITE): [User]!
   }
 
-  type Mutation {
-    signUp(input: SignUpInput!): SignUpPayload!
-    signIn(input: SignInInput!): SignInPayload!
-    signOut: Boolean!
-  }
+  # type Mutation {
+    # signUp(input: SignUpInput!): SignUpPayload!
+    # signIn(input: SignInInput!): SignInPayload!
+    # signOut: Boolean!
+  # }
 `

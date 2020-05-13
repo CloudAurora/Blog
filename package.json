@@ -20,6 +20,7 @@
     "@zeit/next-less": "^1.0.1",
     "apollo-cache-inmemory": "1.6.5",
     "apollo-client": "2.6.8",
+    "apollo-datasource": "^0.7.0",
     "apollo-link-http": "1.5.16",
     "apollo-link-schema": "1.2.4",
     "apollo-server-micro": "2.9.16",
@@ -38,6 +39,8 @@
     "ramda": "^0.27.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "sequelize": "^5.21.8",
+    "sqlite3": "^4.2.0",
     "uuid": "3.4.0"
   },
   "author": "",

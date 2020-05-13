@@ -1,109 +1,50 @@
-import { AuthenticationError, UserInputError, IResolvers } from 'apollo-server-micro'
-import cookie from 'cookie'
-import jwt from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
-import v4 from 'uuid/v4'
-import { NextPageContext } from 'next'
-import { ServerConfig } from './server-config'
+import { UserInputError, IResolvers } from 'apollo-server-micro'
+import {
+    SqlDataSource,
+    PostsQueryOptions,
+    PostQueryOptions,
+    UserByIdQueryOptions,
+    TagsQueryOptions,
+} from './datasource'
 
 
-const JWT_SECRET: jwt.Secret = ServerConfig.jwt.secret; 
-
-const users: User[] = []
-interface User {
-  id: string;
-  email: string;
-  password?: string;
-  hashedPassword?: string
+interface PostsArgs {}
+interface ResolveContext {
+    dataSources: { sql: SqlDataSource }
 }
-
-function createUser(data: User) {
-  const salt = bcrypt.genSaltSync()
-
-  return {
-    id: v4(),
-    email: data.email,
-    hashedPassword: bcrypt.hashSync(data.password!, salt),
-  }
-}
-
-function validPassword(user: User, password: string) {
-  return bcrypt.compareSync(password, user.hashedPassword!)
-}
-
-
-interface ResolveContext extends NextPageContext {
-
-}
-
 
 export const resolvers: IResolvers<any, ResolveContext> = {
-  Query: {
-    async viewer(_parent, _args, context, _info) {
-      const { token } = cookie.parse(context.req?.headers.cookie ?? '')
-      if (token) {
-        try {
-          const { id, email } = jwt.verify(token, JWT_SECRET) as Record<string, string>
-
-          return users.find(user => user.id === id && user.email === email)
-        } catch {
-          throw new AuthenticationError(
-            'Authentication token is invalid, please log in'
-          )
-        }
-      }
+    Query: {
+        posts: async (_, args: PostsQueryOptions, context) => {
+            const ret = await context.dataSources.sql.getPosts({
+                ...args,
+                attributes: [
+                    'id',
+                    'slug',
+                    'authorID',
+                    'title',
+                    'date',
+                    'banner',
+                    'draft',
+                ],
+            })
+            return {
+                total: ret.total,
+                items: ret.items.map((item) => item.toJSON()),
+            }
+        },
+        post: async (_, args: PostQueryOptions, context) => {
+            const item = await context.dataSources.sql.getPost(args)
+            return item?.toJSON() ?? null
+        },
+        userByID: async (_, args: UserByIdQueryOptions, context) => {
+            const item = await context.dataSources.sql.userByID(args)
+            return item?.toJSON() ?? null
+        },
+        tags: async (_, args: TagsQueryOptions, context) => {
+            const items = await context.dataSources.sql.getTags(args)
+            return items.map((item) => item.toJSON())
+        },
     },
-  },
-  Mutation: {
-    async signUp(_parent, args, _context, _info) {
-      const user = createUser(args.input)
-
-      users.push(user)
-
-      return { user }
-    },
-
-    async signIn(_parent, args, context, _info) {
-      const user = users.find(user => user.email === args.input.email)
-
-      if (user && validPassword(user, args.input.password)) {
-        const token = jwt.sign(
-          { email: user.email, id: user.id, time: new Date() },
-          JWT_SECRET,
-          {
-            expiresIn: '6h',
-          }
-        )
-
-        context.res?.setHeader(
-          'Set-Cookie',
-          cookie.serialize('token', token, {
-            httpOnly: true,
-            maxAge: 6 * 60 * 60,
-            path: '/',
-            sameSite: 'lax',
-            secure: process.env.NODE_ENV === 'production',
-          })
-        )
-
-        return { user }
-      }
-
-      throw new UserInputError('Invalid email and password combination')
-    },
-    async signOut(_parent, _args, context, _info) {
-      context.res?.setHeader(
-        'Set-Cookie',
-        cookie.serialize('token', '', {
-          httpOnly: true,
-          maxAge: -1,
-          path: '/',
-          sameSite: 'lax',
-          secure: process.env.NODE_ENV === 'production',
-        })
-      )
-
-      return true
-    },
-  },
+    // Mutation: {},
 }
