@@ -11,7 +11,6 @@ export const apolloServer = new ApolloServer({
     schema,
     async context(ctx: ServerContext) {
         if (globalDB === undefined) {
-            console.log('refresh')
             try {
                 globalDB = await createDB()
             } catch (err) {
@@ -19,7 +18,6 @@ export const apolloServer = new ApolloServer({
                 throw err;
                 // globalDB = null;
             }
-            console.log('refreshed')
         }
         return { ...ctx, db: globalDB }
     },
