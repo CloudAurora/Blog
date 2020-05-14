@@ -1,5 +1,5 @@
 import { DataSource } from 'apollo-datasource'
-import { Post, Tag, User, PostTags } from 'db/createStore'
+import { Post, Tag, User } from 'db/createStore'
 import { Op } from 'sequelize'
 import { ServerContext, CommonListOptions } from 'types'
 
@@ -33,33 +33,22 @@ export class SqlDataSource extends DataSource {
         this.context = config.context
     }
 
-    private async getPostIDsByTagID(tagID: string | number): Promise<number[]> {
-        return PostTags.findAll({
-            where: { tagID } as any,
-            attributes: ['postID'],
-        }).map((p: PostTags) => p.postId)
-    }
-
-    private async getTagIDsbyPostID(
-        postID: string | number
-    ): Promise<number[]> {
-        return PostTags.findAll({
-            where: { postID },
-            attributes: ['tagID'],
-        }).map((p: PostTags) => p.tagId)
-    }
-
     async getPosts(
         options: PostsQueryOptions
     ): Promise<{ total: number; items: Post[] }> {
         const wheres: Record<string, any>[] = []
-        if (options.tagID) {
-            const postIDs = await this.getPostIDsByTagID(options.tagID)
-            wheres.push({ id: postIDs })
+        if (options.tagID !== undefined) {
+            wheres.push({
+                [Op.or]: [
+                    { tags: { [Op.like]: `%,${options.tagID},%` } },
+                    { tags: { [Op.like]: `%,${options.tagID}` } },
+                    { tags: { [Op.like]: `${options.tagID},%` } },
+                ],
+            })
         }
 
         if (options.authorID) {
-            wheres.push({ authorID: options.authorID })
+            wheres.push({ authorID: +options.authorID })
         }
 
         if (options.keyword) {
@@ -77,31 +66,38 @@ export class SqlDataSource extends DataSource {
             order: [['date', 'DESC']],
             attributes: options.attributes,
             where,
-            include: ['author', Tag],
+            include: ['author'],
         })
         return { total: count, items: rows }
     }
 
-    getPost(options: PostQueryOptions): Promise<Post | undefined> {
+    getPost(options: PostQueryOptions): Promise<Post | null> {
         return Post.findOne({
-            where: { id: options.id },
-            include: ['author', Tag],
+            where: { id: +options.id },
+            include: ['author'],
         })
     }
 
-    getTag(options: TagQueryOptions): Promise<Tag | undefined> {
-        return Tag.findOne({ where: { id: options.id } })
+    getTag(options: TagQueryOptions): Promise<Tag | null> {
+        return Tag.findOne({ where: { id: +options.id } })
     }
 
     async getTags(options: TagsQueryOptions): Promise<Tag[]> {
-        if (options.postID) {
-            const tagIDs = await this.getTagIDsbyPostID(options.postID)
-            return Tag.findAll({ where: { id: tagIDs } })
+        if (options.postID !== undefined) {
+            return Tag.findAll({
+                where: {
+                    [Op.or]: [
+                        { posts: { [Op.like]: `%,${options.postID},%` } },
+                        { posts: { [Op.like]: `%,${options.postID}` } },
+                        { posts: { [Op.like]: `${options.postID},%` } },
+                    ],
+                },
+            })
         }
         return Tag.findAll()
     }
 
-    async userByID(options: UserByIdQueryOptions): Promise<User> {
-        return User.findOne({ where: { id: options.id } })
+    async userByID(options: UserByIdQueryOptions): Promise<User | null> {
+        return User.findOne({ where: { id: +options.id } })
     }
 }

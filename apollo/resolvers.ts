@@ -6,7 +6,8 @@ import {
     UserByIdQueryOptions,
     TagsQueryOptions,
 } from './datasource'
-
+import * as R from 'ramda'
+import { Post, Tag } from 'db/createStore'
 
 interface PostsArgs {}
 interface ResolveContext {
@@ -25,18 +26,49 @@ export const resolvers: IResolvers<any, ResolveContext> = {
                     'title',
                     'date',
                     'banner',
+                    'tags',
                     'draft',
                 ],
             })
+
+            const tagIDs = R.uniq(
+                R.flatten(ret.items.map((item) => item.getTagIDs()))
+            )
+
+            const tagPools: Tag[] = tagIDs.length
+                ? (await Tag.findAll({ where: { id: tagIDs } })).map(
+                      (tag) => tag.toJSON() as Tag
+                  )
+                : []
+
             return {
                 total: ret.total,
-                items: ret.items.map((item) => item.toJSON()),
+                items: ret.items.map((item) => {
+                    const ret = item.toJSON() as any
+                    const tagIDs: number[] = R.uniq(item.getTagIDs())
+                    ret.tags = tagIDs
+                        .map((id) => tagPools.find((tag) => tag.id === id))
+                        .filter((tag): tag is Tag => !!tag)
+                    return ret
+                }),
             }
         },
+
         post: async (_, args: PostQueryOptions, context) => {
             const item = await context.dataSources.sql.getPost(args)
-            return item?.toJSON() ?? null
+            if (!item) return null
+            const tagIDs = item.getTagIDs()
+            if (tagIDs.length === 0) return item.toJSON()
+            const tagPools = await Tag.findAll({ where: { id: tagIDs } })
+            return {
+                ...item.toJSON(),
+                tags: tagIDs
+                    .map((id) => tagPools.find((tag) => tag.id === id))
+                    .filter((tag): tag is Tag => tag !== undefined)
+                    .map((tag) => tag.toJSON()),
+            }
         },
+
         userByID: async (_, args: UserByIdQueryOptions, context) => {
             const item = await context.dataSources.sql.userByID(args)
             return item?.toJSON() ?? null

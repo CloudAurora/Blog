@@ -5,21 +5,41 @@ export class Post extends Model {
     slug!: string
     // authorID!: number
     title!: string
+    tags?: string
     date!: string
     body!: string
     banner?: string
     draft!: boolean
+
+    getTagIDs(): number[] {
+        return (
+            this.tags
+                ?.split(',')
+                .filter((i) => !!i)
+                .map((i) => +i) ?? []
+        )
+    }
 }
 
 export class Tag extends Model {
     id!: number
     name!: string
+    posts?: string
+
+    getPostIDs(): number[] {
+        return (
+            this.posts
+                ?.split(',')
+                .filter((i) => !!i)
+                .map((i) => +i) ?? []
+        )
+    }
 }
 
-export class PostTags extends Model {
-    postId!: number
-    tagId!: number
-}
+// export class PostTags extends Model {
+//     postId!: number
+//     tagId!: number
+// }
 export class User extends Model {
     id!: number
     name!: string
@@ -39,20 +59,14 @@ export const createDB = async (filename: string = './store.sqlite') => {
     configPost(db)
     configTag(db)
     configUser(db)
-    configPostTags(db)
-    User.hasMany(Post)
+    // configPostTags(db)
+    User.hasMany(Post, { foreignKey: { name: 'authorID', defaultValue: 1 } })
     Post.belongsTo(User, {
-        foreignKey: {
-            name: 'authorID',
-            allowNull: false,
-        },
+        foreignKey: { name: 'authorID', defaultValue: 1 },
         as: 'author',
     })
 
-    Post.belongsToMany(Tag, { through: PostTags })
-    Tag.belongsToMany(Post, { through: PostTags })
-
-    await db.sync({ force: true })
+    await db.sync({ alter: true })
     return db
 }
 
@@ -81,6 +95,9 @@ function configPost(db: Sequelize, modelName: string = 'post') {
                 type: DataTypes.DATE,
                 defaultValue: DataTypes.NOW,
             },
+            tags: {
+                type: DataTypes.TEXT,
+            },
             body: DataTypes.TEXT,
             banner: DataTypes.STRING,
             draft: {
@@ -98,39 +115,37 @@ function configTag(db: Sequelize, modelName: string = 'tag') {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
-                autoIncrement: true,
             },
             name: {
                 type: DataTypes.STRING,
-                allowNull: false,
                 unique: true,
+                allowNull: true,
+            },
+            posts: {
+                type: DataTypes.TEXT,
             },
         },
         { sequelize: db, modelName }
     )
 }
 
-function configPostTags(db: Sequelize, modelName: string = 'postTags') {
-    PostTags.init(
-        {
-            // postId: {
-            //     type: DataTypes.INTEGER,
-            //     references: {
-            //         model: Post,
-            //         key: 'id',
-            //     },
-            // },
-            // TagId: {
-            //     type: DataTypes.INTEGER,
-            //     references: {
-            //         model: Tag,
-            //         key: 'id',
-            //     },
-            // },
-        },
-        { sequelize: db, modelName }
-    )
-}
+// function configPostTags(db: Sequelize, modelName: string = 'postTags') {
+//     PostTags.init(
+//         {
+//             PostID: {
+//                 type: DataTypes.INTEGER,
+//                 allowNull: false,
+//                 primaryKey: true,
+//             },
+//             TagID: {
+//                 type: DataTypes.INTEGER,
+//                 allowNull: false,
+//                 primaryKey: true
+//             },
+//         },
+//         { sequelize: db, modelName }
+//     )
+// }
 
 function configUser(db: Sequelize, modelName: string = 'user') {
     User.init(
