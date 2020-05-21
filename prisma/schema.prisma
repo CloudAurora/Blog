@@ -10,15 +10,20 @@ datasource db {
 model User {
   email String  @unique
   id    Int     @default(autoincrement()) @id
-  name  String?
+  name  String? @unique
   posts Post[]
 }
 
 model Post {
   authorId  Int?
   content   String?
+  excerpt   String?
   id        Int     @default(autoincrement()) @id
-  published Boolean @default(false)
-  title     String
+  draft     Boolean @default(false)
+  title     String  @unique
+  createAt  DateTime
+  updatedAt DateTime
   author    User?   @relation(fields: [authorId], references: [id])
+  slug      String
+  source    String
 }

@@ -10,7 +10,7 @@ export const config = {
 
 let handler: ((req: any, res: any) => Promise<any>) | null = null
 
-export default async (res: NextApiRequest, req: NextApiResponse) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
     const h = handler ?? (handler = await startServer({ path: '/api/graphql' }))
-    return h(res, req)
+    return h(req, res)
 }

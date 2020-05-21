@@ -12,6 +12,9 @@ export type Config = {
     server: {
         jwt: {
             secret: string
+        },
+        repo: {
+            url: string
         }
     }
 }

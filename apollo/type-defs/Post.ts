@@ -16,5 +16,5 @@ export class Post {
     title!: string
 
     @Field(type => User, { nullable: true })
-    author?:any 
+    author?: any 
 }
