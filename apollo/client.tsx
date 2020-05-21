@@ -4,6 +4,7 @@ import { ApolloClient } from 'apollo-client'
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory'
 import { SchemaLink } from 'apollo-link-schema'
 import { HttpLink } from 'apollo-link-http'
+import { createContext } from './context'
 import {
     ParsedUrlQuery,
     StrDict,
@@ -13,6 +14,7 @@ import {
     GetServerPropsWithApollo,
     SchemaContext,
 } from '../types'
+import { serilization } from '../utils'
 
 let globalApolloClient: ApolloClient<NormalizedCacheObject> | null = null
 
@@ -61,11 +63,15 @@ export function createServerSidePropsFunc<
             res: context.res,
             req: context.req,
         })
+        const query = apolloClient.query.bind(apolloClient);
+        const mutate = apolloClient.mutate.bind(apolloClient);
+        apolloClient.query = async (options: any) => serilization(await query(options));
+        apolloClient.mutate = async (options: any) => serilization(await mutate(options));
         const { props } = await func(context, apolloClient)
         if (context.res?.finished) {
             return props
         }
-        const apolloState = apolloClient.cache.extract()
+        const apolloState = serilization(apolloClient.cache.extract())
         return {
             props: {
                 ...props,
@@ -84,6 +90,7 @@ function initApolloClient(
     ctx: SchemaContext = {},
     initialState: NormalizedCacheObject = {}
 ) {
+    ctx = createContext(ctx)
     // Make sure to create a new client for every server-side request so that data
     // isn't shared between connections (which would be bad)
     if (typeof window === 'undefined') {

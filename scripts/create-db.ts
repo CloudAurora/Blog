@@ -8,7 +8,7 @@ import { kebabCase, capitalize } from 'lodash'
 const prisma = new PrismaClient()
 const readdir = promisify(fs.readdir)
 
-const dir = './posts'
+const dir = __dirname + '/../posts'
 
 async function main(dir: string) {
     let hasFailed = false;
@@ -97,7 +97,7 @@ async function storePost({ excerpt, content, meta }: Info) {
             connect: { id: author.id },
         },
         excerpt,
-        createAt: meta.createdAt,
+        createdAt: meta.createdAt,
         updatedAt: meta.updatedAt,
         draft: meta.draft,
         title: meta.title,

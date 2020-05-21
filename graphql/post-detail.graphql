@@ -1,0 +1,16 @@
+query PostDetail($id: Int!) {
+    post(where: { id: $id }) {
+        id
+        title
+        content
+        slug
+        excerpt
+        draft
+        createdAt
+        updatedAt
+        author {
+            id
+            name
+        }
+    }
+}

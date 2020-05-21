@@ -1,5 +1,4 @@
 import { startServer } from 'apollo/server'
-import { ApolloServer } from 'apollo-server-micro'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export const config = {

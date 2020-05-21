@@ -1,21 +1,10 @@
 {
-    "compilerOptions": {
-      "allowJs": true,
-      "strict": true,
-      "baseUrl": ".",
-      "esModuleInterop": true,
-      "target": "ESNext",
-      "lib": [
-        "dom",
-        "dom.iterable",
-        "esnext"
-      ],
-      "forceConsistentCasingInFileNames": true,
-      "module": "esnext",
-      "moduleResolution": "node",
-      "resolveJsonModule": true,
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-    },
-  }
-  
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "lib": ["esnext"],
+    "esModuleInterop": true,
+    "strict": true
+  },
+  "include": ["apollo/**/*", "lib/**/*"]
+}

@@ -18,12 +18,12 @@ model Post {
   authorId  Int?
   content   String?
   excerpt   String?
-  id        Int     @default(autoincrement()) @id
-  draft     Boolean @default(false)
-  title     String  @unique
-  createAt  DateTime
+  id        Int      @default(autoincrement()) @id
+  draft     Boolean  @default(false)
+  title     String   @unique
+  createdAt DateTime
   updatedAt DateTime
-  author    User?   @relation(fields: [authorId], references: [id])
+  author    User?    @relation(fields: [authorId], references: [id])
   slug      String
   source    String
 }
