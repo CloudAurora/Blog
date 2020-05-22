@@ -5,7 +5,6 @@ import slug from 'remark-slug'
 import toc from 'remark-toc'
 import remark2rehype from 'remark-rehype'
 import rehype2react from 'rehype-react'
-import styles from 'styles/md.module.less'
 import { Typography } from '@material-ui/core'
 import rehypePrism from '@mapbox/rehype-prism'
 
@@ -29,7 +28,7 @@ export const MdRender = ({ children }: Props) => {
         <Typography
             variant="body1"
             component="div"
-            className={styles['md-container']}
+            className={'md-container'}
         >
             {md.result}
         </Typography>

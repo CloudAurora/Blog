@@ -8,11 +8,7 @@ const config = toml.parse(
     fs.readFileSync(require.resolve('./config.toml'), { encoding: 'utf8' })
 )
 
-module.exports = withLess({
-    cssModules: true,
-    lessLoaderOptions: {
-        plugins: [new lpfn()]
-    },
+module.exports = {
     serverRuntimeConfig: config.server,
     publicRuntimeConfig: _.omit(config, ['server']),
     webpack: (config, { isServer }) => {
@@ -24,4 +20,4 @@ module.exports = withLess({
         }
         return config
     },
-});
+};
