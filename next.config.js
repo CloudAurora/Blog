@@ -1,12 +1,18 @@
 const toml = require('@iarna/toml')
 const fs = require('fs')
 const _ = require('lodash')
+const withLess = require('@zeit/next-less')
+const lpfn = require('less-plugin-functions');
 
 const config = toml.parse(
     fs.readFileSync(require.resolve('./config.toml'), { encoding: 'utf8' })
 )
 
-module.exports = {
+module.exports = withLess({
+    cssModules: true,
+    lessLoaderOptions: {
+        plugins: [new lpfn()]
+    },
     serverRuntimeConfig: config.server,
     publicRuntimeConfig: _.omit(config, ['server']),
     webpack: (config, { isServer }) => {
@@ -18,4 +24,4 @@ module.exports = {
         }
         return config
     },
-}
+});

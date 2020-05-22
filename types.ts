@@ -18,6 +18,7 @@ export type Config = {
     }
 }
 
+
 // Client
 
 export type ServerRuntimeConfig = Config['server']
@@ -56,3 +57,5 @@ export interface CommonListOptions {
     offset?: number
     limit?: number
 }
+
+export type ItemType<T extends any[]> = T extends Array<infer U> ? U : never;

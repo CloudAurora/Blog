@@ -1,0 +1,15 @@
+.v-flex {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-flow: column nowrap;
+    width: 100%;
+}
+
+@spacing: 8px;
+
+.function {
+    .by(@x) {
+        return: @x * @spacing;
+    }
+}

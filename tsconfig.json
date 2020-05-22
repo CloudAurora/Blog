@@ -19,7 +19,10 @@
     "isolatedModules": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "plugins": [{"name": "typescript-plugin-css-modules", "options": {
+      
+    }}]
   },
   "exclude": [
     "node_modules"

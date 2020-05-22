@@ -1,7 +1,7 @@
 import { withApollo, createStaticPropsFunc } from '../apollo/client'
 import { useRouter } from 'next/router'
 import { PostsQuery, PostsDocument, usePostsQuery } from 'generated/graphql'
-
+import { Posts } from 'components/posts'
 interface Props {
     posts?: PostsQuery['posts']
 }
@@ -19,7 +19,7 @@ const Index = ({ posts }: Props) => {
 
     if (loading) return <div>loading...</div>
     if (posts != null) {
-        return <div>{JSON.stringify(posts)}</div>
+        return <Posts posts={posts} />
     }
     return <div>loading...</div>
 }

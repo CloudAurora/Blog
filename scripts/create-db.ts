@@ -62,9 +62,10 @@ async function readInfo(dir: string, filename: string) {
             excerpt: true,
             excerpt_separator: '<!--more-->',
         })
+        const basename = path.basename(filename, '.md');
         const meta: Meta = {
-            slug: info.data.slug || kebabCase(filename),
-            title: info.data.title || capitalize(filename),
+            slug: info.data.slug || kebabCase(basename),
+            title: info.data.title || capitalize(basename),
             author: 'admin',
             createdAt: new Date(info.data.date || stat.mtime),
             updatedAt: stat.mtime,
