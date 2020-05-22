@@ -17,6 +17,7 @@ interface PostMetaProps {
     author: ItemType<PostsQuery['posts']>['author']
     createdAt: Date
     updatedAt: Date
+    isDetail?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -51,13 +52,18 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-export const PostMeta = ({ author, createdAt, updatedAt }: PostMetaProps) => {
+export const PostMeta = ({
+    author,
+    createdAt,
+    updatedAt,
+    isDetail,
+}: PostMetaProps) => {
     const name = author?.name ?? 'Team'
     const classes = useStyles()
     return (
         <Grid
             container
-            justify="flex-start"
+            justify="center"
             spacing={3}
             alignItems="center"
             className={classes.root}
@@ -76,7 +82,7 @@ export const PostMeta = ({ author, createdAt, updatedAt }: PostMetaProps) => {
                     {name}
                 </Typography>
             </Grid>
-            <Grid item style={{ flex: '1 1 auto' }}></Grid>
+            {!isDetail && <Grid item style={{ flex: '1 1 auto' }}></Grid>}
 
             <Grid item className={classes.item}>
                 <CreateIcon className={classes.icon} />

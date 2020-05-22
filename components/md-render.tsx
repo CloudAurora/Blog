@@ -7,6 +7,7 @@ import remark2rehype from 'remark-rehype'
 import rehype2react from 'rehype-react'
 import styles from 'styles/md.module.less'
 import { Typography } from '@material-ui/core'
+import rehypePrism from '@mapbox/rehype-prism'
 
 interface Props {
     children: string
@@ -18,6 +19,7 @@ var processor = unified()
     .use(toc)
     //   .use(github, {repository: 'rehypejs/rehype-react'})
     .use(remark2rehype)
+    .use(rehypePrism, { ignoreMissing: true })
     //   .use(highlight)
     .use(rehype2react, { createElement: React.createElement })
 
@@ -26,7 +28,6 @@ export const MdRender = ({ children }: Props) => {
     return (
         <Typography
             variant="body1"
-            
             component="div"
             className={styles['md-container']}
         >

@@ -21,7 +21,7 @@
     "experimentalDecorators": true,
     "jsx": "preserve",
     "plugins": [{"name": "typescript-plugin-css-modules", "options": {
-      
+
     }}]
   },
   "exclude": [
@@ -30,6 +30,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
+    "**/*.less",
     "**/*.tsx"
   ]
 }

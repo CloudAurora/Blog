@@ -1,6 +1,19 @@
 import React from 'react'
-import styles from 'styles/splash.module.less'
+import { makeStyles, Theme, createStyles } from '@material-ui/core'
+// import styles from 'styles/splash.module.less'
 
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            width: '100%',
+            height: '40vh',
+            objectFit: 'cover',
+            objectPosition: '40% center',
+            marginBottom: '-30vh',
+        },
+    })
+)
 export const Splash = () => {
-    return <img src="/static/banner3.jpg" className={styles.splash} />
+    const classes = useStyles()
+    return <img src="/static/banner3.jpg" className={classes.root} />
 }
