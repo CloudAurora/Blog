@@ -4,7 +4,6 @@ import { ApolloClient } from 'apollo-client'
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory'
 import { SchemaLink } from 'apollo-link-schema'
 import { HttpLink } from 'apollo-link-http'
-import { createContext } from './context'
 import {
     ParsedUrlQuery,
     StrDict,
@@ -41,8 +40,14 @@ export function createStaticPropsFunc<
     return async (context: StaticContext<P, Q>) => {
         if (!func) return { props: {} }
         const apolloClient = initApolloClient()
+        const query = apolloClient.query.bind(apolloClient)
+        const mutate = apolloClient.mutate.bind(apolloClient)
+        apolloClient.query = async (options: any) =>
+            serilization(await query(options))
+        apolloClient.mutate = async (options: any) =>
+            serilization(await mutate(options))
         const { props, unstable_revalidate } = await func(context, apolloClient)
-        const apolloState = apolloClient.cache.extract()
+        const apolloState = serilization(apolloClient.cache.extract())
         return {
             props: {
                 ...props,
@@ -63,10 +68,12 @@ export function createServerSidePropsFunc<
             res: context.res,
             req: context.req,
         })
-        const query = apolloClient.query.bind(apolloClient);
-        const mutate = apolloClient.mutate.bind(apolloClient);
-        apolloClient.query = async (options: any) => serilization(await query(options));
-        apolloClient.mutate = async (options: any) => serilization(await mutate(options));
+        const query = apolloClient.query.bind(apolloClient)
+        const mutate = apolloClient.mutate.bind(apolloClient)
+        apolloClient.query = async (options: any) =>
+            serilization(await query(options))
+        apolloClient.mutate = async (options: any) =>
+            serilization(await mutate(options))
         const { props } = await func(context, apolloClient)
         if (context.res?.finished) {
             return props
@@ -80,20 +87,20 @@ export function createServerSidePropsFunc<
         }
     }
 }
-
 /**
  * Always creates a new apollo client on the server
  * Creates or reuses apollo client in the browser.
  * @param  {Object} initialState
  */
 function initApolloClient(
-    ctx: SchemaContext = {},
+    ctx: Record<string, any> = {},
     initialState: NormalizedCacheObject = {}
 ) {
-    ctx = createContext(ctx)
     // Make sure to create a new client for every server-side request so that data
     // isn't shared between connections (which would be bad)
     if (typeof window === 'undefined') {
+        const { PrismaClient } = require('@prisma/client')
+        ctx.prisma = new PrismaClient()
         return createApolloClient(ctx, initialState)
     }
 

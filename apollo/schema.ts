@@ -1,5 +1,6 @@
 import { nexusPrismaPlugin } from 'nexus-prisma'
 import { makeSchema, objectType } from '@nexus/schema'
+import tempy from 'tempy'
 
 const User = objectType({
     name: 'User',
@@ -58,7 +59,7 @@ export const schema = makeSchema({
     outputs: {
         typegen: isNextRuntime ? false : __dirname + '/../generated/nexus.d.ts',
         schema: isNextRuntime
-            ? true
+            ? tempy.directory() + '/schema.graphql'
             : __dirname + '/../generated/schema.graphql',
     },
     typegenAutoConfig: {

@@ -54,6 +54,7 @@
     "remark-rehype": "^7.0.0",
     "remark-toc": "^7.0.0",
     "sqlite3": "^4.2.0",
+    "tempy": "^0.5.0",
     "unified": "^9.0.0",
     "uuid": "3.4.0"
   },

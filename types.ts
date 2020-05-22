@@ -2,7 +2,6 @@ import { GetServerSideProps, GetStaticProps } from 'next'
 import ApolloClient from 'apollo-client'
 import { NormalizedCacheObject } from 'apollo-cache-inmemory'
 import SchemaLink from 'apollo-link-schema'
-import { Sequelize } from 'sequelize'
 
 export type Config = {
     common: {
@@ -51,7 +50,6 @@ export type GetStaticPropsWIthApollo<P, Q extends ParsedUrlQuery> = (
 
 //Server
 export interface ServerContext {
-    db: Sequelize
 }
 
 export interface CommonListOptions {
