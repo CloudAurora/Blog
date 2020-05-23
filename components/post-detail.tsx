@@ -28,7 +28,7 @@ const useStyle = makeStyles((theme: Theme) =>
         bottom: {
             paddingTop: theme.spacing(1),
             paddingLeft: theme.spacing(4),
-            paddingRight: theme.spacing(4)
+            paddingRight: theme.spacing(4),
         },
         center: {
             paddingTop: theme.spacing(0),
@@ -61,7 +61,11 @@ export const PostDetail = ({ post }: Props) => {
             </CardContent>
             <Divider light />
             <CardContent className={classes.bottom}>
-                {!!post.content && <MdRender>{post.content}</MdRender>}
+                {!!post.content && (
+                    <Typography variant="body1" gutterBottom>
+                        <MdRender>{post.content}</MdRender>
+                    </Typography>
+                )}
             </CardContent>
             {/* <Divider light /> */}
             {/* <CardActions>

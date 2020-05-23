@@ -15,5 +15,6 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 export const Splash = () => {
     const classes = useStyles()
-    return <img src="/static/banner3.jpg" className={classes.root} />
+    return null;
+    // return <img src="/static/banner3.jpg" className={classes.root} />
 }

@@ -24,13 +24,5 @@ var processor = unified()
 
 export const MdRender = ({ children }: Props) => {
     const md = processor.processSync(children) as any
-    return (
-        <Typography
-            variant="body1"
-            component="div"
-            className={'md-container'}
-        >
-            {md.result}
-        </Typography>
-    )
+    return <>{md.result}</>
 }

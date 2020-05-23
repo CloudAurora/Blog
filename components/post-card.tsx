@@ -11,10 +11,12 @@ import {
     makeStyles,
     Theme,
     createStyles,
+    Link,
+    CardMedia,
 } from '@material-ui/core'
 import { MdRender } from './md-render'
 import { PostMeta } from './post-meta'
-import Link from 'next/link'
+import { MyLink } from './MyLink'
 
 interface Props {
     post: ItemType<PostsQuery['posts']>
@@ -23,6 +25,7 @@ interface Props {
 const useStyle = makeStyles((theme: Theme) =>
     createStyles({
         root: {
+            width: theme.spacing(70),
             marginTop: theme.spacing(2),
             marginBottom: theme.spacing(3),
         },
@@ -41,12 +44,26 @@ const useStyle = makeStyles((theme: Theme) =>
 
 export const PostCard = ({ post }: PropsWithChildren<Props>) => {
     const classes = useStyle()
-    // const 
+
+    // const
     return (
         <Card className={classes.root}>
+            <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                height="240"
+                image="/static/banner3.jpg"
+                title="Contemplative Reptile"
+            />
             <CardContent className={classes.top}>
                 <Typography variant="h5" component="h2" gutterBottom>
-                    <Link href="/post/[slug]" as={`/post/${post.slug}`}>{post.title}</Link>
+                    <Link
+                        href="/posts/[slug]"
+                        as={`/posts/${post.slug}`}
+                        component={MyLink}
+                    >
+                        {post.title}
+                    </Link>
                 </Typography>
             </CardContent>
             <Divider light />
@@ -59,7 +76,16 @@ export const PostCard = ({ post }: PropsWithChildren<Props>) => {
             </CardContent>
             <Divider light />
             <CardContent className={classes.bottom}>
-                {!!post.excerpt && <MdRender>{post.excerpt}</MdRender>}
+                {!!post.excerpt && (
+                    <Typography
+                        variant="body2"
+                        component="div"
+                        // color="textSecondary"
+                        className={'md-container'}
+                    >
+                        <MdRender>{post.excerpt}</MdRender>
+                    </Typography>
+                )}
             </CardContent>
             <Divider light />
             <CardActions>

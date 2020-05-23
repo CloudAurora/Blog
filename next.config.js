@@ -1,8 +1,6 @@
 const toml = require('@iarna/toml')
 const fs = require('fs')
 const _ = require('lodash')
-const withLess = require('@zeit/next-less')
-const lpfn = require('less-plugin-functions');
 
 const config = toml.parse(
     fs.readFileSync(require.resolve('./config.toml'), { encoding: 'utf8' })

@@ -26,3 +26,8 @@ export function serilization<T extends Record<string, any>>(obj: T): T {
     })
     return newObj
 }
+
+
+export const useLinkComponent = () => {
+    
+}

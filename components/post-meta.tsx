@@ -9,7 +9,9 @@ import {
     createStyles,
     Theme,
 } from '@material-ui/core'
-import CreateIcon from '@material-ui/icons/Create'
+// import CreateIcon from '@material-ui/icons/Create'
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import UpdateIcon from '@material-ui/icons/Update'
 import moment from 'moment'
 
@@ -35,7 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
         itemContent: {
             marginLeft: theme.spacing(1),
             flex: '1 1 auto',
-            // color: theme.palette.text.secondary,
         },
         itemLabel: {
             marginLeft: theme.spacing(1),
@@ -76,7 +77,7 @@ export const PostMeta = ({
                 />
                 <Typography
                     variant="body1"
-                    color="textPrimary"
+                    color="textSecondary"
                     className={classes.itemContent}
                 >
                     {name}
@@ -85,23 +86,23 @@ export const PostMeta = ({
             {!isDetail && <Grid item style={{ flex: '1 1 auto' }}></Grid>}
 
             <Grid item className={classes.item}>
-                <CreateIcon className={classes.icon} />
-                <Typography variant="body2" className={classes.itemLabel}>
+                <FolderOpenIcon className={classes.icon} />
+                {/* <Typography variant="body2" className={classes.itemLabel}>
                     Created at:
-                </Typography>
+                </Typography> */}
                 <Typography
                     variant="body2"
                     color="textSecondary"
                     className={classes.itemContent}
                 >
-                    {moment(createdAt).calendar()}
+                    Technology
                 </Typography>
             </Grid>
             <Grid item className={classes.item}>
-                <UpdateIcon className={classes.icon} />
-                <Typography variant="body2" className={classes.itemLabel}>
+                <CalendarTodayIcon className={classes.icon} />
+                {/* <Typography variant="body2" className={classes.itemLabel}>
                     Updated at:
-                </Typography>
+                </Typography> */}
                 <Typography
                     variant="body2"
                     color="textSecondary"
