@@ -13,10 +13,12 @@ import {
     createStyles,
     Link,
     CardMedia,
+    CardActionArea,
 } from '@material-ui/core'
 import { MdRender } from './md-render'
 import { PostMeta } from './post-meta'
 import { MyLink } from './MyLink'
+import { getPostHeadingImage } from 'utils'
 
 interface Props {
     post: ItemType<PostsQuery['posts']>
@@ -25,9 +27,9 @@ interface Props {
 const useStyle = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            width: theme.spacing(70),
-            marginTop: theme.spacing(2),
-            marginBottom: theme.spacing(3),
+            maxWidth: '100%',
+            marginTop: theme.spacing(0),
+            marginBottom: theme.spacing(0),
         },
         top: {
             paddingBottom: theme.spacing(1),
@@ -44,17 +46,17 @@ const useStyle = makeStyles((theme: Theme) =>
 
 export const PostCard = ({ post }: PropsWithChildren<Props>) => {
     const classes = useStyle()
-
-    // const
     return (
         <Card className={classes.root}>
-            <CardMedia
-                component="img"
-                alt="Contemplative Reptile"
-                height="240"
-                image="/static/banner3.jpg"
-                title="Contemplative Reptile"
-            />
+            <CardActionArea>
+                <CardMedia
+                    component="img"
+                    alt="post heading image"
+                    height="240"
+                    image={getPostHeadingImage(post.id)}
+                    title="post heading image"
+                />
+            </CardActionArea>
             <CardContent className={classes.top}>
                 <Typography variant="h5" component="h2" gutterBottom>
                     <Link
@@ -78,8 +80,8 @@ export const PostCard = ({ post }: PropsWithChildren<Props>) => {
             <CardContent className={classes.bottom}>
                 {!!post.excerpt && (
                     <Typography
-                        variant="body2"
-                        component="div"
+                        variant="body1"
+                        component="article"
                         // color="textSecondary"
                         className={'md-container'}
                     >

@@ -28,6 +28,10 @@ export function serilization<T extends Record<string, any>>(obj: T): T {
 }
 
 
-export const useLinkComponent = () => {
-    
+export const isServer = () => typeof window === 'undefined';
+
+
+export const getPostHeadingImage = (id: number) => {
+    const index = (id - 1) % 11 + 1;
+    return `/static/post-heading-${index}.jpg`;
 }

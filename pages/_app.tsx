@@ -10,8 +10,10 @@ import SearchAppBar from 'components/app-bar'
 import { theme } from 'styles/theme'
 // import styles from 'styles/app.module.less'
 // import { MyBreadcrumb } from 'components/breadcrumb'
-import { Container, CssBaseline } from '@material-ui/core'
+import { Container, CssBaseline, Grid } from '@material-ui/core'
 import { Splash } from 'components/splash'
+import { SideMenu } from 'components/side-menu'
+import { withApollo } from 'apollo/client'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -20,8 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'stretch',
             flexFlow: 'column nowrap',
             position: 'relative',
-            overflowX: 'hidden',
-            overflowY: 'auto',
+            overflow: 'hidden',
             width: '100vw',
             height: '100vh',
             background: '#f0f0f0',
@@ -29,7 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         main: {
             flex: '1 1 auto',
-            minHeight: '100%',
+            height: '100%',
+            overflow: 'hidden',
             padding: 0,
         },
         container: {
@@ -37,11 +39,16 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '100%',
             minHeight: '100%',
             position: 'relative',
+            overflow: 'hidden',
             zIndex: 1,
+        },
+        part: {
+            height: '100%',
+            overflow: 'auto',
         },
     })
 )
-export default ({ Component, pageProps }: AppProps) => {
+export default withApollo(({ Component, pageProps }: AppProps) => {
     const classes = useStyles()
     React.useEffect(() => {
         // Remove the server-side injected CSS.
@@ -55,13 +62,17 @@ export default ({ Component, pageProps }: AppProps) => {
             <section className={classes.root}>
                 <SearchAppBar />
                 <main className={classes.main}>
-                    <Splash />
-                    <Container maxWidth="lg" className={classes.container}>
+                    <Grid container className={classes.container} spacing={3}>
                         {/* <MyBreadcrumb /> */}
-                        <Component {...pageProps} />
-                    </Container>
+                        <Grid item xs={4} lg={2} className={classes.part}>
+                            <SideMenu />
+                        </Grid>
+                        <Grid item xs className={classes.part}>
+                            <Component {...pageProps} />
+                        </Grid>
+                    </Grid>
                 </main>
             </section>
         </ThemeProvider>
     )
-}
+})

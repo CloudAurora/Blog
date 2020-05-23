@@ -1,0 +1,10 @@
+query RecentPosts($limit: Int!) {
+  posts(
+    orderBy: {updatedAt: desc},
+    first: $limit
+  ) {
+    id,
+    title,
+    slug,
+  }
+}

@@ -1,14 +1,15 @@
-import { withApollo, createStaticPropsFunc } from '../apollo/client'
+import { createStaticPropsFunc } from '../apollo/client'
 import { useRouter } from 'next/router'
 import { PostsQuery, PostsDocument, usePostsQuery } from 'generated/graphql'
 import { Posts } from 'components/posts'
+import { isServer } from 'utils'
 interface Props {
     posts?: PostsQuery['posts']
 }
 const Index = ({ posts }: Props) => {
     const router = useRouter()
     const { data, loading } = usePostsQuery({
-        skip: typeof window === undefined,
+        skip: isServer(),
         variables: {
             keyword: router.query.keyword as string,
         },
@@ -31,4 +32,4 @@ export const getStaticProps = createStaticPropsFunc<Props>(
     }
 )
 
-export default withApollo(Index)
+export default Index

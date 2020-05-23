@@ -10,6 +10,7 @@ import {
     Divider,
     Button,
     CardActions,
+    Grow,
 } from '@material-ui/core'
 import { PostMeta } from './post-meta'
 import { MdRender } from './md-render'
@@ -17,7 +18,7 @@ import { MdRender } from './md-render'
 const useStyle = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            marginTop: theme.spacing(2),
+            marginTop: theme.spacing(0),
             marginBottom: theme.spacing(3),
         },
         top: {
@@ -44,35 +45,41 @@ export const PostDetail = ({ post }: Props) => {
     const classes = useStyle()
     // const
     return (
-        <Card className={classes.root}>
-            <CardContent className={classes.top}>
-                <Typography variant="h4" component="h2" gutterBottom>
-                    {post.title}
-                </Typography>
-            </CardContent>
-            <Divider light />
-            <CardContent className={classes.center}>
-                <PostMeta
-                    isDetail
-                    author={post.author}
-                    createdAt={post.createdAt}
-                    updatedAt={post.updatedAt}
-                />
-            </CardContent>
-            <Divider light />
-            <CardContent className={classes.bottom}>
-                {!!post.content && (
-                    <Typography variant="body1" gutterBottom>
-                        <MdRender>{post.content}</MdRender>
+        <Grow in style={{ transformOrigin: '50% 0 0' }} timeout={1000}>
+            <Card className={classes.root}>
+                <CardContent className={classes.top}>
+                    <Typography variant="h4" component="h2" gutterBottom>
+                        {post.title}
                     </Typography>
-                )}
-            </CardContent>
-            {/* <Divider light /> */}
-            {/* <CardActions>
+                </CardContent>
+                <Divider light />
+                <CardContent className={classes.center}>
+                    <PostMeta
+                        isDetail
+                        author={post.author}
+                        createdAt={post.createdAt}
+                        updatedAt={post.updatedAt}
+                    />
+                </CardContent>
+                <Divider light />
+                <CardContent className={classes.bottom}>
+                    {!!post.content && (
+                        <Typography
+                            variant="body1"
+                            gutterBottom
+                            component="article"
+                        >
+                            <MdRender>{post.content}</MdRender>
+                        </Typography>
+                    )}
+                </CardContent>
+                {/* <Divider light /> */}
+                {/* <CardActions>
                 <Button size="small" color="primary">
                     Read More
                 </Button>
             </CardActions> */}
-        </Card>
+            </Card>
+        </Grow>
     )
 }

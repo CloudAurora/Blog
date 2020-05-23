@@ -10,8 +10,8 @@ import {
     Theme,
 } from '@material-ui/core'
 // import CreateIcon from '@material-ui/icons/Create'
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import FolderOpenIcon from '@material-ui/icons/FolderOpen';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday'
+import FolderOpenIcon from '@material-ui/icons/FolderOpen'
 import UpdateIcon from '@material-ui/icons/Update'
 import moment from 'moment'
 
@@ -64,7 +64,7 @@ export const PostMeta = ({
     return (
         <Grid
             container
-            justify="center"
+            justify={isDetail ? 'center' : 'flex-start'}
             spacing={3}
             alignItems="center"
             className={classes.root}
@@ -73,7 +73,7 @@ export const PostMeta = ({
                 <Avatar
                     className={classes.avatar}
                     alt={name}
-                    src="https://avatars0.githubusercontent.com/u/5887203"
+                    src="https://avatars2.githubusercontent.com/u/22012452?s=400&u=36dbdcc91cf11ff31870530d5a5bb566cf6bc798&v=4"
                 />
                 <Typography
                     variant="body1"

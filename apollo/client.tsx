@@ -99,8 +99,7 @@ function initApolloClient(
     // Make sure to create a new client for every server-side request so that data
     // isn't shared between connections (which would be bad)
     if (typeof window === 'undefined') {
-        const { PrismaClient } = require('@prisma/client')
-        ctx.prisma = new PrismaClient()
+        ctx.prisma = require('../prisma/client')()
         return createApolloClient(ctx, initialState)
     }
 

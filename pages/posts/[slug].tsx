@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { createStaticPropsFunc, withApollo } from 'apollo/client'
+import { createStaticPropsFunc } from 'apollo/client'
 import {
     PostQuery,
     PostDocument,
@@ -10,19 +10,22 @@ import {
 import { PostDetail } from 'components/post-detail'
 import { GetStaticPaths } from 'next'
 import { PrismaClient } from '@prisma/client'
+import { isServer } from 'utils'
 interface Props {
     post?: PostQuery['post']
 }
 
-export default withApollo(({ post }: Props) => {
+export default ({ post }: Props) => {
     const router = useRouter()
     const slug = router.query.slug
     if (typeof slug !== 'string') {
         return <div>error, slug must be string: {JSON.stringify(slug)}</div>
     }
+
+
     const { data, loading, error } = usePostQuery({
         variables: { slug },
-        skip: typeof window === undefined,
+        skip: isServer(),
     })
 
     if (loading) {
@@ -34,7 +37,7 @@ export default withApollo(({ post }: Props) => {
     }
 
     return <PostDetail post={post} />
-})
+}
 
 export const getStaticProps = createStaticPropsFunc<Props>(
     async (context, client) => {
@@ -44,13 +47,13 @@ export const getStaticProps = createStaticPropsFunc<Props>(
             query: PostDocument,
             variables: { slug },
         })
+
         return { props: { post: result.data.post } }
     }
 )
 
-let prisma: PrismaClient
 export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-    prisma = prisma ?? new (require('@prisma/client').PrismaClient)()
+    const prisma: PrismaClient = require('../../prisma/client')();
     const result = await prisma.post.findMany({ select: { slug: true } })
     return {
         paths: result.map(({ slug }) => ({ params: { slug } })),
