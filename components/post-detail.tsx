@@ -8,9 +8,7 @@ import {
     CardContent,
     Typography,
     Divider,
-    Button,
-    CardActions,
-    Grow,
+    Fade,
 } from '@material-ui/core'
 import { PostMeta } from './post-meta'
 import { MdRender } from './md-render'
@@ -45,7 +43,7 @@ export const PostDetail = ({ post }: Props) => {
     const classes = useStyle()
     // const
     return (
-        <Grow in style={{ transformOrigin: '50% 0 0' }} timeout={1000}>
+        <Fade in>
             <Card className={classes.root}>
                 <CardContent className={classes.top}>
                     <Typography variant="h4" component="h2" gutterBottom>
@@ -80,6 +78,6 @@ export const PostDetail = ({ post }: Props) => {
                 </Button>
             </CardActions> */}
             </Card>
-        </Grow>
+        </Fade>
     )
 }

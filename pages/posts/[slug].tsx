@@ -11,6 +11,7 @@ import { PostDetail } from 'components/post-detail'
 import { GetStaticPaths } from 'next'
 import { PrismaClient } from '@prisma/client'
 import { isServer } from 'utils'
+import { Loading } from 'components/loading'
 interface Props {
     post?: PostQuery['post']
 }
@@ -22,18 +23,17 @@ export default ({ post }: Props) => {
         return <div>error, slug must be string: {JSON.stringify(slug)}</div>
     }
 
-
     const { data, loading, error } = usePostQuery({
         variables: { slug },
         skip: isServer(),
     })
 
     if (loading) {
-        return <div>loading...</div>
+        return <Loading />
     }
     post = data?.post ?? post
     if (post == null) {
-        return <div>error</div>
+        return <div>error: {error?.message}</div>
     }
 
     return <PostDetail post={post} />
@@ -53,7 +53,7 @@ export const getStaticProps = createStaticPropsFunc<Props>(
 )
 
 export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-    const prisma: PrismaClient = require('../../prisma/client')();
+    const prisma: PrismaClient = require('../../prisma/client')()
     const result = await prisma.post.findMany({ select: { slug: true } })
     return {
         paths: result.map(({ slug }) => ({ params: { slug } })),

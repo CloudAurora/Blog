@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { PostsQuery, PostsDocument, usePostsQuery } from 'generated/graphql'
 import { Posts } from 'components/posts'
 import { isServer } from 'utils'
+import { Loading } from 'components/loading'
 interface Props {
     posts?: PostsQuery['posts']
 }
@@ -18,7 +19,7 @@ const Index = ({ posts }: Props) => {
 
     posts = data?.posts ?? posts
 
-    if (loading) return <div>loading...</div>
+    if (loading) return <Loading />
     if (posts != null) {
         return <Posts posts={posts} />
     }

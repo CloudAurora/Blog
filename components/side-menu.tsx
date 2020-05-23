@@ -8,7 +8,6 @@ import {
     ListItemIcon,
     ListItemText,
     Grid,
-    ListSubheader,
     Divider,
     Collapse,
     Typography,
@@ -24,6 +23,7 @@ import FiberNewIcon from '@material-ui/icons/FiberNew'
 import TimelineIcon from '@material-ui/icons/Timeline'
 import { useRecentPostsLazyQuery } from 'generated/graphql'
 import { useRouter } from 'next/router'
+import { MyLink } from './my-link'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -71,7 +71,7 @@ export const SideMenu = () => {
                     className={classes.nav}
                     aria-label="navigation menu"
                 >
-                    <ListItem button selected>
+                    <ListItem button selected href="/" component={MyLink}>
                         <ListItemIcon>
                             <HomeIcon />
                         </ListItemIcon>
@@ -95,7 +95,7 @@ export const SideMenu = () => {
                         </ListItemIcon>
                         <ListItemText primary="Tags" />
                     </ListItem>
-                    <ListItem button>
+                    <ListItem button href="/about" component={MyLink}>
                         <ListItemIcon>
                             <PersonIcon />
                         </ListItemIcon>

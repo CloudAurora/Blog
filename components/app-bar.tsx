@@ -8,7 +8,7 @@ import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 import { Button } from '@material-ui/core'
-import { MyLink } from './MyLink'
+import { MyLink } from './my-link'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
