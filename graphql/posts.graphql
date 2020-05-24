@@ -20,5 +20,15 @@ query Posts($keyword: String, $user: Int) {
             id
             name
         }
+        categories {
+            id
+            slug
+            name
+        }
+        tags {
+            id
+            slug
+            name
+        }
     }
 }

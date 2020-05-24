@@ -15,10 +15,13 @@ import {
     CardMedia,
     CardActionArea,
     Fade,
+    Chip,
+    Grid,
 } from '@material-ui/core'
 import { MdRender } from './md-render'
 import { PostMeta } from './post-meta'
 import { MyLink } from './my-link'
+import StyleOutlinedIcon from '@material-ui/icons/StyleOutlined'
 import { getPostHeadingImage } from 'utils'
 import { useRemark } from 'hooks'
 
@@ -76,26 +79,45 @@ export const PostCard = ({ post }: PropsWithChildren<Props>) => {
                 <CardContent className={classes.center}>
                     <PostMeta
                         author={post.author}
-                        createdAt={post.createdAt}
+                        categories={post.categories as any}
+                        // createdAt={post.createdAt}
                         updatedAt={post.updatedAt}
                     />
                 </CardContent>
                 <Divider light />
                 <CardContent className={classes.bottom}>
                     {doc !== null && (
-                        <Typography
-                            variant="body1"
-                            component="article"
-                            // color="textSecondary"
-                            className={'md-container'}
-                        >
+                        <Typography variant="body1" component="article">
                             <MdRender>{doc}</MdRender>
                         </Typography>
                     )}
+                    <Grid container wrap={'wrap'} spacing={1}>
+                        {post.tags.map((tag) => (
+                            <Grid item key={tag.id}>
+                            <Chip
+                                clickable
+                                // variant="outlined"
+                                // color="primary"
+                                icon={<StyleOutlinedIcon />}
+                                component={MyLink}
+                                href={'/tags/[slug]'}
+                                as={`/tags/${tag.slug}`}
+                                size="small"
+                                label={tag.name}
+                            />
+                            </Grid>
+                        ))}
+                    </Grid>
                 </CardContent>
                 <Divider light />
                 <CardActions>
-                    <Button size="small" color="primary">
+                    <Button
+                        size="small"
+                        color="primary"
+                        href="/posts/[slug]"
+                        as={`/posts/${post.slug}`}
+                        component={MyLink}
+                    >
                         Read More
                     </Button>
                 </CardActions>

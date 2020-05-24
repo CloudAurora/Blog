@@ -1,6 +1,6 @@
 import React from 'react'
 import { PostsQuery } from 'generated/graphql'
-import { ItemType } from 'types'
+import { ItemType, PostEntity } from 'types'
 import {
     Typography,
     Grid,
@@ -8,16 +8,18 @@ import {
     makeStyles,
     createStyles,
     Theme,
+    Link,
 } from '@material-ui/core'
 // import CreateIcon from '@material-ui/icons/Create'
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday'
 import FolderOpenIcon from '@material-ui/icons/FolderOpen'
-import UpdateIcon from '@material-ui/icons/Update'
 import moment from 'moment'
+import { MyLink } from './my-link'
 
 interface PostMetaProps {
     author: ItemType<PostsQuery['posts']>['author']
-    createdAt: Date
+    categories: PostEntity[]
+    // createdAt: Date
     updatedAt: Date
     isDetail?: boolean
 }
@@ -50,12 +52,16 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: '18px',
             color: theme.palette.text.secondary,
         },
+        category: {
+            marginLeft: theme.spacing(1),
+        },
     })
 )
 
 export const PostMeta = ({
     author,
-    createdAt,
+    // createdAt,
+    categories,
     updatedAt,
     isDetail,
 }: PostMetaProps) => {
@@ -95,7 +101,18 @@ export const PostMeta = ({
                     color="textSecondary"
                     className={classes.itemContent}
                 >
-                    Technology
+                    {categories.map((c) => (
+                        <Link
+                            key={c.id}
+                            href="/categories/[slug]"
+                            as={`/categories/${c.slug}`}
+                            color="inherit"
+                            className={classes.category}
+                            component={MyLink}
+                        >
+                            {c.name}
+                        </Link>
+                    ))}
                 </Typography>
             </Grid>
             <Grid item className={classes.item}>

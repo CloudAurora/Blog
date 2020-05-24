@@ -10,9 +10,13 @@ import {
     Divider,
     Fade,
     Container,
+    Grid,
+    Chip,
 } from '@material-ui/core'
 import { PostMeta } from './post-meta'
 import { MdRender } from './md-render'
+import StyleOutlinedIcon from '@material-ui/icons/StyleOutlined'
+import { MyLink } from './my-link'
 
 const useStyle = makeStyles((theme: Theme) =>
     createStyles({
@@ -34,6 +38,10 @@ const useStyle = makeStyles((theme: Theme) =>
             paddingTop: theme.spacing(0),
             paddingBottom: theme.spacing(0),
         },
+        tags: {
+            marginLeft: 0,
+            marginRight: 0
+        }
     })
 )
 
@@ -57,7 +65,8 @@ export const PostDetail = ({ doc, post }: Props) => {
                     <PostMeta
                         isDetail
                         author={post.author}
-                        createdAt={post.createdAt}
+                        // createdAt={post.createdAt}
+                        categories={post.categories as any}
                         updatedAt={post.updatedAt}
                     />
                 </CardContent>
@@ -72,6 +81,25 @@ export const PostDetail = ({ doc, post }: Props) => {
                             <MdRender>{doc}</MdRender>
                         </Typography>
                     )}
+                </CardContent>
+                <CardContent>
+                    <Grid container wrap={'wrap'} spacing={1} className={classes.tags}>
+                        {post.tags.map((tag) => (
+                            <Grid item key={tag.id}>
+                                <Chip
+                                    clickable
+                                    // variant="outlined"
+                                    // color="primary"
+                                    icon={<StyleOutlinedIcon />}
+                                    component={MyLink}
+                                    href={'/tags/[slug]'}
+                                    as={`/tags/${tag.slug}`}
+                                    size="small"
+                                    label={tag.name}
+                                />
+                            </Grid>
+                        ))}
+                    </Grid>
                 </CardContent>
                 {/* <Divider light /> */}
                 {/* <CardActions>

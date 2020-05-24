@@ -7,13 +7,21 @@ import { HttpLink } from 'apollo-link-http'
 import {
     ParsedUrlQuery,
     StrDict,
-    GetStaticPropsWIthApollo,
+    GetStaticPropsWithApollo,
     StaticContext,
     ServerSideContext,
     GetServerPropsWithApollo,
     SchemaContext,
 } from '../types'
 import { serilization } from '../utils'
+import { PrismaClient } from '@prisma/client'
+import { GetStaticPaths } from 'next'
+// import { GetStaticPaths } from 'next'
+
+export type GetStaticPathsWithPrisma<P extends ParsedUrlQuery> = (
+    prisma: PrismaClient 
+) => ReturnType<GetStaticPaths<P>>
+
 
 let globalApolloClient: ApolloClient<NormalizedCacheObject> | null = null
 
@@ -36,7 +44,7 @@ export function withApollo<PageProps>(
 export function createStaticPropsFunc<
     P extends StrDict = StrDict,
     Q extends ParsedUrlQuery = ParsedUrlQuery
->(func?: GetStaticPropsWIthApollo<P, Q>) {
+>(func?: GetStaticPropsWithApollo<P, Q>) {
     return async (context: StaticContext<P, Q>) => {
         if (!func) return { props: {} }
         const apolloClient = initApolloClient()
@@ -87,6 +95,21 @@ export function createServerSidePropsFunc<
         }
     }
 }
+
+export function createStaticPathsFunc<P extends StrDict = StrDict>(
+    func: GetStaticPathsWithPrisma<P>
+) {
+    return () => {
+        // need this if condition to let node resolve the dependence
+        // or webpack will take control the `require` statement, and throw an error: child_process not found.
+        if (typeof window === 'undefined') {
+            const prisma = require('../prisma/client')()
+            return func(prisma)
+        }
+        throw new Error('window should be undefined')
+    }
+}
+
 /**
  * Always creates a new apollo client on the server
  * Creates or reuses apollo client in the browser.

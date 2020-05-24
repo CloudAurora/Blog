@@ -2,6 +2,7 @@
 title: 体验I3之美
 categories:
   - Linux
+  - Archlinux
 tags:
   - gnome
   - i3wm

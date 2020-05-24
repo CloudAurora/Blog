@@ -1,15 +1,26 @@
+# Write your query or mutation here
 query Post($slug: String!) {
-  post(where: {slug: $slug}) {
-    id,
-    title,
-    content,
-    slug,
-    draft,
-    createdAt,
-    updatedAt,
-    author {
-      id,
-      name
+    post(where: { slug: $slug }) {
+        id
+        title
+        content
+        slug
+        draft
+        createdAt
+        updatedAt
+        author {
+            id
+            name
+        }
+        categories {
+            id
+            slug
+            name
+        }
+        tags {
+            id
+            slug
+            name
+        }
     }
-  }
 }

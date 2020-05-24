@@ -1,0 +1,11 @@
+query Tag($slug: String!) {
+    tag(where: { slug: $slug }) {
+        id
+        name
+        posts {
+            slug
+            title
+            updatedAt
+        }
+    }
+}

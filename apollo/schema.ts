@@ -23,6 +23,26 @@ const User = objectType({
     },
 })
 
+const Category = objectType({
+    name: 'Category',
+    definition(t) {
+        t.model.id()
+        t.model.name()
+        t.model.slug()
+        t.model.posts()
+    },
+})
+
+const Tag = objectType({
+    name: 'Tag',
+    definition(t) {
+        t.model.id()
+        t.model.name()
+        t.model.slug()
+        t.model.posts()
+    },
+})
+
 const Post = objectType({
     name: 'Post',
     definition(t) {
@@ -35,14 +55,20 @@ const Post = objectType({
         t.model.author()
         t.model.updatedAt()
         t.model.createdAt()
+        t.model.categories()
+        t.model.tags()
     },
 })
 
 const Query = objectType({
     name: 'Query',
     definition(t) {
-        t.crud.post({})
+        t.crud.post()
         t.crud.user()
+        t.crud.tag()
+        t.crud.category()
+        t.crud.tags()
+        t.crud.categories()
         t.crud.posts({
             filtering: { authorId: true, title: true, content: true, OR: true },
             ordering: { updatedAt: true },
@@ -54,7 +80,7 @@ const Query = objectType({
 const isNextRuntime = __dirname === '/'
 
 export const schema = makeSchema({
-    types: [Query, Post, User],
+    types: [Query, Category, Tag, Post, User],
     plugins: [nexusPrismaPlugin()],
     outputs: {
         typegen: isNextRuntime ? false : __dirname + '/../generated/nexus.d.ts',

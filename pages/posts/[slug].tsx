@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { createStaticPropsFunc } from 'apollo/client'
+import { createStaticPropsFunc, createStaticPathsFunc } from 'apollo/client'
 import {
     PostQuery,
     PostDocument,
@@ -8,13 +8,10 @@ import {
     usePostQuery,
 } from 'generated/graphql'
 import { PostDetail } from 'components/post-detail'
-import { GetStaticPaths } from 'next'
-import { PrismaClient } from '@prisma/client'
 import { isServer } from 'utils'
 import { Loading } from 'components/loading'
 import {
     Grid,
-    Container,
     makeStyles,
     Theme,
     createStyles,
@@ -119,11 +116,12 @@ export const getStaticProps = createStaticPropsFunc<Props>(
     }
 )
 
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-    const prisma: PrismaClient = require('../../prisma/client')()
-    const result = await prisma.post.findMany({ select: { slug: true } })
-    return {
-        paths: result.map(({ slug }) => ({ params: { slug } })),
-        fallback: false,
+export const getStaticPaths = createStaticPathsFunc<{ slug: string }>(
+    async (prisma) => {
+        const result = await prisma.post.findMany({ select: { slug: true } })
+        return {
+            paths: result.map(({ slug }) => ({ params: { slug } })),
+            fallback: false,
+        }
     }
-}
+)

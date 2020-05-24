@@ -1,4 +1,4 @@
-import { GetServerSideProps, GetStaticProps } from 'next'
+import { GetServerSideProps, GetStaticProps, GetStaticPaths } from 'next'
 import ApolloClient from 'apollo-client'
 import { NormalizedCacheObject } from 'apollo-cache-inmemory'
 import SchemaLink from 'apollo-link-schema'
@@ -43,10 +43,11 @@ export type GetServerPropsWithApollo<P, Q extends ParsedUrlQuery> = (
     client: ApolloClient<NormalizedCacheObject>
 ) => ReturnType<GetServerSideProps<P, Q>>
 
-export type GetStaticPropsWIthApollo<P, Q extends ParsedUrlQuery> = (
+export type GetStaticPropsWithApollo<P, Q extends ParsedUrlQuery> = (
     context: StaticContext<P, Q>,
     client: ApolloClient<NormalizedCacheObject>
 ) => ReturnType<GetStaticProps<P, Q>>
+
 
 //Server
 export interface ServerContext {}
@@ -57,6 +58,12 @@ export interface CommonListOptions {
 }
 
 export type ItemType<T extends any[]> = T extends Array<infer U> ? U : never
+
+export interface PostEntity {
+    id: number
+    slug: string
+    name: string
+}
 
 // Type definitions for highlight.js v9.12
 // Project: https://github.com/isagalaev/highlight.js

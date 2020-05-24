@@ -5,15 +5,23 @@ import * as matter from 'gray-matter'
 import { PrismaClient, PostCreateInput } from '@prisma/client'
 import { kebabCase, capitalize } from 'lodash'
 
+function slugfy(name: string) {
+    const url = kebabCase(name)
+    return encodeURIComponent(url)
+}
+
 const prisma = new PrismaClient()
 const readdir = promisify(fs.readdir)
 
 const dir = __dirname + '/../posts'
 
 async function main(dir: string) {
-    let hasFailed = false;
+    let hasFailed = false
     try {
         const files = await readdir(dir, { encoding: 'utf8' })
+        // delete all tags and categories
+        await prisma.category.deleteMany({})
+        await prisma.tag.deleteMany({})
         await Promise.all(
             files.map(async (file) => {
                 try {
@@ -23,15 +31,15 @@ async function main(dir: string) {
                     console.log(`update post: ${info.meta.title}`)
                 } catch (err) {
                     console.log(`failed to update post: ${file}`)
-                    hasFailed = true;
-                    console.error(err);
+                    hasFailed = true
+                    console.error(err)
                 }
             })
         )
     } finally {
         prisma.disconnect()
         if (hasFailed) {
-            process.exit(1);
+            process.exit(1)
         }
     }
 }
@@ -62,9 +70,9 @@ async function readInfo(dir: string, filename: string) {
             excerpt: true,
             excerpt_separator: '<!--more-->',
         })
-        const basename = path.basename(filename, '.md');
+        const basename = path.basename(filename, '.md')
         const meta: Meta = {
-            slug: info.data.slug || kebabCase(basename),
+            slug: slugfy(info.data.slug || basename),
             title: info.data.title || capitalize(basename),
             author: 'admin',
             createdAt: new Date(info.data.date || stat.mtime),
@@ -92,6 +100,26 @@ async function storePost({ excerpt, content, meta }: Info) {
         update: {},
     })
 
+    await Promise.all(
+        meta.categories.map((name) =>
+            prisma.category.upsert({
+                where: { name },
+                create: { name, slug: slugfy(name) },
+                update: {},
+            })
+        )
+    )
+
+    await Promise.all(
+        meta.tags.map((name) =>
+            prisma.tag.upsert({
+                where: { name },
+                create: { name, slug: slugfy(name) },
+                update: {},
+            })
+        )
+    )
+
     const postArgs: PostCreateInput = {
         content,
         author: {
@@ -104,6 +132,12 @@ async function storePost({ excerpt, content, meta }: Info) {
         title: meta.title,
         slug: meta.slug,
         source: meta.source,
+        categories: {
+            connect: meta.categories.map((name) => ({ name })),
+        },
+        tags: {
+            connect: meta.tags.map((name) => ({ name })),
+        },
     }
 
     const post = await prisma.post.upsert({
@@ -111,6 +145,7 @@ async function storePost({ excerpt, content, meta }: Info) {
         create: postArgs,
         update: postArgs,
     })
+
     return [post, author] as const
 }
 

@@ -1,10 +1,13 @@
 {
-  "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
-    "lib": ["esnext"],
-    "esModuleInterop": true,
-    "strict": true
-  },
-  "include": ["apollo/**/*", "lib/**/*"]
+    "compilerOptions": {
+        "outDir": "dist",
+        "rootDir": "src",
+        "lib": ["esnext"],
+        "esModuleInterop": true,
+        "strict": true
+    },
+    "include": [
+        "next-env.d.ts",
+        "**/*.ts",
+    ]
 }
