@@ -20,6 +20,7 @@ import { MdRender } from './md-render'
 import { PostMeta } from './post-meta'
 import { MyLink } from './my-link'
 import { getPostHeadingImage } from 'utils'
+import { useRemark } from 'hooks'
 
 interface Props {
     post: ItemType<PostsQuery['posts']>
@@ -47,6 +48,7 @@ const useStyle = makeStyles((theme: Theme) =>
 
 export const PostCard = ({ post }: PropsWithChildren<Props>) => {
     const classes = useStyle()
+    const [doc] = useRemark(post.excerpt ?? '', true)
     return (
         <Fade in>
             <Card className={classes.root}>
@@ -80,14 +82,14 @@ export const PostCard = ({ post }: PropsWithChildren<Props>) => {
                 </CardContent>
                 <Divider light />
                 <CardContent className={classes.bottom}>
-                    {!!post.excerpt && (
+                    {doc !== null && (
                         <Typography
                             variant="body1"
                             component="article"
                             // color="textSecondary"
                             className={'md-container'}
                         >
-                            <MdRender>{post.excerpt}</MdRender>
+                            <MdRender>{doc}</MdRender>
                         </Typography>
                     )}
                 </CardContent>

@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '100%',
             overflow: 'hidden',
             padding: 0,
-            paddingTop: theme.spacing(1)
+            paddingTop: theme.spacing(1),
         },
         container: {
             padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,

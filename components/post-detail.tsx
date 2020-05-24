@@ -39,8 +39,9 @@ const useStyle = makeStyles((theme: Theme) =>
 
 interface Props {
     post: NonNullable<PostQuery['post']>
+    doc: React.ReactNode
 }
-export const PostDetail = ({ post }: Props) => {
+export const PostDetail = ({ doc, post }: Props) => {
     const classes = useStyle()
     // const
     return (
@@ -68,7 +69,7 @@ export const PostDetail = ({ post }: Props) => {
                             gutterBottom
                             component="article"
                         >
-                            <MdRender>{post.content}</MdRender>
+                            <MdRender>{doc}</MdRender>
                         </Typography>
                     )}
                 </CardContent>
