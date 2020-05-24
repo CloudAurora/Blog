@@ -41,10 +41,10 @@ const Post = objectType({
 const Query = objectType({
     name: 'Query',
     definition(t) {
-        t.crud.post()
+        t.crud.post({})
         t.crud.user()
         t.crud.posts({
-            filtering: { authorId: true, title: true, content: true },
+            filtering: { authorId: true, title: true, content: true, OR: true },
             ordering: { updatedAt: true },
         })
     },

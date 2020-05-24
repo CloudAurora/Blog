@@ -2,8 +2,10 @@ query Posts($keyword: String, $user: Int) {
     posts(
         orderBy: { updatedAt: desc }
         where: {
-            title: { contains: $keyword }
-            content: { contains: $keyword }
+            OR: [
+                { content: { contains: $keyword } }
+                { title: { contains: $keyword } }
+            ]
             authorId: { equals: $user }
         }
     ) {

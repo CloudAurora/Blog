@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 import { Button } from '@material-ui/core'
 import { MyLink } from './my-link'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '100%',
             paddingLeft: theme.spacing(1.2),
             paddingRight: theme.spacing(1.2),
-            textTransform: 'capitalize'
+            textTransform: 'capitalize',
         },
         search: {
             position: 'relative',
@@ -80,6 +81,10 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function SearchAppBar() {
     const classes = useStyles()
 
+    const router = useRouter()
+    const handleSearch = (keyword: string = '') => {
+        router.push({ pathname: '/', query: { keyword } })
+    }
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -110,6 +115,13 @@ export default function SearchAppBar() {
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
+                            }}
+                            onKeyUp={(e) => {
+                                if (e.keyCode === 13) {
+                                    handleSearch(
+                                        (e.target as HTMLInputElement).value
+                                    )
+                                }
                             }}
                             inputProps={{ 'aria-label': 'search' }}
                         />

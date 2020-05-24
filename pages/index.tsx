@@ -9,7 +9,7 @@ interface Props {
 }
 const Index = ({ posts }: Props) => {
     const router = useRouter()
-    const { data, loading } = usePostsQuery({
+    const { data, loading, error } = usePostsQuery({
         skip: isServer(),
         variables: {
             keyword: router.query.keyword as string,
@@ -23,7 +23,7 @@ const Index = ({ posts }: Props) => {
     if (posts != null) {
         return <Posts posts={posts} />
     }
-    return <div>loading...</div>
+    return <div>error</div>
 }
 
 export const getStaticProps = createStaticPropsFunc<Props>(
