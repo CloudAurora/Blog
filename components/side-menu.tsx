@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme: Theme) =>
         nav: {
             paddingTop: 0,
         },
+        toggle: {
+            lineHeight: 1,
+        }
     })
 )
 
@@ -118,6 +121,7 @@ export const SideMenu = () => {
                             variant="body2"
                             color="textSecondary"
                             component="div"
+                            className={classes.toggle}
                         >
                             {loading ? (
                                 <CircularProgress

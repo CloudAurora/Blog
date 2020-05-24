@@ -2,12 +2,11 @@ import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import { theme } from 'styles/theme'
-import { CssBaseline } from '@material-ui/core'
 
 export default class MyDocument extends Document {
     render() {
         return (
-            <Html lang="en">
+            <Html lang="zh-cn">
                 <Head>
                     {/* PWA primary color */}
                     <meta
@@ -18,16 +17,18 @@ export default class MyDocument extends Document {
                         rel="stylesheet"
                         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
                     />
+                    {/* <link
+                        rel="stylesheet"
+                        href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/fira_code.css"
+                    /> */}
                     <link
-                        href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism-tomorrow.min.css"
+                        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/agate.min.css"
                         rel="stylesheet"
                     />
                 </Head>
                 <body>
                     <Main />
                     <NextScript />
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-core.min.js"></script>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/plugins/autoloader/prism-autoloader.min.js"></script>
                 </body>
             </Html>
         )

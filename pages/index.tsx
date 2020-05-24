@@ -4,6 +4,7 @@ import { PostsQuery, PostsDocument, usePostsQuery } from 'generated/graphql'
 import { Posts } from 'components/posts'
 import { isServer } from 'utils'
 import { Loading } from 'components/loading'
+import { Container } from '@material-ui/core'
 interface Props {
     posts?: PostsQuery['posts']
 }
@@ -21,7 +22,11 @@ const Index = ({ posts }: Props) => {
 
     if (loading) return <Loading />
     if (posts != null) {
-        return <Posts posts={posts} />
+        return (
+            <Container maxWidth="xl">
+                <Posts posts={posts} />
+            </Container>
+        )
     }
     return <div>error</div>
 }

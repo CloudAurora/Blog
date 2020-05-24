@@ -9,6 +9,7 @@ import {
     Typography,
     Divider,
     Fade,
+    Container,
 } from '@material-ui/core'
 import { PostMeta } from './post-meta'
 import { MdRender } from './md-render'
@@ -43,6 +44,7 @@ export const PostDetail = ({ post }: Props) => {
     const classes = useStyle()
     // const
     return (
+        <Container maxWidth="xl">
         <Fade in>
             <Card className={classes.root}>
                 <CardContent className={classes.top}>
@@ -78,6 +80,7 @@ export const PostDetail = ({ post }: Props) => {
                 </Button>
             </CardActions> */}
             </Card>
-        </Fade>
+            </Fade>
+            </Container>
     )
 }

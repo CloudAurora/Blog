@@ -2,12 +2,11 @@ import * as React from 'react'
 import unified from 'unified'
 import markdown from 'remark-parse'
 import slug from 'remark-slug'
-import toc from 'remark-toc'
 import remark2rehype from 'remark-rehype'
 import rehype2react from 'rehype-react'
-import { Typography } from '@material-ui/core'
-import rehypePrism from '@mapbox/rehype-prism'
-
+import highlight from 'rehype-highlight'
+import { hljsDefineGraphQL } from 'utils'
+import styles from 'styles/markdown.module.css'
 interface Props {
     children: string
 }
@@ -15,14 +14,17 @@ interface Props {
 var processor = unified()
     .use(markdown)
     .use(slug)
-    .use(toc)
     //   .use(github, {repository: 'rehypejs/rehype-react'})
     .use(remark2rehype)
-    .use(rehypePrism, { ignoreMissing: true })
-    //   .use(highlight)
+    .use(highlight, {
+        ignoreMissing: true,
+        languages: {
+            'graphql': hljsDefineGraphQL
+        }
+    })
     .use(rehype2react, { createElement: React.createElement })
 
 export const MdRender = ({ children }: Props) => {
     const md = processor.processSync(children) as any
-    return <>{md.result}</>
+    return <div className={styles.markdown}>{md.result}</div>
 }

@@ -10,10 +10,10 @@ import SearchAppBar from 'components/app-bar'
 import { theme } from 'styles/theme'
 // import styles from 'styles/app.module.less'
 // import { MyBreadcrumb } from 'components/breadcrumb'
-import { Container, CssBaseline, Grid } from '@material-ui/core'
-import { Splash } from 'components/splash'
+import { CssBaseline, Grid } from '@material-ui/core'
 import { SideMenu } from 'components/side-menu'
 import { withApollo } from 'apollo/client'
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
