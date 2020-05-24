@@ -13,7 +13,7 @@ import { theme } from 'styles/theme'
 import { CssBaseline, Grid } from '@material-ui/core'
 import { SideMenu } from 'components/side-menu'
 import { withApollo } from 'apollo/client'
-
+import 'styles/global.css'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

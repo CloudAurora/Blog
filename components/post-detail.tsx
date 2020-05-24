@@ -44,7 +44,6 @@ export const PostDetail = ({ post }: Props) => {
     const classes = useStyle()
     // const
     return (
-        <Container maxWidth="xl">
         <Fade in>
             <Card className={classes.root}>
                 <CardContent className={classes.top}>
@@ -80,7 +79,6 @@ export const PostDetail = ({ post }: Props) => {
                 </Button>
             </CardActions> */}
             </Card>
-            </Fade>
-            </Container>
+        </Fade>
     )
 }

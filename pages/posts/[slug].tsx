@@ -12,6 +12,8 @@ import { GetStaticPaths } from 'next'
 import { PrismaClient } from '@prisma/client'
 import { isServer } from 'utils'
 import { Loading } from 'components/loading'
+import { Grid, Container } from '@material-ui/core'
+import { Toc } from 'components/toc'
 interface Props {
     post?: PostQuery['post']
 }
@@ -36,7 +38,16 @@ export default ({ post }: Props) => {
         return <div>error: {error?.message}</div>
     }
 
-    return <PostDetail post={post} />
+    return (
+        <Grid container spacing={2}>
+            <Grid item xs={12} md={8} xl={6}>
+                <PostDetail post={post} />
+            </Grid>
+            <Grid item xs={12} md={4} xl={3}>
+                <Toc post={post}  />
+            </Grid>
+        </Grid>
+    )
 }
 
 export const getStaticProps = createStaticPropsFunc<Props>(

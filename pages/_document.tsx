@@ -3,6 +3,11 @@ import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import { theme } from 'styles/theme'
 
+const styles = [
+    'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap',
+    'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/agate.min.css',
+    'https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/fira_code.css',
+]
 export default class MyDocument extends Document {
     render() {
         return (
@@ -13,18 +18,13 @@ export default class MyDocument extends Document {
                         name="theme-color"
                         content={theme.palette.primary.main}
                     />
-                    <link
-                        rel="stylesheet"
-                        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-                    />
-                    {/* <link
-                        rel="stylesheet"
-                        href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/fira_code.css"
-                    /> */}
-                    <link
-                        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/agate.min.css"
-                        rel="stylesheet"
-                    />
+                    {styles.map((style) => (
+                        <link
+                            key={style}
+                            rel="stylesheet"
+                            href={style}
+                        />
+                    ))}
                 </Head>
                 <body>
                     <Main />

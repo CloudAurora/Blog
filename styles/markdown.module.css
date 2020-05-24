@@ -1,14 +1,12 @@
 /* CSS */
-@import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/fira_code.css);
-
 .markdown code {
-    font-family: 'Fira Code', monospace;
+    font-family: 'Fira Code', FontAwesome, monospace;
     font-feature-settings: "calt";
 }
 
 @supports (font-variation-settings: normal) {
     .markdown code {
         font-feature-settings: "calt";
-        font-family: 'Fira Code VF', monospace;
+        font-family: 'Fira Code VF', FontAwesome, monospace;
     }
 }
