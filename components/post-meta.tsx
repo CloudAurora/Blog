@@ -1,6 +1,5 @@
 import React from 'react'
-import { PostsQuery } from 'generated/graphql'
-import { ItemType, PostEntity, UserEntity } from 'types'
+import {  PostEntity, UserEntity } from 'types'
 import {
     Typography,
     Grid,

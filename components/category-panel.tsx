@@ -21,7 +21,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { Loading } from './loading'
 import { MyLink } from './my-link'
 import LinkIcon from '@material-ui/icons/Link'
-import moment from 'moment'
 import { PostMeta } from './post-meta'
 
 const useStyles = makeStyles((theme: Theme) =>

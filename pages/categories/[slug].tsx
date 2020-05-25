@@ -5,7 +5,6 @@ import {
     CategoryDocument,
 } from 'generated/graphql'
 import { createStaticPropsFunc, createStaticPathsFunc } from 'apollo/client'
-import { GetStaticPaths } from 'next'
 import {
     Container,
     Card,
@@ -21,7 +20,6 @@ import {
     Grid,
 } from '@material-ui/core'
 import FolderOutlinedIcon from '@material-ui/icons/FolderOpenOutlined'
-import moment from 'moment'
 import { MyLink } from 'components/my-link'
 import { PostMeta } from 'components/post-meta'
 

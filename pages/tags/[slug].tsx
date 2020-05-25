@@ -1,22 +1,18 @@
 import React from 'react'
 import { TagQuery, TagQueryVariables, TagDocument } from 'generated/graphql'
 import { createStaticPropsFunc, createStaticPathsFunc } from 'apollo/client'
-import { GetStaticPaths } from 'next'
 import {
     Container,
-    Card,
     Typography,
     makeStyles,
     Theme,
     createStyles,
-    CardContent,
     List,
     ListItem,
     ListItemText,
     Paper,
     Grid,
 } from '@material-ui/core'
-import moment from 'moment'
 import StyleOutlinedIcon from '@material-ui/icons/StyleOutlined'
 import { MyLink } from 'components/my-link'
 import { PostMeta } from 'components/post-meta'
