@@ -3,9 +3,15 @@ query Tag($slug: String!) {
         id
         name
         posts {
+            id
             slug
             title
             updatedAt
+            author {
+                id
+                name
+                githubId
+            }
         }
     }
 }

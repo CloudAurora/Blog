@@ -11,6 +11,9 @@ query Post($slug: String!) {
         author {
             id
             name
+            email
+            bio
+            githubId
         }
         categories {
             id

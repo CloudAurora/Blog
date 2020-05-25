@@ -45,6 +45,8 @@ const useStyle = makeStyles((theme: Theme) =>
         center: {
             paddingTop: theme.spacing(0),
             paddingBottom: theme.spacing(0),
+            marginBottom: theme.spacing(1),
+            marginTop: theme.spacing(1)
         },
     })
 )
@@ -78,8 +80,8 @@ export const PostCard = ({ post }: PropsWithChildren<Props>) => {
                 <Divider light />
                 <CardContent className={classes.center}>
                     <PostMeta
-                        author={post.author}
-                        categories={post.categories as any}
+                        author={post.author!}
+                        categories={post.categories}
                         // createdAt={post.createdAt}
                         updatedAt={post.updatedAt}
                     />

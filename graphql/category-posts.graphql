@@ -1,15 +1,15 @@
 query CategoryPosts($id: Int!) {
-  category(where: {id: $id}) {
-    posts {
-      id,
-      title,
-      slug,
-      updatedAt,
-      author {
-        id,
-        name,
-        email
-      }
+    category(where: { id: $id }) {
+        posts {
+            id
+            title
+            slug
+            updatedAt
+            author {
+                id
+                name
+                githubId
+            }
+        }
     }
-  }
 }

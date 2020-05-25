@@ -64,6 +64,13 @@ export interface PostEntity {
     slug: string
     name: string
 }
+export interface UserEntity {
+    id: number
+    name?: string | null
+    email?: string | null
+    githubId?: string | null
+    bio?: string | null
+}
 
 // Type definitions for highlight.js v9.12
 // Project: https://github.com/isagalaev/highlight.js

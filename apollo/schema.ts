@@ -8,6 +8,8 @@ const User = objectType({
         t.model.id()
         t.model.email()
         t.model.name()
+        t.model.bio()
+        t.model.githubId()
         t.model.posts({
             pagination: false,
         })

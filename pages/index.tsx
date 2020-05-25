@@ -20,7 +20,7 @@ const Index = ({ posts }: Props) => {
 
     posts = data?.posts ?? posts
 
-    if (loading) return <Loading />
+    if (loading) return <Loading size={90} />
     if (posts != null) {
         return (
             <Container maxWidth="xl">

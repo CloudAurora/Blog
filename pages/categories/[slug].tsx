@@ -23,6 +23,7 @@ import {
 import FolderOutlinedIcon from '@material-ui/icons/FolderOpenOutlined'
 import moment from 'moment'
 import { MyLink } from 'components/my-link'
+import { PostMeta } from 'components/post-meta'
 
 interface Props {
     category?: CategoryQuery['category']
@@ -75,9 +76,20 @@ export default ({ category }: Props) => {
                             component={MyLink}
                         >
                             <ListItemText
-                                primary={post.title}
-                                secondary={moment(post.updatedAt).calendar()}
-                            />
+                                primary={
+                                    <Grid container alignItems={'stretch'}>
+                                        <Grid item style={{ flexGrow: 1 }}>
+                                            {post.title}
+                                        </Grid>
+                                        <Grid item>
+                                            <PostMeta
+                                                author={post.author!}
+                                                updatedAt={post.updatedAt}
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                }
+                            ></ListItemText>
                         </ListItem>
                     ))}
                 </List>

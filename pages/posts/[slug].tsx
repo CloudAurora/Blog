@@ -5,11 +5,11 @@ import {
     PostQuery,
     PostDocument,
     PostQueryVariables,
-    usePostQuery,
+    // usePostQuery,
 } from 'generated/graphql'
 import { PostDetail } from 'components/post-detail'
-import { isServer } from 'utils'
-import { Loading } from 'components/loading'
+// import { isServer } from 'utils'
+// import { Loading } from 'components/loading'
 import {
     Grid,
     makeStyles,
@@ -45,19 +45,19 @@ export default ({ post }: Props) => {
         return <div>error, slug must be string: {JSON.stringify(slug)}</div>
     }
 
-    const { data, loading, error } = usePostQuery({
-        variables: { slug },
-        skip: isServer(),
-    })
+    // const { data, loading, error } = usePostQuery({
+    //     variables: { slug },
+    //     skip: isServer(),
+    // })
 
-    post = data?.post ?? post
+    // post = data?.post ?? post
     const [doc, toc] = useRemark(post?.content ?? '')
 
-    if (loading) {
-        return <Loading />
-    }
+    // if (loading) {
+    //     return <Loading />
+    // }
     if (post == null) {
-        return <div>error: {error?.message}</div>
+        return <div>error</div>
     }
 
     return (

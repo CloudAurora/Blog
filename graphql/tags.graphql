@@ -1,7 +1,7 @@
 query Tags {
-  tags {
-    id
-    slug
-    name
-  }
+    tags {
+        id
+        slug
+        name
+    }
 }

@@ -96,8 +96,13 @@ async function storePost({ excerpt, content, meta }: Info) {
         create: {
             email: 'unknown@unknown.com',
             name: meta.author,
+            githubId: '22012452',
         },
-        update: {},
+        update: {
+            email: 'unknown@unknown.com',
+            name: meta.author,
+            githubId: '22012452',
+        },
     })
 
     await Promise.all(

@@ -19,6 +19,9 @@ query Posts($keyword: String, $user: Int) {
         author {
             id
             name
+            email
+            bio
+            githubId
         }
         categories {
             id

@@ -37,11 +37,13 @@ const useStyle = makeStyles((theme: Theme) =>
         center: {
             paddingTop: theme.spacing(0),
             paddingBottom: theme.spacing(0),
+            marginBottom: theme.spacing(1),
+            marginTop: theme.spacing(1),
         },
         tags: {
             paddingLeft: theme.spacing(3),
-            paddingRight: theme.spacing(3)
-        }
+            paddingRight: theme.spacing(3),
+        },
     })
 )
 
@@ -64,9 +66,9 @@ export const PostDetail = ({ doc, post }: Props) => {
                 <CardContent className={classes.center}>
                     <PostMeta
                         isDetail
-                        author={post.author}
+                        author={post.author!}
                         // createdAt={post.createdAt}
-                        categories={post.categories as any}
+                        categories={post.categories}
                         updatedAt={post.updatedAt}
                     />
                 </CardContent>
@@ -84,7 +86,12 @@ export const PostDetail = ({ doc, post }: Props) => {
                 </CardContent>
                 <Divider light />
                 <CardContent>
-                    <Grid container wrap={'wrap'} spacing={1} className={classes.tags}>
+                    <Grid
+                        container
+                        wrap={'wrap'}
+                        spacing={1}
+                        className={classes.tags}
+                    >
                         {post.tags.map((tag) => (
                             <Grid item key={tag.id}>
                                 <Chip

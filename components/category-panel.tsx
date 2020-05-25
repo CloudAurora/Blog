@@ -13,6 +13,7 @@ import {
     ListItemText,
     Divider,
     IconButton,
+    Grid,
 } from '@material-ui/core'
 import { ItemType } from 'types'
 import { CategoriesQuery, useCategoryPostsLazyQuery } from 'generated/graphql'
@@ -21,6 +22,7 @@ import { Loading } from './loading'
 import { MyLink } from './my-link'
 import LinkIcon from '@material-ui/icons/Link'
 import moment from 'moment'
+import { PostMeta } from './post-meta'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -108,7 +110,7 @@ export const CategoryPanel = ({ category, expanded, ...rest }: Props) => {
             <Divider light />
             <ExpansionPanelDetails className={classes.detail}>
                 {loading ? (
-                    <Loading />
+                    <Loading height={100} />
                 ) : (
                     <List className={classes.list} dense>
                         {data?.category?.posts.map((post) => (
@@ -120,20 +122,24 @@ export const CategoryPanel = ({ category, expanded, ...rest }: Props) => {
                                 component={MyLink}
                             >
                                 <ListItemText
-                                    primary={post.title}
-                                    secondary={moment(
-                                        post.updatedAt
-                                    ).calendar()}
+                                    primary={
+                                        <Grid container alignItems={'stretch'}>
+                                            <Grid item style={{ flexGrow: 1 }}>
+                                                {post.title}
+                                            </Grid>
+                                            <Grid item>
+                                                <PostMeta
+                                                    author={post.author!}
+                                                    updatedAt={post.updatedAt}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    }
                                 />
                             </ListItem>
                         ))}
                     </List>
                 )}
-                {/* <Typography>
-                Nulla facilisi. Phasellus sollicitudin nulla et
-                quam mattis feugiat. Aliquam eget maximus est,
-                id dignissim quam.
-            </Typography> */}
             </ExpansionPanelDetails>
         </ExpansionPanel>
     )

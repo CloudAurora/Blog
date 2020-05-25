@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-    TagQuery,
-    TagQueryVariables,
-    TagDocument,
-} from 'generated/graphql'
+import { TagQuery, TagQueryVariables, TagDocument } from 'generated/graphql'
 import { createStaticPropsFunc, createStaticPathsFunc } from 'apollo/client'
 import { GetStaticPaths } from 'next'
 import {
@@ -23,6 +19,7 @@ import {
 import moment from 'moment'
 import StyleOutlinedIcon from '@material-ui/icons/StyleOutlined'
 import { MyLink } from 'components/my-link'
+import { PostMeta } from 'components/post-meta'
 
 interface Props {
     tag?: TagQuery['tag']
@@ -34,11 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: 14,
         },
         paper: {
-            marginTop: theme.spacing(3)
+            marginTop: theme.spacing(3),
         },
         icon: {
-            color: theme.palette.text.secondary
-        }
+            color: theme.palette.text.secondary,
+        },
     })
 )
 
@@ -49,7 +46,7 @@ export default ({ tag }: Props) => {
     }
     return (
         <Container maxWidth="lg">
-              <Grid container spacing={1} alignItems={'center'}>
+            <Grid container spacing={1} alignItems={'center'}>
                 <Grid item>
                     <StyleOutlinedIcon className={classes.icon} />
                 </Grid>
@@ -60,7 +57,7 @@ export default ({ tag }: Props) => {
                         color="textSecondary"
                         gutterBottom
                     >
-                       TAG
+                        TAG
                     </Typography>
                 </Grid>
             </Grid>
@@ -78,8 +75,19 @@ export default ({ tag }: Props) => {
                             component={MyLink}
                         >
                             <ListItemText
-                                primary={post.title}
-                                secondary={moment(post.updatedAt).calendar()}
+                                primary={
+                                    <Grid container alignItems={'stretch'}>
+                                        <Grid item style={{ flexGrow: 1 }}>
+                                            {post.title}
+                                        </Grid>
+                                        <Grid item>
+                                            <PostMeta
+                                                author={post.author!}
+                                                updatedAt={post.updatedAt}
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                }
                             />
                         </ListItem>
                     ))}
@@ -93,10 +101,7 @@ export const getStaticProps = createStaticPropsFunc<Props>(
     async (context, client) => {
         const slug = context.params?.slug
         if (typeof slug !== 'string') return { props: {} }
-        const result = await client.query<
-            TagQuery,
-            TagQueryVariables
-        >({
+        const result = await client.query<TagQuery, TagQueryVariables>({
             query: TagDocument,
             variables: { slug },
         })
