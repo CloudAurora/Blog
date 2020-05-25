@@ -6,6 +6,7 @@ import { Container, Grid, Chip } from '@material-ui/core'
 import { createStaticPropsFunc } from 'apollo/client'
 import { TagsQuery, TagsDocument } from 'generated/graphql'
 import { MyLink } from 'components/my-link'
+import { useMdContainer } from 'styles/container'
 
 interface Props {
     tags?: TagsQuery['tags']
@@ -21,13 +22,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Tags({ tags }: Props) {
     const classes = useStyles()
+    const classes2 = useMdContainer()
 
     if (tags == null) {
         return <div>error</div>
     }
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className={classes2.container}>
             <Grid container spacing={1} alignItems={'center'}>
                 <Grid item>
                     <FolderOpenIcon className={classes.icon} />

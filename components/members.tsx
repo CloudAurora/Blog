@@ -14,6 +14,7 @@ import {
     Box,
     Grid,
     TableBody,
+    Hidden,
 } from '@material-ui/core'
 import { Author } from './author'
 import members from '../generated/members.json'
@@ -23,6 +24,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import WorkIcon from '@material-ui/icons/Work'
 import GitHubIcon from '@material-ui/icons/GitHub'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
+import HomeIcon from '@material-ui/icons/Home'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -48,6 +50,9 @@ export const Members = () => {
 
 const useRowStyles = makeStyles((theme: Theme) =>
     createStyles({
+        name: {
+            whiteSpace: 'nowrap',
+        },
         root: {
             '& > *': {
                 borderBottom: 'unset',
@@ -84,7 +89,7 @@ const Row = ({ member }: { member: ItemType<typeof members> }) => {
     )
     const rows = [
         <TableRow className={classes.root}>
-            <TableCell component="th" scope="row">
+            <TableCell component="th" scope="row" className={classes.name}>
                 <Author
                     color="textPrimary"
                     author={{
@@ -96,21 +101,23 @@ const Row = ({ member }: { member: ItemType<typeof members> }) => {
             </TableCell>
             <TableCell>{member.email ?? NULL}</TableCell>
             <TableCell>{member.company ?? NULL}</TableCell>
-            <TableCell style={{ width: 320 }}>
-                <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    noWrap
-                    component="div"
-                    style={{ width: 320 }}
-                >
-                    {member.blog ? (
-                        <Link href={member.blog}>{member.blog}</Link>
-                    ) : (
-                        NULL
-                    )}
-                </Typography>
-            </TableCell>
+            <Hidden mdDown>
+                <TableCell style={{ width: 320 }}>
+                    <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        noWrap
+                        component="div"
+                        style={{ width: 320 }}
+                    >
+                        {member.blog ? (
+                            <Link href={member.blog}>{member.blog}</Link>
+                        ) : (
+                            NULL
+                        )}
+                    </Typography>
+                </TableCell>
+            </Hidden>
             <TableCell className={classes.toggle}>
                 <IconButton
                     aria-label="expand row"
@@ -133,6 +140,18 @@ const Row = ({ member }: { member: ItemType<typeof members> }) => {
                                 <Link href={member.url}>{member.url}</Link>
                             }
                         />
+                        <Hidden lgUp>
+                            <SubRow
+                                Icon={HomeIcon}
+                                content={
+                                    member.blog && (
+                                        <Link href={member.blog}>
+                                            {member.blog}
+                                        </Link>
+                                    )
+                                }
+                            ></SubRow>
+                        </Hidden>
                         <SubRow
                             Icon={LocationOnIcon}
                             content={member.location}

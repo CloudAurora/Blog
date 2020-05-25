@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core'
 import FolderOutlinedIcon from '@material-ui/icons/FolderOpenOutlined'
 import { PostList } from 'components/post-list'
+import { useMdContainer } from 'styles/container'
 
 interface Props {
     category?: CategoryQuery['category']
@@ -34,11 +35,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default ({ category }: Props) => {
     const classes = useStyles()
+    const classes2 = useMdContainer()
     if (category == null) {
         return <div>error</div>
     }
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className={classes2.container}>
             <Grid container spacing={1} alignItems={'center'}>
                 <Grid item>
                     <FolderOutlinedIcon className={classes.icon} />

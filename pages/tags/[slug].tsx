@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core'
 import StyleOutlinedIcon from '@material-ui/icons/StyleOutlined'
 import { PostList } from 'components/post-list'
+import { useMdContainer } from 'styles/container'
 
 interface Props {
     tag?: TagQuery['tag']
@@ -33,11 +34,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default ({ tag }: Props) => {
     const classes = useStyles()
+    const classes2 = useMdContainer()
     if (tag == null) {
         return <div>error</div>
     }
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className={classes2.container}>
             <Grid container spacing={1} alignItems={'center'}>
                 <Grid item>
                     <StyleOutlinedIcon className={classes.icon} />

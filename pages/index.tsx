@@ -5,10 +5,14 @@ import { Posts } from 'components/posts'
 import { isServer } from 'utils'
 import { Loading } from 'components/loading'
 import { Container } from '@material-ui/core'
+import { useMdContainer } from 'styles/container'
 interface Props {
     posts?: PostsQuery['posts']
 }
+
+
 const Index = ({ posts }: Props) => {
+    const classes = useMdContainer()
     const router = useRouter()
     const { data, loading, error } = usePostsQuery({
         skip: isServer(),
@@ -23,7 +27,7 @@ const Index = ({ posts }: Props) => {
     if (loading) return <Loading size={90} />
     if (posts != null) {
         return (
-            <Container maxWidth="xl">
+            <Container className={classes.container} maxWidth="xl">
                 <Posts posts={posts} />
             </Container>
         )

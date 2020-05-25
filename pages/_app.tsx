@@ -10,10 +10,11 @@ import SearchAppBar from 'components/app-bar'
 import { theme } from 'styles/theme'
 // import styles from 'styles/app.module.less'
 // import { MyBreadcrumb } from 'components/breadcrumb'
-import { CssBaseline, Grid } from '@material-ui/core'
+import { CssBaseline, Grid, Hidden } from '@material-ui/core'
 import { SideMenu } from 'components/side-menu'
 import { withApollo } from 'apollo/client'
 import 'styles/global.css'
+import { SideDrawer } from 'components/side-drawer'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -30,24 +31,34 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         main: {
             flex: '1 1 auto',
+            display: 'flex',
             overflow: 'hidden',
             padding: 0,
             paddingTop: theme.spacing(1),
         },
         container: {
+            flexGrow: 1,
             padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
             minHeight: '100%',
             height: '100%',
-            overflow: 'hidden auto'
+            overflow: 'hidden auto',
         },
         part: {
             height: '100%',
+            flexGrow: 1,
+            [theme.breakpoints.down('lg')]: {
+                paddingLeft: '0 !important',
+                paddingRight: '0 !important'
+            },
+            minHeight: '100%',
+            maxWidth: '100%'
         },
         partSide: {
             height: '100%',
             position: 'sticky',
             top: 0,
             left: 0,
+            flexShrink: 0,
             overflow: 'auto',
             [theme.breakpoints.down('md')]: {
                 display: 'none',
@@ -55,8 +66,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     })
 )
+
 export default withApollo(({ Component, pageProps }: AppProps) => {
     const classes = useStyles()
+    const [open, setOpen] = React.useState(false)
     React.useEffect(() => {
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector('#jss-server-side')
@@ -67,14 +80,28 @@ export default withApollo(({ Component, pageProps }: AppProps) => {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <section className={classes.root}>
-                <SearchAppBar />
+                <SearchAppBar toggleDrawer={() => setOpen(!open)} open={open} />
                 <main className={classes.main}>
-                    <Grid container className={classes.container} id="container" spacing={3}>
+                    <SideDrawer open={open} setOpen={setOpen} />
+                    <Grid
+                        container
+                        className={classes.container}
+                        id="container"
+                        spacing={3}
+                        wrap={'nowrap'}
+                    >
                         {/* <MyBreadcrumb /> */}
-                        <Grid item xs={4} md={4} lg={2} className={classes.partSide}>
+                        <Grid
+                            item
+                            xs={1}
+                            md={1}
+                            lg={3}
+                            xl={2}
+                            className={classes.partSide}
+                        >
                             <SideMenu />
                         </Grid>
-                        <Grid item md={12} lg={10} className={classes.part}>
+                        <Grid item className={classes.part}>
                             <Component {...pageProps} />
                         </Grid>
                     </Grid>

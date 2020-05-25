@@ -7,15 +7,34 @@ import InputBase from '@material-ui/core/InputBase'
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
-import { Button } from '@material-ui/core'
+import { Button, Hidden } from '@material-ui/core'
 import { MyLink } from './my-link'
 import { useRouter } from 'next/router'
+import clsx from 'clsx'
 
+const drawerWidth = 240
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             flexGrow: 0,
             flexShrink: 0,
+        },
+        appBar: {
+            zIndex: theme.zIndex.drawer + 1,
+            transition: theme.transitions.create(['width', 'margin'], {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.leavingScreen,
+            }),
+        },
+        appBarShift: {
+            [theme.breakpoints.up('md')]: {
+                marginLeft: drawerWidth,
+                width: `calc(100% - ${drawerWidth}px)`,
+                transition: theme.transitions.create(['width', 'margin'], {
+                    easing: theme.transitions.easing.sharp,
+                    duration: theme.transitions.duration.enteringScreen,
+                })
+            },
         },
         menuButton: {
             marginRight: theme.spacing(2),
@@ -77,8 +96,11 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     })
 )
-
-export default function SearchAppBar() {
+interface Props {
+    toggleDrawer: () => void
+    open: boolean
+}
+export default function SearchAppBar({ toggleDrawer, open }: Props) {
     const classes = useStyles()
 
     const router = useRouter()
@@ -87,16 +109,24 @@ export default function SearchAppBar() {
     }
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar
+                position="relative"
+                className={clsx(classes.appBar, {
+                    [classes.appBarShift]: open,
+                })}
+            >
                 <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                    >
-                        <MenuIcon />
-                    </IconButton>
+                    <Hidden lgUp>
+                        <IconButton
+                            edge="start"
+                            className={classes.menuButton}
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={toggleDrawer}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                    </Hidden>
                     <Typography className={classes.title} variant="h6" noWrap>
                         <Button
                             href="/"

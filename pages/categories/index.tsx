@@ -6,6 +6,7 @@ import { Container, Grid } from '@material-ui/core'
 import { createStaticPropsFunc } from 'apollo/client'
 import { CategoriesQuery, CategoriesDocument } from 'generated/graphql'
 import { CategoryPanel } from 'components/category-panel'
+import { useMdContainer } from 'styles/container'
 
 interface Props {
     categories?: CategoriesQuery['categories']
@@ -22,13 +23,13 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Categories({ categories }: Props) {
     const classes = useStyles()
     const [expanded, setExpanded] = React.useState<number | false>(false)
-
+    const classes2 = useMdContainer()
     if (categories == null) {
         return <div>error</div>
     }
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className={classes2.container}>
             <Grid container spacing={1} alignItems={'center'}>
                 <Grid item>
                     <FolderOpenIcon className={classes.icon} />

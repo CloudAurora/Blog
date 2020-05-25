@@ -16,6 +16,7 @@ import {
     Theme,
     createStyles,
     useTheme,
+    Hidden,
 } from '@material-ui/core'
 import { Toc } from 'components/toc'
 import { useRemark } from 'hooks'
@@ -29,12 +30,16 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '100%',
         },
         postCol: {
+            flexGrow: 1,
+            flexShrink: 1,
+            width: '100%',
             maxWidth: theme.breakpoints.width('lg'),
         },
         sticky: {
             position: 'sticky',
             top: 0,
             left: 0,
+            marginLeft: theme.spacing(2)
         },
     })
 )
@@ -65,7 +70,6 @@ export default ({ post }: Props) => {
     return (
         <Grid
             container
-            spacing={2}
             alignItems="flex-start"
             justify="center"
             wrap="nowrap"
@@ -73,11 +77,13 @@ export default ({ post }: Props) => {
             <Grid item xs={12} lg={toc ? 8 : 12} className={classes.postCol}>
                 <PostDetail post={post} doc={doc} />
             </Grid>
-            {!!toc && (
-                <Grid className={classes.sticky} item xs={12} lg={4}>
-                    <Toc toc={toc} />
-                </Grid>
-            )}
+            <Hidden lgDown>
+                {!!toc && (
+                    <Grid className={classes.sticky} item xs={12} lg={4}>
+                        <Toc toc={toc} />
+                    </Grid>
+                )}
+            </Hidden>
         </Grid>
     )
 }

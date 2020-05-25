@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core'
 import TimelineIcon from '@material-ui/icons/Timeline'
 import { PostList } from 'components/post-list'
+import { useMdContainer } from 'styles/container'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,10 +30,11 @@ interface Props {
 
 export default function Archive({ posts }: Props) {
     const classes = useStyles()
+    const classes2 = useMdContainer()
     if (posts == null) return <div>error</div>
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className={classes2.container}>
             <Grid container spacing={1} alignItems={'center'}>
                 <Grid item>
                     <TimelineIcon className={classes.icon} />
