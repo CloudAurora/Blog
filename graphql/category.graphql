@@ -1,0 +1,17 @@
+query Category($slug: String!) {
+    category(where: { slug: $slug }) {
+        id
+        name
+        posts {
+            id
+            title
+            slug
+            updatedAt
+            author {
+                id
+                name
+                githubId
+            }
+        }
+    }
+}

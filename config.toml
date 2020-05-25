@@ -1,6 +1,0 @@
-[common]
-timeFormatter = 'YYYY-MM-DDTHH:mm:ssZ'
-siteName = "XiZao Tech"
-
-[server.jwt]
-secret = "changeme"

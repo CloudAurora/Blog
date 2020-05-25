@@ -1,0 +1,79 @@
+[
+    {
+        "url": "https://github.com/stkevintan",
+        "id": 5887203,
+        "name": "Kevin Tan",
+        "avatar": "https://avatars1.githubusercontent.com/u/5887203?v=4",
+        "company": "Microsoft",
+        "blog": "https://bytech.now.sh/",
+        "email": "stkevintan@zju.edu.cn",
+        "bio": "A vegetable code player",
+        "location": "Beijing"
+    },
+    {
+        "url": "https://github.com/gbzhu",
+        "id": 20684875,
+        "name": "gbzhu",
+        "avatar": "https://avatars1.githubusercontent.com/u/20684875?v=4",
+        "company": "SAP",
+        "blog": "",
+        "email": "gbzhu@foxmail.com",
+        "bio": "gbzhu",
+        "location": "Shanghai"
+    },
+    {
+        "url": "https://github.com/xuliker",
+        "id": 5671315,
+        "name": "Aaron.L.Xu",
+        "avatar": "https://avatars1.githubusercontent.com/u/5671315?v=4",
+        "company": "@Intel",
+        "blog": "https://01.org/",
+        "email": "xuliker@zju.edu.cn",
+        "bio": "A software engineer to ensure open source software delivers, top notch performance, scalability and power efficiency.",
+        "location": "SHZ Site"
+    },
+    {
+        "url": "https://github.com/0xHJK",
+        "id": 8033563,
+        "name": "HJK",
+        "avatar": "https://avatars2.githubusercontent.com/u/8033563?v=4",
+        "company": "ZJU",
+        "blog": "公众号：黑星软件店",
+        "email": "HJKdev+Public@gmail.com",
+        "bio": "For Freedom.\r\n",
+        "location": "Shanghai"
+    },
+    {
+        "url": "https://github.com/Soulghost",
+        "id": 6300263,
+        "name": "高级页面仔",
+        "avatar": "https://avatars3.githubusercontent.com/u/6300263?v=4",
+        "company": "福厂",
+        "blog": "https://juejin.im/user/59d1bf596fb9a00a5e3601d5/posts",
+        "email": null,
+        "bio": "iOS Developer",
+        "location": null
+    },
+    {
+        "url": "https://github.com/SRaddict",
+        "id": 11788562,
+        "name": "SRaddict",
+        "avatar": "https://avatars1.githubusercontent.com/u/11788562?v=4",
+        "company": null,
+        "blog": "",
+        "email": null,
+        "bio": null,
+        "location": null
+    },
+    {
+        "url": "https://github.com/Superlee2013",
+        "id": 12271301,
+        "name": "Superlee",
+        "avatar": "https://avatars1.githubusercontent.com/u/12271301?v=4",
+        "company": null,
+        "blog": "",
+        "email": null,
+        "bio": null,
+        "location": null
+    }
+]

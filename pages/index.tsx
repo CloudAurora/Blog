@@ -1,53 +1,45 @@
-import { withApollo, createStaticPropsFunc, createServerSidePropsFunc } from '../apollo/client'
-import gql from 'graphql-tag'
-import Link from 'next/link'
+import { createStaticPropsFunc } from '../apollo/client'
 import { useRouter } from 'next/router'
-
-const ViewerQuery = gql`
-    query ViewerQuery {
-        viewer {
-            id
-            email
-        }
-    }
-`
-
+import { PostsQuery, PostsDocument, usePostsQuery } from 'generated/graphql'
+import { Posts } from 'components/posts'
+import { isServer } from 'utils'
+import { Loading } from 'components/loading'
+import { Container } from '@material-ui/core'
+import { useMdContainer } from 'styles/container'
 interface Props {
-    viewer?: {
-        id: string
-        email: string
-    }
+    posts?: PostsQuery['posts']
 }
-const Index = ({viewer}: Props) => {
+
+
+const Index = ({ posts }: Props) => {
+    const classes = useMdContainer()
     const router = useRouter()
+    const { data, loading, error } = usePostsQuery({
+        skip: isServer(),
+        variables: {
+            keyword: router.query.keyword as string,
+        },
+        // fetchPolicy: 'network-only',
+    })
 
-    if (viewer === null && typeof window !== 'undefined') {
-        router.push('/signin')
-    }
+    posts = data?.posts ?? posts
 
-    if (viewer != null) {
+    if (loading) return <Loading size={90} />
+    if (posts != null) {
         return (
-            <div>
-                You're signed in as {viewer.email} goto{' '}
-                <Link href="/about">
-                    <a>static</a>
-                </Link>{' '}
-                page. or{' '}
-                <Link href="/signout">
-                    <a>signout</a>
-                </Link>
-            </div>
+            <Container className={classes.container} maxWidth="xl">
+                <Posts posts={posts} />
+            </Container>
         )
     }
-
-    return <p>Loading...</p>
+    return <div>error</div>
 }
 
-export const getServerSideProps = createServerSidePropsFunc<Props>(
+export const getStaticProps = createStaticPropsFunc<Props>(
     async (_context, client) => {
-        const result = await client.query<Props>({ query: ViewerQuery })
-        return { props: { viewer: result.data?.viewer } }
+        const result = await client.query<PostsQuery>({ query: PostsDocument })
+        return { props: { posts: result.data?.posts } }
     }
 )
 
-export default withApollo(Index)
+export default Index

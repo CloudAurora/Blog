@@ -1,0 +1,8 @@
+query Categories {
+    categories {
+        id
+        slug
+        name
+        postCount
+    }
+}

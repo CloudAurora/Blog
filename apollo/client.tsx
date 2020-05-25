@@ -7,12 +7,21 @@ import { HttpLink } from 'apollo-link-http'
 import {
     ParsedUrlQuery,
     StrDict,
-    GetStaticPropsWIthApollo,
+    GetStaticPropsWithApollo,
     StaticContext,
     ServerSideContext,
     GetServerPropsWithApollo,
     SchemaContext,
 } from '../types'
+import { serilization } from '../utils'
+import { PrismaClient } from '@prisma/client'
+import { GetStaticPaths } from 'next'
+// import { GetStaticPaths } from 'next'
+
+export type GetStaticPathsWithPrisma<P extends ParsedUrlQuery> = (
+    prisma: PrismaClient 
+) => ReturnType<GetStaticPaths<P>>
+
 
 let globalApolloClient: ApolloClient<NormalizedCacheObject> | null = null
 
@@ -35,12 +44,18 @@ export function withApollo<PageProps>(
 export function createStaticPropsFunc<
     P extends StrDict = StrDict,
     Q extends ParsedUrlQuery = ParsedUrlQuery
->(func?: GetStaticPropsWIthApollo<P, Q>) {
+>(func?: GetStaticPropsWithApollo<P, Q>) {
     return async (context: StaticContext<P, Q>) => {
         if (!func) return { props: {} }
         const apolloClient = initApolloClient()
+        const query = apolloClient.query.bind(apolloClient)
+        const mutate = apolloClient.mutate.bind(apolloClient)
+        apolloClient.query = async (options: any) =>
+            serilization(await query(options))
+        apolloClient.mutate = async (options: any) =>
+            serilization(await mutate(options))
         const { props, unstable_revalidate } = await func(context, apolloClient)
-        const apolloState = apolloClient.cache.extract()
+        const apolloState = serilization(apolloClient.cache.extract())
         return {
             props: {
                 ...props,
@@ -61,11 +76,17 @@ export function createServerSidePropsFunc<
             res: context.res,
             req: context.req,
         })
+        const query = apolloClient.query.bind(apolloClient)
+        const mutate = apolloClient.mutate.bind(apolloClient)
+        apolloClient.query = async (options: any) =>
+            serilization(await query(options))
+        apolloClient.mutate = async (options: any) =>
+            serilization(await mutate(options))
         const { props } = await func(context, apolloClient)
         if (context.res?.finished) {
             return props
         }
-        const apolloState = apolloClient.cache.extract()
+        const apolloState = serilization(apolloClient.cache.extract())
         return {
             props: {
                 ...props,
@@ -75,18 +96,33 @@ export function createServerSidePropsFunc<
     }
 }
 
+export function createStaticPathsFunc<P extends StrDict = StrDict>(
+    func: GetStaticPathsWithPrisma<P>
+) {
+    return () => {
+        // need this if condition to let node resolve the dependence
+        // or webpack will take control the `require` statement, and throw an error: child_process not found.
+        if (typeof window === 'undefined') {
+            const prisma = require('../prisma/client')()
+            return func(prisma)
+        }
+        throw new Error('window should be undefined')
+    }
+}
+
 /**
  * Always creates a new apollo client on the server
  * Creates or reuses apollo client in the browser.
  * @param  {Object} initialState
  */
 function initApolloClient(
-    ctx: SchemaContext = {},
+    ctx: Record<string, any> = {},
     initialState: NormalizedCacheObject = {}
 ) {
     // Make sure to create a new client for every server-side request so that data
     // isn't shared between connections (which would be bad)
     if (typeof window === 'undefined') {
+        ctx.prisma = require('../prisma/client')()
         return createApolloClient(ctx, initialState)
     }
 

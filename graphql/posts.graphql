@@ -1,0 +1,37 @@
+query Posts($keyword: String, $user: Int) {
+    posts(
+        orderBy: { updatedAt: desc }
+        where: {
+            OR: [
+                { content: { contains: $keyword } }
+                { title: { contains: $keyword } }
+            ]
+            authorId: { equals: $user }
+        }
+    ) {
+        id
+        title
+        slug
+        excerpt
+        draft
+        createdAt
+        updatedAt
+        author {
+            id
+            name
+            email
+            bio
+            githubId
+        }
+        categories {
+            id
+            slug
+            name
+        }
+        tags {
+            id
+            slug
+            name
+        }
+    }
+}
