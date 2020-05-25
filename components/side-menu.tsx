@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         toggle: {
             lineHeight: 1,
-        }
+        },
     })
 )
 
@@ -48,7 +48,7 @@ export const SideMenu = () => {
         variables: { limit: 10 },
         // fetchPolicy: 'network-only',
     })
-    const router = useRouter()
+    const { route } = useRouter()
 
     const handleClick = () => {
         if (!data && !loading && !error && !open) {
@@ -57,9 +57,6 @@ export const SideMenu = () => {
         setOpen(!open)
     }
 
-    const handlePostClick = (slug: string) => {
-        router.push('/posts/[slug]', `/posts/${slug}`)
-    }
     return (
         <Grid
             container
@@ -74,31 +71,56 @@ export const SideMenu = () => {
                     className={classes.nav}
                     aria-label="navigation menu"
                 >
-                    <ListItem button selected href="/" component={MyLink}>
+                    <ListItem
+                        button
+                        selected={route === '/'}
+                        href="/"
+                        component={MyLink}
+                    >
                         <ListItemIcon>
                             <HomeIcon />
                         </ListItemIcon>
                         <ListItemText primary="Home" />
                     </ListItem>
-                    <ListItem button href="/archive" component={MyLink}>
+                    <ListItem
+                        button
+                        selected={route === '/archive'}
+                        href="/archive"
+                        component={MyLink}
+                    >
                         <ListItemIcon>
                             <TimelineIcon />
                         </ListItemIcon>
                         <ListItemText primary="Archive" />
                     </ListItem>
-                    <ListItem button href="/categories" component={MyLink}>
+                    <ListItem
+                        button
+                        selected={route === '/categories'}
+                        href="/categories"
+                        component={MyLink}
+                    >
                         <ListItemIcon>
                             <FolderIcon />
                         </ListItemIcon>
                         <ListItemText primary="Categories" />
                     </ListItem>
-                    <ListItem button href="/tags" component={MyLink}>
+                    <ListItem
+                        button
+                        selected={route === '/tags'}
+                        href="/tags"
+                        component={MyLink}
+                    >
                         <ListItemIcon>
                             <StyleIcon />
                         </ListItemIcon>
                         <ListItemText primary="Tags" />
                     </ListItem>
-                    <ListItem button href="/about" component={MyLink}>
+                    <ListItem
+                        button
+                        selected={route === '/about'}
+                        href="/about"
+                        component={MyLink}
+                    >
                         <ListItemIcon>
                             <PersonIcon />
                         </ListItemIcon>
@@ -145,7 +167,9 @@ export const SideMenu = () => {
                                 <ListItem
                                     button
                                     key={post.id}
-                                    onClick={() => handlePostClick(post.slug)}
+                                    component={MyLink}
+                                    href="/posts/[slug]"
+                                    as={`/posts/${post.slug}`}
                                 >
                                     <ListItemText
                                         primaryTypographyProps={{
