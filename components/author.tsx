@@ -12,6 +12,7 @@ interface Props {
     author: UserEntity
     className?: string
     style?: React.CSSProperties
+    variant?: 'body1' | 'body2'
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     })
 )
-export const Author = ({ author, ...rest }: Props) => {
+export const Author = ({ author, variant, ...rest }: Props) => {
     const classes = useStyles()
     return (
         <div {...rest} className={classes.root}>
@@ -41,7 +42,7 @@ export const Author = ({ author, ...rest }: Props) => {
                 src={`https://avatars2.githubusercontent.com/u/${author.githubId}?s=400&v=4`}
             />
             <Typography
-                variant="body1"
+                variant={variant ?? 'body2'}
                 color="textSecondary"
                 className={classes.name}
             >

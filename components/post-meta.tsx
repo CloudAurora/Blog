@@ -3,7 +3,6 @@ import {  PostEntity, UserEntity } from 'types'
 import {
     Typography,
     Grid,
-    Avatar,
     makeStyles,
     createStyles,
     Theme,
@@ -81,9 +80,6 @@ export const PostMeta = ({
             {!!categories && (
                 <Grid item className={classes.item}>
                     <FolderOpenIcon className={classes.icon} />
-                    {/* <Typography variant="body2" className={classes.itemLabel}>
-                    Created at:
-                </Typography> */}
                     <Typography
                         variant="body2"
                         color="textSecondary"
@@ -107,9 +103,6 @@ export const PostMeta = ({
 
             <Grid item className={classes.item}>
                 <CalendarTodayIcon className={classes.icon} />
-                {/* <Typography variant="body2" className={classes.itemLabel}>
-                    Updated at:
-                </Typography> */}
                 <Typography
                     variant="body2"
                     color="textSecondary"
