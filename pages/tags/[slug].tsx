@@ -7,15 +7,11 @@ import {
     makeStyles,
     Theme,
     createStyles,
-    List,
-    ListItem,
-    ListItemText,
     Paper,
     Grid,
 } from '@material-ui/core'
 import StyleOutlinedIcon from '@material-ui/icons/StyleOutlined'
-import { MyLink } from 'components/my-link'
-import { PostMeta } from 'components/post-meta'
+import { PostList } from 'components/post-list'
 
 interface Props {
     tag?: TagQuery['tag']
@@ -61,33 +57,7 @@ export default ({ tag }: Props) => {
                 {tag.name} ({tag.posts.length})
             </Typography>
             <Paper elevation={2} className={classes.paper}>
-                <List>
-                    {tag.posts.map((post) => (
-                        <ListItem
-                            button
-                            key={post.slug}
-                            href="/posts/[slug]"
-                            as={`/posts/${post.slug}`}
-                            component={MyLink}
-                        >
-                            <ListItemText
-                                primary={
-                                    <Grid container alignItems={'stretch'}>
-                                        <Grid item style={{ flexGrow: 1 }}>
-                                            {post.title}
-                                        </Grid>
-                                        <Grid item>
-                                            <PostMeta
-                                                author={post.author!}
-                                                updatedAt={post.updatedAt}
-                                            />
-                                        </Grid>
-                                    </Grid>
-                                }
-                            />
-                        </ListItem>
-                    ))}
-                </List>
+                <PostList posts={tag.posts} />
             </Paper>
         </Container>
     )

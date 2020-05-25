@@ -48,7 +48,6 @@ export type GetStaticPropsWithApollo<P, Q extends ParsedUrlQuery> = (
     client: ApolloClient<NormalizedCacheObject>
 ) => ReturnType<GetStaticProps<P, Q>>
 
-
 //Server
 export interface ServerContext {}
 
@@ -60,6 +59,13 @@ export interface CommonListOptions {
 export type ItemType<T extends any[]> = T extends Array<infer U> ? U : never
 
 export interface PostEntity {
+    id: number
+    title: string
+    author?: UserEntity
+    updatedAt: Date
+    slug: string
+}
+export interface CategoryOrTagEntity {
     id: number
     slug: string
     name: string

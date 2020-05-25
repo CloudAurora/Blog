@@ -1,0 +1,25 @@
+query Archives {
+    posts(orderBy: { updatedAt: desc }) {
+        id
+        title
+        slug
+        draft
+        createdAt
+        updatedAt
+        author {
+            id
+            name
+            githubId
+        }
+        categories {
+            id
+            slug
+            name
+        }
+        tags {
+            id
+            slug
+            name
+        }
+    }
+}

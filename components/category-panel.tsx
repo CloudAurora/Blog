@@ -8,12 +8,8 @@ import {
     Theme,
     createStyles,
     ExpansionPanelDetails,
-    List,
-    ListItem,
-    ListItemText,
     Divider,
     IconButton,
-    Grid,
 } from '@material-ui/core'
 import { ItemType } from 'types'
 import { CategoriesQuery, useCategoryPostsLazyQuery } from 'generated/graphql'
@@ -21,7 +17,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { Loading } from './loading'
 import { MyLink } from './my-link'
 import LinkIcon from '@material-ui/icons/Link'
-import { PostMeta } from './post-meta'
+import { PostList } from './post-list'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -111,33 +107,9 @@ export const CategoryPanel = ({ category, expanded, ...rest }: Props) => {
                 {loading ? (
                     <Loading height={100} />
                 ) : (
-                    <List className={classes.list} dense>
-                        {data?.category?.posts.map((post) => (
-                            <ListItem
-                                button
-                                key={post.id}
-                                href="/posts/[slug]"
-                                as={`/posts/${post.slug}`}
-                                component={MyLink}
-                            >
-                                <ListItemText
-                                    primary={
-                                        <Grid container alignItems={'stretch'}>
-                                            <Grid item style={{ flexGrow: 1 }}>
-                                                {post.title}
-                                            </Grid>
-                                            <Grid item>
-                                                <PostMeta
-                                                    author={post.author!}
-                                                    updatedAt={post.updatedAt}
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                    }
-                                />
-                            </ListItem>
-                        ))}
-                    </List>
+                    !!data?.category?.posts && (
+                        <PostList posts={data!.category!.posts} dense />
+                    )
                 )}
             </ExpansionPanelDetails>
         </ExpansionPanel>

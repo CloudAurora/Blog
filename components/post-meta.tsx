@@ -1,5 +1,5 @@
 import React from 'react'
-import {  PostEntity, UserEntity } from 'types'
+import {  CategoryOrTagEntity, UserEntity } from 'types'
 import {
     Typography,
     Grid,
@@ -17,7 +17,7 @@ import { Author } from './author'
 
 interface PostMetaProps {
     author: UserEntity
-    categories?: PostEntity[]
+    categories?: CategoryOrTagEntity[]
     // createdAt: Date
     updatedAt: Date
     isDetail?: boolean
