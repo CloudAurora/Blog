@@ -30,6 +30,15 @@ const Category = objectType({
         t.model.name()
         t.model.slug()
         t.model.posts()
+        t.field('postCount', {
+            type: 'Int',
+            nullable: false,
+            resolve(root, {}, context) {
+                return context.prisma.post.count({
+                    where: { categories: { some: { id: root.id } } },
+                })
+            },
+        })
     },
 })
 
@@ -70,7 +79,8 @@ const Query = objectType({
         t.crud.tags()
         t.crud.categories()
         t.crud.posts({
-            filtering: { authorId: true, title: true, content: true, OR: true },
+            filtering: true,
+            // filtering: { authorId: true, title: true, content: true, OR: true },
             ordering: { updatedAt: true },
         })
     },

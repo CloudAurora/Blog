@@ -30,9 +30,6 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        title: {
-            fontSize: 14,
-        },
         paper: {
             marginTop: theme.spacing(3),
         },

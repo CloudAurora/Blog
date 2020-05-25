@@ -86,13 +86,13 @@ export const SideMenu = () => {
                         </ListItemIcon>
                         <ListItemText primary="Archive" />
                     </ListItem>
-                    <ListItem button>
+                    <ListItem button href="/categories" component={MyLink}>
                         <ListItemIcon>
                             <FolderIcon />
                         </ListItemIcon>
                         <ListItemText primary="Categories" />
                     </ListItem>
-                    <ListItem button>
+                    <ListItem button href="/tags" component={MyLink}>
                         <ListItemIcon>
                             <StyleIcon />
                         </ListItemIcon>

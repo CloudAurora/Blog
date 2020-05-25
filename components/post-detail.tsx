@@ -39,8 +39,8 @@ const useStyle = makeStyles((theme: Theme) =>
             paddingBottom: theme.spacing(0),
         },
         tags: {
-            marginLeft: 0,
-            marginRight: 0
+            paddingLeft: theme.spacing(3),
+            paddingRight: theme.spacing(3)
         }
     })
 )
@@ -82,6 +82,7 @@ export const PostDetail = ({ doc, post }: Props) => {
                         </Typography>
                     )}
                 </CardContent>
+                <Divider light />
                 <CardContent>
                     <Grid container wrap={'wrap'} spacing={1} className={classes.tags}>
                         {post.tags.map((tag) => (
