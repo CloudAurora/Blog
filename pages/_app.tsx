@@ -30,22 +30,28 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         main: {
             flex: '1 1 auto',
-            height: '100%',
             overflow: 'hidden',
             padding: 0,
             paddingTop: theme.spacing(1),
         },
         container: {
             padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
-            height: '100%',
             minHeight: '100%',
-            position: 'relative',
-            overflow: 'hidden',
-            zIndex: 1,
+            height: '100%',
+            overflow: 'hidden auto'
         },
         part: {
             height: '100%',
+        },
+        partSide: {
+            height: '100%',
+            position: 'sticky',
+            top: 0,
+            left: 0,
             overflow: 'auto',
+            [theme.breakpoints.down('md')]: {
+                display: 'none',
+            },
         },
     })
 )
@@ -65,10 +71,10 @@ export default withApollo(({ Component, pageProps }: AppProps) => {
                 <main className={classes.main}>
                     <Grid container className={classes.container} spacing={3}>
                         {/* <MyBreadcrumb /> */}
-                        <Grid item xs={4} lg={2} className={classes.part}>
+                        <Grid item xs={4} md={4} lg={2} className={classes.partSide}>
                             <SideMenu />
                         </Grid>
-                        <Grid item xs className={classes.part}>
+                        <Grid item md={12} lg={10} className={classes.part}>
                             <Component {...pageProps} />
                         </Grid>
                     </Grid>

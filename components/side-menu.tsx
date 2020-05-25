@@ -19,7 +19,6 @@ import PersonIcon from '@material-ui/icons/Person'
 import StyleIcon from '@material-ui/icons/Style'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
-import FiberNewIcon from '@material-ui/icons/FiberNew'
 import TimelineIcon from '@material-ui/icons/Timeline'
 import { useRecentPostsLazyQuery } from 'generated/graphql'
 import { useRouter } from 'next/router'
@@ -135,9 +134,6 @@ export const SideMenu = () => {
             <Grid item>
                 <List dense>
                     <ListItem button onClick={handleClick}>
-                        <ListItemIcon>
-                            <FiberNewIcon />
-                        </ListItemIcon>
                         <ListItemText secondary="Recent Posts" />
                         <Typography
                             variant="body2"

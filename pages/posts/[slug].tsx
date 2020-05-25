@@ -19,7 +19,6 @@ import {
 } from '@material-ui/core'
 import { Toc } from 'components/toc'
 import { useRemark } from 'hooks'
-import { StickyContainer, Sticky } from 'react-sticky'
 interface Props {
     post?: PostQuery['post']
 }
@@ -28,15 +27,18 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             height: '100%',
-            overflow: 'hidden auto',
         },
         postCol: {
             maxWidth: theme.breakpoints.width('lg'),
         },
+        sticky: {
+            position: 'sticky',
+            top: 0,
+            left: 0,
+        },
     })
 )
 export default ({ post }: Props) => {
-    const theme = useTheme()
     const router = useRouter()
     const slug = router.query.slug
     const classes = useStyles()
@@ -61,45 +63,22 @@ export default ({ post }: Props) => {
     }
 
     return (
-        <StickyContainer className={classes.container}>
-            <Grid
-                container
-                spacing={2}
-                alignItems="flex-start"
-                justify="center"
-                wrap="nowrap"
-            >
-                <Grid
-                    item
-                    xs={12}
-                    lg={toc ? 8 : 12}
-                    className={classes.postCol}
-                >
-                    <PostDetail post={post} doc={doc} />
-                </Grid>
-                {!!toc && (
-                    <Grid item xs={12} lg={4}>
-                        <Sticky relative>
-                            {({ style, isSticky }) => {
-                                return (
-                                    <Toc
-                                        style={{
-                                            ...style,
-                                            top:
-                                                parseInt(`${style.top || 0}`) +
-                                                (isSticky
-                                                    ? theme.spacing(5.5)
-                                                    : 0),
-                                        }}
-                                        toc={toc}
-                                    />
-                                )
-                            }}
-                        </Sticky>
-                    </Grid>
-                )}
+        <Grid
+            container
+            spacing={2}
+            alignItems="flex-start"
+            justify="center"
+            wrap="nowrap"
+        >
+            <Grid item xs={12} lg={toc ? 8 : 12} className={classes.postCol}>
+                <PostDetail post={post} doc={doc} />
             </Grid>
-        </StickyContainer>
+            {!!toc && (
+                <Grid className={classes.sticky} item xs={12} lg={4}>
+                    <Toc toc={toc} />
+                </Grid>
+            )}
+        </Grid>
     )
 }
 
