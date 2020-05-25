@@ -19,23 +19,18 @@ async function main(dir: string) {
     let hasFailed = false
     try {
         const files = await readdir(dir, { encoding: 'utf8' })
-        // delete all tags and categories
-        await prisma.category.deleteMany({})
-        await prisma.tag.deleteMany({})
-        await Promise.all(
-            files.map(async (file) => {
-                try {
-                    const info = await readInfo(dir, file)
-                    if (!info) return
-                    await storePost(info)
-                    console.log(`update post: ${info.meta.title}`)
-                } catch (err) {
-                    console.log(`failed to update post: ${file}`)
-                    hasFailed = true
-                    console.error(err)
-                }
-            })
-        )
+        for (const file of files) {
+            try {
+                const info = await readInfo(dir, file)
+                if (!info) return
+                await storePost(info)
+                console.log(`update post: ${info.meta.title}`)
+            } catch (err) {
+                console.log(`failed to update post: ${file}`)
+                hasFailed = true
+                console.error(err)
+            }
+        }
     } finally {
         prisma.disconnect()
         if (hasFailed) {
@@ -105,25 +100,20 @@ async function storePost({ excerpt, content, meta }: Info) {
         },
     })
 
-    await Promise.all(
-        meta.categories.map((name) =>
-            prisma.category.upsert({
-                where: { name },
-                create: { name, slug: slugfy(name) },
-                update: {},
-            })
-        )
-    )
-
-    await Promise.all(
-        meta.tags.map((name) =>
-            prisma.tag.upsert({
-                where: { name },
-                create: { name, slug: slugfy(name) },
-                update: {},
-            })
-        )
-    )
+    for (const name of meta.categories) {
+        await prisma.category.upsert({
+            where: { name },
+            create: { name, slug: slugfy(name) },
+            update: {},
+        })
+    }
+    for (const name of meta.tags) {
+        await prisma.tag.upsert({
+            where: { name },
+            create: { name, slug: slugfy(name) },
+            update: {},
+        })
+    }
 
     const postArgs: PostCreateInput = {
         content,
@@ -145,10 +135,8 @@ async function storePost({ excerpt, content, meta }: Info) {
         },
     }
 
-    const post = await prisma.post.upsert({
-        where: { title: meta.title },
-        create: postArgs,
-        update: postArgs,
+    const post = await prisma.post.create({
+        data: postArgs,
     })
 
     return [post, author] as const

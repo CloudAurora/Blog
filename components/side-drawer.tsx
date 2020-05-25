@@ -67,7 +67,7 @@ export function SideDrawer({ open, setOpen, ...rest }: Props) {
 
     const DrawerInner = React.useMemo(
         () => [
-            <div className={classes.toolbar}>
+            <div className={classes.toolbar} key={1}>
                 <IconButton onClick={handleDrawerClose}>
                     {theme.direction === 'rtl' ? (
                         <ChevronRightIcon />
@@ -76,8 +76,8 @@ export function SideDrawer({ open, setOpen, ...rest }: Props) {
                     )}
                 </IconButton>
             </div>,
-            <Divider />,
-            <SideMenu inDrawer onClick={() => setOpen(false)} />,
+            <Divider key={2} />,
+            <SideMenu key={3} inDrawer onClick={() => setOpen(false)} />,
         ],
         [handleDrawerClose, theme.direction, classes.toolbar]
     )
