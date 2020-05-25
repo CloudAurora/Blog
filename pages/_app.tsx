@@ -69,7 +69,7 @@ export default withApollo(({ Component, pageProps }: AppProps) => {
             <section className={classes.root}>
                 <SearchAppBar />
                 <main className={classes.main}>
-                    <Grid container className={classes.container} spacing={3}>
+                    <Grid container className={classes.container} id="container" spacing={3}>
                         {/* <MyBreadcrumb /> */}
                         <Grid item xs={4} md={4} lg={2} className={classes.partSide}>
                             <SideMenu />

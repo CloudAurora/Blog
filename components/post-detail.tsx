@@ -17,6 +17,7 @@ import { PostMeta } from './post-meta'
 import { MdRender } from './md-render'
 import StyleOutlinedIcon from '@material-ui/icons/StyleOutlined'
 import { MyLink } from './my-link'
+import { ScrollTop } from './scroll-top'
 
 const useStyle = makeStyles((theme: Theme) =>
     createStyles({
@@ -58,7 +59,7 @@ export const PostDetail = ({ doc, post }: Props) => {
         <Fade in>
             <Card className={classes.root}>
                 <CardContent className={classes.top}>
-                    <Typography variant="h4" component="h2" gutterBottom>
+                    <Typography variant="h4" component="h2" gutterBottom id="article-title">
                         {post.title}
                     </Typography>
                 </CardContent>
@@ -115,6 +116,7 @@ export const PostDetail = ({ doc, post }: Props) => {
                     Read More
                 </Button>
             </CardActions> */}
+            <ScrollTop element="#article-title" />
             </Card>
         </Fade>
     )
