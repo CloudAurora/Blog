@@ -1,9 +1,0 @@
-[common]
-timeFormatter = 'YYYY-MM-DDTHH:mm:ssZ'
-siteName = "XiZao Tech"
-
-[server.jwt]
-secret = "changeme"
-
-[server.repo]
-url = "https://github.com/stkevintan/gatsby-blog"

@@ -13,6 +13,14 @@ interface Props {
     className?: string
     style?: React.CSSProperties
     variant?: 'body1' | 'body2'
+    color?:
+        | 'initial'
+        | 'inherit'
+        | 'primary'
+        | 'secondary'
+        | 'textPrimary'
+        | 'textSecondary'
+        | 'error'
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -28,11 +36,11 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         name: {
             flex: '1 1 auto',
-            marginLeft: theme.spacing(1)
+            marginLeft: theme.spacing(1),
         },
     })
 )
-export const Author = ({ author, variant, ...rest }: Props) => {
+export const Author = ({ author, variant, color, ...rest }: Props) => {
     const classes = useStyles()
     return (
         <div {...rest} className={classes.root}>
@@ -43,7 +51,7 @@ export const Author = ({ author, variant, ...rest }: Props) => {
             />
             <Typography
                 variant={variant ?? 'body2'}
-                color="textSecondary"
+                color={color ?? 'textSecondary'}
                 className={classes.name}
             >
                 {author.name}

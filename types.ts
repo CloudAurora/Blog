@@ -74,7 +74,7 @@ export interface UserEntity {
     id: number
     name?: string | null
     email?: string | null
-    githubId?: string | null
+    githubId?: number | string | null
     bio?: string | null
 }
 

@@ -1,11 +1,12 @@
-import Link from 'next/link'
+import MDXDocument from 'mdx/about.mdx'
+import { Card, CardContent, Container } from '@material-ui/core'
 
 export default () => (
-  <div>
-    This is a static page goto{' '}
-    <Link href="/">
-      <a>dynamic</a>
-    </Link>{' '}
-    page.
-  </div>
+    <Container maxWidth="lg">
+        <Card>
+            <CardContent>
+                <MDXDocument />
+            </CardContent>
+        </Card>
+    </Container>
 )
