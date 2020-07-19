@@ -14,6 +14,7 @@ import { CssBaseline, Grid, Hidden } from '@material-ui/core'
 import { SideMenu } from 'components/side-menu'
 import { withApollo } from 'apollo/client'
 import 'styles/global.css'
+import 'gitalk/dist/gitalk.css';
 import { SideDrawer } from 'components/side-drawer'
 
 const useStyles = makeStyles((theme: Theme) =>

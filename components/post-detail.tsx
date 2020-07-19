@@ -22,8 +22,8 @@ import { ScrollTop } from './scroll-top'
 const useStyle = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            marginTop: theme.spacing(0),
-            marginBottom: theme.spacing(3),
+            marginTop: theme.spacing(-2),
+            borderRadius: 0,
         },
         top: {
             textAlign: 'center',

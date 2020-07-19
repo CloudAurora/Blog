@@ -12,7 +12,7 @@ import { Button, Hidden } from '@material-ui/core'
 import { MyLink } from './my-link'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
-import { TeamLogo } from './team-logo'
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 const drawerWidth = 240
 const useStyles = makeStyles((theme: Theme) =>
@@ -94,9 +94,9 @@ const useStyles = makeStyles((theme: Theme) =>
             transition: theme.transitions.create('width'),
             width: '100%',
             [theme.breakpoints.up('sm')]: {
-                width: theme.spacing(30),
+                width: theme.spacing(25),
                 '&:focus': {
-                    width: theme.spacing(40),
+                    width: theme.spacing(30),
                 },
             },
         },
@@ -162,6 +162,11 @@ export default function SearchAppBar({ toggleDrawer, open }: Props) {
                             }}
                             inputProps={{ 'aria-label': 'search' }}
                         />
+                    </div>
+                    <div>
+                        <IconButton color="inherit">
+                            <GitHubIcon />
+                        </IconButton>
                     </div>
                 </Toolbar>
             </AppBar>
