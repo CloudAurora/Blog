@@ -1,7 +1,7 @@
 import MDXDocument from 'mdx/about.mdx'
 import { Card, CardContent, Container, makeStyles } from '@material-ui/core'
-import GitalkComponent from "gitalk/dist/gitalk-component";
 import { isServer } from 'utils';
+import { Comment } from 'components/comment';
 const useStyle = makeStyles((theme) => ({
     root: {
         marginTop: theme.spacing(-2),
@@ -18,16 +18,7 @@ export default () => {
                     <MDXDocument />
                 </CardContent>
             </Card>
-            {!isServer() && <GitalkComponent
-                options={{
-                    clientID: process.env.NEXT_PUBLIC_GITALK_CLIENT_ID,
-                    clientSecret: process.env.NEXT_PUBLIC_GITALK_CLIENT_SECRET,
-                    repo: "Blog",
-                    owner: "CloudAurora",
-                    admin: ["stkevintan", "CloudAurora"],
-                    id: "About"
-                }}
-            />}
+            <Comment id="About" />
         </Container>
     )
 }
