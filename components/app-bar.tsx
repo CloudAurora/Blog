@@ -164,7 +164,7 @@ export default function SearchAppBar({ toggleDrawer, open }: Props) {
                         />
                     </div>
                     <div>
-                        <IconButton color="inherit">
+                        <IconButton href="https://github.com/CloudAurora" color="inherit">
                             <GitHubIcon />
                         </IconButton>
                     </div>
