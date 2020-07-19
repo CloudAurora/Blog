@@ -3,7 +3,7 @@ import { isServer } from 'utils'
 import GitalkComponent from "gitalk/dist/gitalk-component";
 
 interface IProps {
-    id?: string
+    id: string
 }
 export function Comment({ id }: IProps) {
     return isServer() ? null : (<GitalkComponent
@@ -13,7 +13,8 @@ export function Comment({ id }: IProps) {
             repo: "Blog",
             owner: "CloudAurora",
             admin: ["stkevintan", "CloudAurora"],
-            id: id?.substr(0, 50)
+            id: id.substr(0, 50),
+            title: id
         }}
     />
     )
