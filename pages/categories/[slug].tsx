@@ -17,6 +17,7 @@ import {
 import FolderOutlinedIcon from '@material-ui/icons/FolderOpenOutlined'
 import { PostList } from 'components/post-list'
 import { useMdContainer } from 'styles/container'
+import { Helmet } from 'react-helmet'
 
 interface Props {
     category?: CategoryQuery['category']
@@ -41,6 +42,7 @@ export default ({ category }: Props) => {
     }
     return (
         <Container maxWidth="lg" className={classes2.container}>
+            <Helmet><title>{category.name} - Category - Code Aurora</title></Helmet>
             <Grid container spacing={1} alignItems={'center'}>
                 <Grid item>
                     <FolderOutlinedIcon className={classes.icon} />

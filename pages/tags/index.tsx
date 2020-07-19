@@ -7,6 +7,7 @@ import { createStaticPropsFunc } from 'apollo/client'
 import { TagsQuery, TagsDocument } from 'generated/graphql'
 import { MyLink } from 'components/my-link'
 import { useMdContainer } from 'styles/container'
+import { Helmet } from 'react-helmet'
 
 interface Props {
     tags?: TagsQuery['tags']
@@ -30,6 +31,7 @@ export default function Tags({ tags }: Props) {
 
     return (
         <Container maxWidth="lg" className={classes2.container}>
+            <Helmet><title>Tags - Code Aurora</title></Helmet>
             <Grid container spacing={1} alignItems={'center'}>
                 <Grid item>
                     <FolderOpenIcon className={classes.icon} />

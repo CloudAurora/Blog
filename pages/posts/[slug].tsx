@@ -20,6 +20,7 @@ import {
 } from '@material-ui/core'
 import { Toc } from 'components/toc'
 import { useRemark } from 'hooks'
+import { Helmet } from 'react-helmet'
 interface Props {
     post?: PostQuery['post']
 }
@@ -74,6 +75,7 @@ export default ({ post }: Props) => {
             justify="center"
             wrap="nowrap"
         >
+            <Helmet><title>{post.title} - Code Aurora</title></Helmet>
             <Grid item className={classes.postCol}>
                 <PostDetail post={post} doc={doc} />
             </Grid>

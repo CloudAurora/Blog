@@ -13,6 +13,7 @@ import {
 import TimelineIcon from '@material-ui/icons/Timeline'
 import { PostList } from 'components/post-list'
 import { useMdContainer } from 'styles/container'
+import { Helmet } from 'react-helmet'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -35,6 +36,7 @@ export default function Archive({ posts }: Props) {
 
     return (
         <Container maxWidth="lg" className={classes2.container}>
+            <Helmet><title>Archive - Code Aurora</title></Helmet>
             <Grid container spacing={1} alignItems={'center'}>
                 <Grid item>
                     <TimelineIcon className={classes.icon} />
