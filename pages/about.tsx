@@ -24,7 +24,8 @@ export default () => {
                     clientSecret: process.env.NEXT_PUBLIC_GITALK_CLIENT_SECRET,
                     repo: "Blog",
                     owner: "CloudAurora",
-                    admin: ["stkevintan", "CloudAurora"]
+                    admin: ["stkevintan", "CloudAurora"],
+                    id: "About"
                 }}
             />}
         </Container>
