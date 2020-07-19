@@ -4,6 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import InputBase from '@material-ui/core/InputBase'
+import BathtubIcon from '@material-ui/icons/Bathtub';
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
@@ -11,6 +12,7 @@ import { Button, Hidden } from '@material-ui/core'
 import { MyLink } from './my-link'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
+import { TeamLogo } from './team-logo'
 
 const drawerWidth = 240
 const useStyles = makeStyles((theme: Theme) =>
@@ -55,6 +57,10 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingRight: theme.spacing(1.2),
             textTransform: 'capitalize',
         },
+        titleIcon: {
+            fontSize: '1.2em',
+            marginRight: '1em'
+        },
         search: {
             position: 'relative',
             borderRadius: theme.shape.borderRadius,
@@ -88,9 +94,9 @@ const useStyles = makeStyles((theme: Theme) =>
             transition: theme.transitions.create('width'),
             width: '100%',
             [theme.breakpoints.up('sm')]: {
-                width: '12ch',
+                width: theme.spacing(30),
                 '&:focus': {
-                    width: '20ch',
+                    width: theme.spacing(40),
                 },
             },
         },
@@ -133,6 +139,7 @@ export default function SearchAppBar({ toggleDrawer, open }: Props) {
                             component={MyLink}
                             className={classes.titleButton}
                         >
+                            <BathtubIcon className={classes.titleIcon} />
                             Cloud Aurora
                         </Button>
                     </Typography>

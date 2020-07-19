@@ -34,6 +34,9 @@ const useStyle = makeStyles((theme: Theme) =>
             paddingTop: theme.spacing(1),
             paddingLeft: theme.spacing(4),
             paddingRight: theme.spacing(4),
+            [theme.breakpoints.down('xs')]: {
+                padding: theme.spacing(1)
+            },
         },
         center: {
             paddingTop: theme.spacing(0),

@@ -69,6 +69,7 @@ export const CategoryPanel = ({ category, expanded, ...rest }: Props) => {
         }
     }, [data, loading, error, expanded, query])
 
+    const posts = data?.category?.posts;
     return (
         <ExpansionPanel
             TransitionProps={{ unmountOnExit: true }}
@@ -107,8 +108,8 @@ export const CategoryPanel = ({ category, expanded, ...rest }: Props) => {
                 {loading ? (
                     <Loading height={100} />
                 ) : (
-                    !!data?.category?.posts && (
-                        <PostList posts={data!.category!.posts} dense />
+                    !!posts && (
+                        <PostList posts={posts} dense />
                     )
                 )}
             </ExpansionPanelDetails>

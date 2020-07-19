@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flexGrow: 1,
             flexShrink: 1,
             width: '100%',
-            maxWidth: theme.breakpoints.width('lg'),
+            maxWidth: theme.breakpoints.width('md'),
         },
         sticky: {
             position: 'sticky',
@@ -74,12 +74,12 @@ export default ({ post }: Props) => {
             justify="center"
             wrap="nowrap"
         >
-            <Grid item xs={12} lg={toc ? 8 : 12} className={classes.postCol}>
+            <Grid item className={classes.postCol}>
                 <PostDetail post={post} doc={doc} />
             </Grid>
-            <Hidden lgDown>
+            <Hidden mdDown>
                 {!!toc && (
-                    <Grid className={classes.sticky} item xs={12} lg={4}>
+                    <Grid className={classes.sticky}>
                         <Toc toc={toc} />
                     </Grid>
                 )}

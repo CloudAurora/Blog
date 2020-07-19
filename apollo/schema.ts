@@ -1,6 +1,7 @@
-import { nexusPrismaPlugin } from 'nexus-prisma'
+import { nexusSchemaPrisma } from 'nexus-plugin-prisma/schema';
 import { makeSchema, objectType } from '@nexus/schema'
 import tempy from 'tempy'
+
 
 const User = objectType({
     name: 'User',
@@ -93,7 +94,7 @@ const isNextRuntime = __dirname === '/'
 
 export const schema = makeSchema({
     types: [Query, Category, Tag, Post, User],
-    plugins: [nexusPrismaPlugin()],
+    plugins: [nexusSchemaPrisma({experimentalCRUD: true})],
     outputs: {
         typegen: isNextRuntime ? false : __dirname + '/../generated/nexus.d.ts',
         schema: isNextRuntime

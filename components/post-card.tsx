@@ -57,7 +57,7 @@ export const PostCard = ({ post }: PropsWithChildren<Props>) => {
     return (
         <Fade in>
             <Card className={classes.root}>
-                <CardActionArea>
+                {/* <CardActionArea>
                     <CardMedia
                         component="img"
                         alt="post heading image"
@@ -65,7 +65,7 @@ export const PostCard = ({ post }: PropsWithChildren<Props>) => {
                         image={getPostHeadingImage(post.id)}
                         title="post heading image"
                     />
-                </CardActionArea>
+                </CardActionArea> */}
                 <CardContent className={classes.top}>
                     <Typography variant="h5" component="h2" gutterBottom>
                         <Link

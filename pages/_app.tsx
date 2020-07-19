@@ -34,11 +34,13 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             overflow: 'hidden',
             padding: 0,
-            paddingTop: theme.spacing(1),
         },
         container: {
             flexGrow: 1,
-            padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
+            padding: theme.spacing(2, 3),
+            [theme.breakpoints.down('xs')]: {
+                padding: 0
+            },
             minHeight: '100%',
             height: '100%',
             overflow: 'hidden auto',
@@ -59,7 +61,8 @@ const useStyles = makeStyles((theme: Theme) =>
             top: 0,
             left: 0,
             flexShrink: 0,
-            overflow: 'auto',
+            marginRight: theme.spacing(1),
+            overflow: 'hidden auto',
             [theme.breakpoints.down('md')]: {
                 display: 'none',
             },
@@ -87,7 +90,6 @@ export default withApollo(({ Component, pageProps }: AppProps) => {
                         container
                         className={classes.container}
                         id="container"
-                        spacing={3}
                         wrap={'nowrap'}
                     >
                         {/* <MyBreadcrumb /> */}
@@ -95,8 +97,7 @@ export default withApollo(({ Component, pageProps }: AppProps) => {
                             item
                             xs={1}
                             md={1}
-                            lg={3}
-                            xl={2}
+                            lg={2}
                             className={classes.partSide}
                         >
                             <SideMenu />
