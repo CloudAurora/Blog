@@ -22,7 +22,7 @@ export default () => {
                 options={{
                     clientID: process.env.NEXT_PUBLIC_GITALK_CLIENT_ID,
                     clientSecret: process.env.NEXT_PUBLIC_GITALK_CLIENT_SECRET,
-                    repo: "https://github.com/CloudAurora/Blog",
+                    repo: "Blog",
                     owner: "CloudAurora",
                     admin: ["stkevintan"]
                 }}
