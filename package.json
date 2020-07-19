@@ -3,8 +3,8 @@
     "version": "2.0.0",
     "scripts": {
         "dev": "next",
+        "prebuild": "yarn -s gen && yarn -s run setup:db && yarn -s run index",
         "build": "next build",
-        "build:full": "yarn -s init && next build",
         "start": "next start",
         "setup:db": "rm -rf prisma/dev.db && cp -f prisma/new.db prisma/dev.db && yarn migrate:up",
         "gen:prisma": "prisma generate",
@@ -12,7 +12,6 @@
         "gen": "yarn -s run gen:prisma && yarn -s run gen:nexus",
         "gen:graphql": "graphql-codegen",
         "index": "ts-node -P tsconfig.node.json ./scripts/create-db.ts",
-        "init": "yarn -s gen && yarn -s run setup:db && yarn -s run index",
         "members": "ts-node -P tsconfig.node.json ./scripts/get-members.ts",
         "migrate:save": "prisma migrate save --name init --experimental",
         "migrate:up": "prisma migrate up --experimental",
