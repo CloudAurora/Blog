@@ -6,6 +6,6 @@ export default {
         '0xHJK',
         'Soulghost',
         'SRaddict',
-        'Superlee2013'
+        'Superlee2013',
     ],
 }

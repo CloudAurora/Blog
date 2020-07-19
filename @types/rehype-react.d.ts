@@ -1,4 +1,4 @@
-declare module "rehype-react" {
+declare module 'rehype-react' {
     import * as React from 'react'
     interface Options {
         createElement: typeof React.createElement
@@ -8,5 +8,5 @@ declare module "rehype-react" {
         }
         prefix?: string
     }
-    export default (options: Options) => any;
+    export default (options: Options) => any
 }

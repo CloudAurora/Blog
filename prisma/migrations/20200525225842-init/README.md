@@ -114,9 +114,7 @@ migration ..20200525225842-init
 +model Tag {
 +  id    Int    @default(autoincrement()) @id
 +  name  String @unique
-+  slug  String @unique 
++  slug  String @unique
 +  posts Post[] @relation(references: [id])
 +}
 ```
-
-

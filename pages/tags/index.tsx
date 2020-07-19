@@ -31,7 +31,9 @@ export default function Tags({ tags }: Props) {
 
     return (
         <Container maxWidth="lg" className={classes2.container}>
-            <Helmet><title>Tags - Code Aurora</title></Helmet>
+            <Helmet>
+                <title>Tags - Code Aurora</title>
+            </Helmet>
             <Grid container spacing={1} alignItems={'center'}>
                 <Grid item>
                     <FolderOpenIcon className={classes.icon} />

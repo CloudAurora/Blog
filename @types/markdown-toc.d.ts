@@ -11,6 +11,6 @@ declare module 'markdown-toc' {
     }
 
     declare var handler: (body: string, options?: any) => TocResult
-        
+
     export = handler
 }

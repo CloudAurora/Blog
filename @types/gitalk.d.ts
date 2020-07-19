@@ -1,4 +1,9 @@
 declare module 'gitalk/dist/gitalk-component' {
-    class GitalkComponent extends React.Component<{ options: any }> { }
-    export default GitalkComponent;
+    type DeepPartial<T> = {
+        [P in keyof T]?: DeepPartial<T[P]>
+    }
+    class GitalkComponent extends React.Component<
+        { options: any } & DeepPartial<HTMLDivElement>
+    > {}
+    export default GitalkComponent
 }

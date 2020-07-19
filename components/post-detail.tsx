@@ -35,7 +35,7 @@ const useStyle = makeStyles((theme: Theme) =>
             paddingLeft: theme.spacing(4),
             paddingRight: theme.spacing(4),
             [theme.breakpoints.down('xs')]: {
-                padding: theme.spacing(1)
+                padding: theme.spacing(1),
             },
         },
         center: {
@@ -63,7 +63,12 @@ export const PostDetail = ({ doc, post }: Props) => {
             <Fade in>
                 <Card className={classes.root}>
                     <CardContent className={classes.top}>
-                        <Typography variant="h4" component="h2" gutterBottom id="article-title">
+                        <Typography
+                            variant="h4"
+                            component="h2"
+                            gutterBottom
+                            id="article-title"
+                        >
                             {post.title}
                         </Typography>
                     </CardContent>

@@ -31,7 +31,9 @@ export default function Categories({ categories }: Props) {
 
     return (
         <Container maxWidth="lg" className={classes2.container}>
-            <Helmet><title>Category - Code Aurora</title></Helmet>
+            <Helmet>
+                <title>Category - Code Aurora</title>
+            </Helmet>
             <Grid container spacing={1} alignItems={'center'}>
                 <Grid item>
                     <FolderOpenIcon className={classes.icon} />

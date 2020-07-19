@@ -13,7 +13,7 @@ const tocProcessor = unified()
     .use(rehype2react, { createElement: React.createElement })
 
 export const useRemark = (body: string, skipToc?: boolean) => {
-    const [toc, setToc] = React.useState<JSX.Element | null>(null);
+    const [toc, setToc] = React.useState<JSX.Element | null>(null)
     const docProcessor = React.useMemo(
         () =>
             unified()
@@ -39,7 +39,6 @@ export const useRemark = (body: string, skipToc?: boolean) => {
                 .use(rehype2react, { createElement: React.createElement }),
         [skipToc]
     )
-
 
     const doc = React.useMemo<JSX.Element>(() => {
         if (!body) return null

@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-    makeStyles,
-    createStyles,
-    Theme,
-    Typography,
-} from '@material-ui/core'
+import { makeStyles, createStyles, Theme, Typography } from '@material-ui/core'
 
 interface Props {
     toc: React.ReactNode
@@ -15,7 +10,9 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             marginTop: theme.spacing(2),
-            borderLeft: `${theme.spacing(0.5)}px solid ${theme.palette.primary.main}`
+            borderLeft: `${theme.spacing(0.5)}px solid ${
+                theme.palette.primary.main
+            }`,
         },
         summary: {
             flexWrap: 'wrap',
@@ -60,41 +57,43 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-export const Toc = React.forwardRef<Props, any>(({ style, toc }: Props, ref) => {
-    const classes = useStyles()
+export const Toc = React.forwardRef<Props, any>(
+    ({ style, toc }: Props, ref) => {
+        const classes = useStyles()
 
-    return (
-        <div ref={ref as any} className={classes.root} style={style}>
-            {<div className={classes.toc}>{toc}</div> ?? (
-                <Typography color="textSecondary" variant="body1">
-                    No Content
-                </Typography>
-            )}
-        </div>
-        // <ExpansionPanel
-        //     ref={ref}
-        //     style={style}
-        //     className={classes.root}
-        //     expanded={expanded}
-        //     onChange={handleChange}
-        // >
-        //     <ExpansionPanelSummary
-        //         expandIcon={<ExpandMoreIcon />}
-        //         aria-controls="toc-content"
-        //         id="toc-header"
-        //         classes={{ content: classes.summary }}
-        //     >
-        //         <Typography noWrap className={classes.heading}>
-        //             Table of Contents
-        //         </Typography>
-        //         <Typography noWrap className={classes.secondaryHeading}>
-        //             {post.title}
-        //         </Typography>
-        //     </ExpansionPanelSummary>
-        //     <Divider light />
-        //     <ExpansionPanelDetails className={classes.toc}>
+        return (
+            <div ref={ref as any} className={classes.root} style={style}>
+                {<div className={classes.toc}>{toc}</div> ?? (
+                    <Typography color="textSecondary" variant="body1">
+                        No Content
+                    </Typography>
+                )}
+            </div>
+            // <ExpansionPanel
+            //     ref={ref}
+            //     style={style}
+            //     className={classes.root}
+            //     expanded={expanded}
+            //     onChange={handleChange}
+            // >
+            //     <ExpansionPanelSummary
+            //         expandIcon={<ExpandMoreIcon />}
+            //         aria-controls="toc-content"
+            //         id="toc-header"
+            //         classes={{ content: classes.summary }}
+            //     >
+            //         <Typography noWrap className={classes.heading}>
+            //             Table of Contents
+            //         </Typography>
+            //         <Typography noWrap className={classes.secondaryHeading}>
+            //             {post.title}
+            //         </Typography>
+            //     </ExpansionPanelSummary>
+            //     <Divider light />
+            //     <ExpansionPanelDetails className={classes.toc}>
 
-        //     </ExpansionPanelDetails>
-        // </ExpansionPanel>
-    )
-})
+            //     </ExpansionPanelDetails>
+            // </ExpansionPanel>
+        )
+    }
+)

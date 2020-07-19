@@ -6,14 +6,12 @@ import config from '../config'
 import { Octokit } from '@octokit/rest'
 import fs from 'fs'
 
-
-
 console.log('access_token', process.env.access_token)
 const octokit = new Octokit({
     auth: process.env.access_token,
 })
 
-async function fetch(){
+async function fetch() {
     const ret = await Promise.all(
         config.members.map((member) =>
             octokit.users.getByUsername({ username: member })
@@ -28,7 +26,7 @@ async function fetch(){
         blog: user.data.blog,
         email: user.data.email,
         bio: user.data.bio,
-        location: user.data.location
+        location: user.data.location,
     }))
 }
 

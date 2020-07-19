@@ -6,8 +6,5 @@
         "esModuleInterop": true,
         "strict": true
     },
-    "include": [
-        "next-env.d.ts",
-        "**/*.ts",
-    ]
+    "include": ["next-env.d.ts", "**/*.ts"]
 }

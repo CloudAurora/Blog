@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import InputBase from '@material-ui/core/InputBase'
-import BathtubIcon from '@material-ui/icons/Bathtub';
+import BathtubIcon from '@material-ui/icons/Bathtub'
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
@@ -12,7 +12,7 @@ import { Button, Hidden } from '@material-ui/core'
 import { MyLink } from './my-link'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
-import GitHubIcon from '@material-ui/icons/GitHub';
+import GitHubIcon from '@material-ui/icons/GitHub'
 
 const drawerWidth = 240
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
                 transition: theme.transitions.create(['width', 'margin'], {
                     easing: theme.transitions.easing.sharp,
                     duration: theme.transitions.duration.enteringScreen,
-                })
+                }),
             },
         },
         menuButton: {
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         titleIcon: {
             fontSize: '1.2em',
-            marginRight: '1em'
+            marginRight: '1em',
         },
         search: {
             position: 'relative',
@@ -164,7 +164,10 @@ export default function SearchAppBar({ toggleDrawer, open }: Props) {
                         />
                     </div>
                     <div>
-                        <IconButton href="https://github.com/CloudAurora" color="inherit">
+                        <IconButton
+                            href="https://github.com/CloudAurora"
+                            color="inherit"
+                        >
                             <GitHubIcon />
                         </IconButton>
                     </div>

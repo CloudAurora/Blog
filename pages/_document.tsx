@@ -19,11 +19,7 @@ export default class MyDocument extends Document {
                         content={theme.palette.primary.main}
                     />
                     {styles.map((style) => (
-                        <link
-                            key={style}
-                            rel="stylesheet"
-                            href={style}
-                        />
+                        <link key={style} rel="stylesheet" href={style} />
                     ))}
                 </Head>
                 <body>

@@ -42,7 +42,9 @@ export default ({ category }: Props) => {
     }
     return (
         <Container maxWidth="lg" className={classes2.container}>
-            <Helmet><title>{category.name} - Category - Code Aurora</title></Helmet>
+            <Helmet>
+                <title>{category.name} - Category - Code Aurora</title>
+            </Helmet>
             <Grid container spacing={1} alignItems={'center'}>
                 <Grid item>
                     <FolderOutlinedIcon className={classes.icon} />
@@ -62,7 +64,7 @@ export default ({ category }: Props) => {
                 {category.name} ({category.posts.length})
             </Typography>
             <Paper elevation={2} className={classes.paper}>
-               <PostList posts={category.posts} /> 
+                <PostList posts={category.posts} />
             </Paper>
         </Container>
     )

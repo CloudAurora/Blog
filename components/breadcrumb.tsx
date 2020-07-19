@@ -25,7 +25,7 @@ function handleClick(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     console.info('You clicked a breadcrumb.')
 }
 
-export const  MyBreadcrumb = () => {
+export const MyBreadcrumb = () => {
     const classes = useStyles()
 
     return (

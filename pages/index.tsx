@@ -10,7 +10,6 @@ interface Props {
     posts?: PostsQuery['posts']
 }
 
-
 const Index = ({ posts }: Props) => {
     const classes = useMdContainer()
     const router = useRouter()

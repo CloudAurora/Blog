@@ -41,7 +41,9 @@ export default ({ tag }: Props) => {
     }
     return (
         <Container maxWidth="lg" className={classes2.container}>
-            <Helmet><title>{tag.name} - Tag - Code Aurora</title></Helmet>
+            <Helmet>
+                <title>{tag.name} - Tag - Code Aurora</title>
+            </Helmet>
             <Grid container spacing={1} alignItems={'center'}>
                 <Grid item>
                     <StyleOutlinedIcon className={classes.icon} />

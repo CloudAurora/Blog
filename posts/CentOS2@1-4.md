@@ -2,19 +2,19 @@
 title: Centos初始化2
 date: '2017-01-04T00:00:00+08:00'
 tags:
-  - centos
-  - tmux
-  - prezto
+    - centos
+    - tmux
+    - prezto
 categories:
-  - Linux
+    - Linux
 ---
 
 ## proxychains-ng
 
 ```bash
 git clone https://github.com/rofl0r/proxychains-ng
-cd proxychains-ng                                 
-./configure --prefix=/usr --sysconfdir=/etc 
+cd proxychains-ng
+./configure --prefix=/usr --sysconfdir=/etc
 make
 make install
 make install-config   # 生成配置文件
@@ -25,7 +25,7 @@ echo 'http 10.100.100.136 4411' >> /etc/proxychains.conf  # 输入代理设置
 
 ## TMUX
 
-CentOS的版本太老，手动编译最新版本
+CentOS 的版本太老，手动编译最新版本
 
 ```bash
 yum install ncurses-devel libevent-devel
@@ -36,13 +36,11 @@ make
 make install
 ```
 
-如果出现`protocol version mismatch`错误，说明现在tmux正在运行，手动结束掉即可。
+如果出现`protocol version mismatch`错误，说明现在 tmux 正在运行，手动结束掉即可。
 
 ```bash
 kill -9 `pidof tmux`
 ```
-
-
 
 ### theme
 
@@ -106,11 +104,11 @@ t  # big clock
 
 ### Tmux Plugin Manager && tmux-yank
 
-tmux-yank可以将tmux的paste-buffer中的文字拷贝到系统剪贴板
+tmux-yank 可以将 tmux 的 paste-buffer 中的文字拷贝到系统剪贴板
 
 ```bash
 yumi xclip # 安装依赖
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm 
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 vim .tmux.conf # 在最后添加下面几行，注意不是 .tmux.conf.local!!!
 ```
 
@@ -123,19 +121,19 @@ set -g @plugin 'tmux-plugins/tmux-yank'
 run '~/.tmux/plugins/tpm/tpm'
 ```
 
-然后，重新加载tmux，按<prefix> + I 安装`tmux-yank`插件
+然后，重新加载 tmux，按<prefix> + I 安装`tmux-yank`插件
 
-然后，并不能奏效，因为xclip需要有X服务。然而ssh客户端Centos只是纯命令行。需要开启`X11Forwarding`
+然后，并不能奏效，因为 xclip 需要有 X 服务。然而 ssh 客户端 Centos 只是纯命令行。需要开启`X11Forwarding`
 
 ## X11Forwarding
 
-1. 在远程Centos中的`/etc/ssh/ssh_config`文件中，添加`X11Forwarding yes`
+1. 在远程 Centos 中的`/etc/ssh/ssh_config`文件中，添加`X11Forwarding yes`
 
-2. 在远程Centos中安装认证软件：`yumi xorg-x11-xauth`
+2. 在远程 Centos 中安装认证软件：`yumi xorg-x11-xauth`
 
-3. 在本地ssh连接命令添加`-Y`参数
+3. 在本地 ssh 连接命令添加`-Y`参数
 
-   启用x11转发之后就可以在Centos中启动x11程序了，可以安装轻量级的xfce4-terminal方便操作。
+    启用 x11 转发之后就可以在 Centos 中启动 x11 程序了，可以安装轻量级的 xfce4-terminal 方便操作。
 
 ## Prezto
 
@@ -160,25 +158,21 @@ awk -v s="syntax-highlighting git command-not-found yum history-substring-search
 sed -i "s/\(zstyle.*theme\s\).*/\1'skwp'/" .zpreztorc
 ```
 
+## Yum Aliases
 
-Yum Aliases
--------
-
-- `yumc` removes package(s) and leaves.
-- `yumi` installs package(s).
-- `yumh` displays history.
-- `yuml` lists packages.
-- `yumL` lists installed packages.
-- `yumq` displays package information.
-- `yumr` removes package(s).
-- `yums` searches for a package.
-- `yumu` updates packages.
-- `yumU` upgrades packages.
-
+-   `yumc` removes package(s) and leaves.
+-   `yumi` installs package(s).
+-   `yumh` displays history.
+-   `yuml` lists packages.
+-   `yumL` lists installed packages.
+-   `yumq` displays package information.
+-   `yumr` removes package(s).
+-   `yums` searches for a package.
+-   `yumu` updates packages.
+-   `yumU` upgrades packages.
 
 ## spf13 Vim
 
 ```bash
 curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && sh spf13-vim.sh
 ```
-

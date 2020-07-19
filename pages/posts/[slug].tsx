@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
             position: 'sticky',
             top: 0,
             left: 0,
-            marginLeft: theme.spacing(2)
+            marginLeft: theme.spacing(2),
         },
     })
 )
@@ -69,13 +69,10 @@ export default ({ post }: Props) => {
     }
 
     return (
-        <Grid
-            container
-            alignItems="flex-start"
-            justify="center"
-            wrap="nowrap"
-        >
-            <Helmet><title>{post.title} - Code Aurora</title></Helmet>
+        <Grid container alignItems="flex-start" justify="center" wrap="nowrap">
+            <Helmet>
+                <title>{post.title} - Code Aurora</title>
+            </Helmet>
             <Grid item className={classes.postCol}>
                 <PostDetail post={post} doc={doc} />
             </Grid>

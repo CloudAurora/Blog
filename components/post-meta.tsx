@@ -1,5 +1,5 @@
 import React from 'react'
-import {  CategoryOrTagEntity, UserEntity } from 'types'
+import { CategoryOrTagEntity, UserEntity } from 'types'
 import {
     Typography,
     Grid,
@@ -25,8 +25,7 @@ interface PostMetaProps {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
-        },
+        root: {},
         item: {
             display: 'inline-flex',
             alignItems: 'center',
@@ -75,7 +74,9 @@ export const PostMeta = ({
             <Grid item className={classes.item}>
                 <Author author={author} />
             </Grid>
-            {!isDetail && !!categories && <Grid item style={{ flex: '1 1 auto' }}></Grid>}
+            {!isDetail && !!categories && (
+                <Grid item style={{ flex: '1 1 auto' }}></Grid>
+            )}
 
             {!!categories && (
                 <Grid item className={classes.item}>

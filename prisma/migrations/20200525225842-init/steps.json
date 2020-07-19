@@ -1,628 +1,628 @@
 {
-  "version": "0.3.14-fixed",
-  "steps": [
-    {
-      "tag": "CreateSource",
-      "source": "db"
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Source",
-        "source": "db"
-      },
-      "argument": "provider",
-      "value": "\"sqlite\""
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Source",
-        "source": "db"
-      },
-      "argument": "url",
-      "value": "\"file:./dev.db\""
-    },
-    {
-      "tag": "CreateModel",
-      "model": "User"
-    },
-    {
-      "tag": "CreateField",
-      "model": "User",
-      "field": "email",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "User",
-          "field": "email"
+    "version": "0.3.14-fixed",
+    "steps": [
+        {
+            "tag": "CreateSource",
+            "source": "db"
         },
-        "directive": "unique"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "User",
-      "field": "id",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "User",
-          "field": "id"
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Source",
+                "source": "db"
+            },
+            "argument": "provider",
+            "value": "\"sqlite\""
         },
-        "directive": "default"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "User",
-          "field": "id"
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Source",
+                "source": "db"
+            },
+            "argument": "url",
+            "value": "\"file:./dev.db\""
         },
-        "directive": "default"
-      },
-      "argument": "",
-      "value": "autoincrement()"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "User",
-          "field": "id"
+        {
+            "tag": "CreateModel",
+            "model": "User"
         },
-        "directive": "id"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "User",
-      "field": "name",
-      "type": "String",
-      "arity": "Optional"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "User",
-          "field": "name"
+        {
+            "tag": "CreateField",
+            "model": "User",
+            "field": "email",
+            "type": "String",
+            "arity": "Required"
         },
-        "directive": "unique"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "User",
-      "field": "bio",
-      "type": "String",
-      "arity": "Optional"
-    },
-    {
-      "tag": "CreateField",
-      "model": "User",
-      "field": "githubId",
-      "type": "String",
-      "arity": "Optional"
-    },
-    {
-      "tag": "CreateField",
-      "model": "User",
-      "field": "posts",
-      "type": "Post",
-      "arity": "List"
-    },
-    {
-      "tag": "CreateModel",
-      "model": "Post"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Post",
-      "field": "authorId",
-      "type": "Int",
-      "arity": "Optional"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Post",
-      "field": "content",
-      "type": "String",
-      "arity": "Optional"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Post",
-      "field": "excerpt",
-      "type": "String",
-      "arity": "Optional"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Post",
-      "field": "id",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Post",
-          "field": "id"
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "User",
+                    "field": "email"
+                },
+                "directive": "unique"
+            }
         },
-        "directive": "default"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Post",
-          "field": "id"
+        {
+            "tag": "CreateField",
+            "model": "User",
+            "field": "id",
+            "type": "Int",
+            "arity": "Required"
         },
-        "directive": "default"
-      },
-      "argument": "",
-      "value": "autoincrement()"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Post",
-          "field": "id"
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "User",
+                    "field": "id"
+                },
+                "directive": "default"
+            }
         },
-        "directive": "id"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Post",
-      "field": "draft",
-      "type": "Boolean",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Post",
-          "field": "draft"
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "User",
+                    "field": "id"
+                },
+                "directive": "default"
+            },
+            "argument": "",
+            "value": "autoincrement()"
         },
-        "directive": "default"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Post",
-          "field": "draft"
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "User",
+                    "field": "id"
+                },
+                "directive": "id"
+            }
         },
-        "directive": "default"
-      },
-      "argument": "",
-      "value": "false"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Post",
-      "field": "title",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Post",
-          "field": "title"
+        {
+            "tag": "CreateField",
+            "model": "User",
+            "field": "name",
+            "type": "String",
+            "arity": "Optional"
         },
-        "directive": "unique"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Post",
-      "field": "createdAt",
-      "type": "DateTime",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Post",
-      "field": "updatedAt",
-      "type": "DateTime",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Post",
-      "field": "author",
-      "type": "User",
-      "arity": "Optional"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Post",
-          "field": "author"
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "User",
+                    "field": "name"
+                },
+                "directive": "unique"
+            }
         },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Post",
-          "field": "author"
+        {
+            "tag": "CreateField",
+            "model": "User",
+            "field": "bio",
+            "type": "String",
+            "arity": "Optional"
         },
-        "directive": "relation"
-      },
-      "argument": "fields",
-      "value": "[authorId]"
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Post",
-          "field": "author"
+        {
+            "tag": "CreateField",
+            "model": "User",
+            "field": "githubId",
+            "type": "String",
+            "arity": "Optional"
         },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Post",
-      "field": "slug",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Post",
-          "field": "slug"
+        {
+            "tag": "CreateField",
+            "model": "User",
+            "field": "posts",
+            "type": "Post",
+            "arity": "List"
         },
-        "directive": "unique"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Post",
-      "field": "source",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Post",
-      "field": "categories",
-      "type": "Category",
-      "arity": "List"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Post",
-          "field": "categories"
+        {
+            "tag": "CreateModel",
+            "model": "Post"
         },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Post",
-          "field": "categories"
+        {
+            "tag": "CreateField",
+            "model": "Post",
+            "field": "authorId",
+            "type": "Int",
+            "arity": "Optional"
         },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Post",
-      "field": "tags",
-      "type": "Tag",
-      "arity": "List"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Post",
-          "field": "tags"
+        {
+            "tag": "CreateField",
+            "model": "Post",
+            "field": "content",
+            "type": "String",
+            "arity": "Optional"
         },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Post",
-          "field": "tags"
+        {
+            "tag": "CreateField",
+            "model": "Post",
+            "field": "excerpt",
+            "type": "String",
+            "arity": "Optional"
         },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
-    },
-    {
-      "tag": "CreateModel",
-      "model": "Category"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Category",
-      "field": "id",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Category",
-          "field": "id"
+        {
+            "tag": "CreateField",
+            "model": "Post",
+            "field": "id",
+            "type": "Int",
+            "arity": "Required"
         },
-        "directive": "default"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Category",
-          "field": "id"
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Post",
+                    "field": "id"
+                },
+                "directive": "default"
+            }
         },
-        "directive": "default"
-      },
-      "argument": "",
-      "value": "autoincrement()"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Category",
-          "field": "id"
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Post",
+                    "field": "id"
+                },
+                "directive": "default"
+            },
+            "argument": "",
+            "value": "autoincrement()"
         },
-        "directive": "id"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Category",
-      "field": "name",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Category",
-          "field": "name"
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Post",
+                    "field": "id"
+                },
+                "directive": "id"
+            }
         },
-        "directive": "unique"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Category",
-      "field": "slug",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Category",
-          "field": "slug"
+        {
+            "tag": "CreateField",
+            "model": "Post",
+            "field": "draft",
+            "type": "Boolean",
+            "arity": "Required"
         },
-        "directive": "unique"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Category",
-      "field": "posts",
-      "type": "Post",
-      "arity": "List"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Category",
-          "field": "posts"
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Post",
+                    "field": "draft"
+                },
+                "directive": "default"
+            }
         },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Category",
-          "field": "posts"
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Post",
+                    "field": "draft"
+                },
+                "directive": "default"
+            },
+            "argument": "",
+            "value": "false"
         },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
-    },
-    {
-      "tag": "CreateModel",
-      "model": "Tag"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Tag",
-      "field": "id",
-      "type": "Int",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Tag",
-          "field": "id"
+        {
+            "tag": "CreateField",
+            "model": "Post",
+            "field": "title",
+            "type": "String",
+            "arity": "Required"
         },
-        "directive": "default"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Tag",
-          "field": "id"
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Post",
+                    "field": "title"
+                },
+                "directive": "unique"
+            }
         },
-        "directive": "default"
-      },
-      "argument": "",
-      "value": "autoincrement()"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Tag",
-          "field": "id"
+        {
+            "tag": "CreateField",
+            "model": "Post",
+            "field": "createdAt",
+            "type": "DateTime",
+            "arity": "Required"
         },
-        "directive": "id"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Tag",
-      "field": "name",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Tag",
-          "field": "name"
+        {
+            "tag": "CreateField",
+            "model": "Post",
+            "field": "updatedAt",
+            "type": "DateTime",
+            "arity": "Required"
         },
-        "directive": "unique"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Tag",
-      "field": "slug",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Tag",
-          "field": "slug"
+        {
+            "tag": "CreateField",
+            "model": "Post",
+            "field": "author",
+            "type": "User",
+            "arity": "Optional"
         },
-        "directive": "unique"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Tag",
-      "field": "posts",
-      "type": "Post",
-      "arity": "List"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Tag",
-          "field": "posts"
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Post",
+                    "field": "author"
+                },
+                "directive": "relation"
+            }
         },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Tag",
-          "field": "posts"
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Post",
+                    "field": "author"
+                },
+                "directive": "relation"
+            },
+            "argument": "fields",
+            "value": "[authorId]"
         },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
-    }
-  ]
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Post",
+                    "field": "author"
+                },
+                "directive": "relation"
+            },
+            "argument": "references",
+            "value": "[id]"
+        },
+        {
+            "tag": "CreateField",
+            "model": "Post",
+            "field": "slug",
+            "type": "String",
+            "arity": "Required"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Post",
+                    "field": "slug"
+                },
+                "directive": "unique"
+            }
+        },
+        {
+            "tag": "CreateField",
+            "model": "Post",
+            "field": "source",
+            "type": "String",
+            "arity": "Required"
+        },
+        {
+            "tag": "CreateField",
+            "model": "Post",
+            "field": "categories",
+            "type": "Category",
+            "arity": "List"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Post",
+                    "field": "categories"
+                },
+                "directive": "relation"
+            }
+        },
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Post",
+                    "field": "categories"
+                },
+                "directive": "relation"
+            },
+            "argument": "references",
+            "value": "[id]"
+        },
+        {
+            "tag": "CreateField",
+            "model": "Post",
+            "field": "tags",
+            "type": "Tag",
+            "arity": "List"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Post",
+                    "field": "tags"
+                },
+                "directive": "relation"
+            }
+        },
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Post",
+                    "field": "tags"
+                },
+                "directive": "relation"
+            },
+            "argument": "references",
+            "value": "[id]"
+        },
+        {
+            "tag": "CreateModel",
+            "model": "Category"
+        },
+        {
+            "tag": "CreateField",
+            "model": "Category",
+            "field": "id",
+            "type": "Int",
+            "arity": "Required"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Category",
+                    "field": "id"
+                },
+                "directive": "default"
+            }
+        },
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Category",
+                    "field": "id"
+                },
+                "directive": "default"
+            },
+            "argument": "",
+            "value": "autoincrement()"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Category",
+                    "field": "id"
+                },
+                "directive": "id"
+            }
+        },
+        {
+            "tag": "CreateField",
+            "model": "Category",
+            "field": "name",
+            "type": "String",
+            "arity": "Required"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Category",
+                    "field": "name"
+                },
+                "directive": "unique"
+            }
+        },
+        {
+            "tag": "CreateField",
+            "model": "Category",
+            "field": "slug",
+            "type": "String",
+            "arity": "Required"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Category",
+                    "field": "slug"
+                },
+                "directive": "unique"
+            }
+        },
+        {
+            "tag": "CreateField",
+            "model": "Category",
+            "field": "posts",
+            "type": "Post",
+            "arity": "List"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Category",
+                    "field": "posts"
+                },
+                "directive": "relation"
+            }
+        },
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Category",
+                    "field": "posts"
+                },
+                "directive": "relation"
+            },
+            "argument": "references",
+            "value": "[id]"
+        },
+        {
+            "tag": "CreateModel",
+            "model": "Tag"
+        },
+        {
+            "tag": "CreateField",
+            "model": "Tag",
+            "field": "id",
+            "type": "Int",
+            "arity": "Required"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Tag",
+                    "field": "id"
+                },
+                "directive": "default"
+            }
+        },
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Tag",
+                    "field": "id"
+                },
+                "directive": "default"
+            },
+            "argument": "",
+            "value": "autoincrement()"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Tag",
+                    "field": "id"
+                },
+                "directive": "id"
+            }
+        },
+        {
+            "tag": "CreateField",
+            "model": "Tag",
+            "field": "name",
+            "type": "String",
+            "arity": "Required"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Tag",
+                    "field": "name"
+                },
+                "directive": "unique"
+            }
+        },
+        {
+            "tag": "CreateField",
+            "model": "Tag",
+            "field": "slug",
+            "type": "String",
+            "arity": "Required"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Tag",
+                    "field": "slug"
+                },
+                "directive": "unique"
+            }
+        },
+        {
+            "tag": "CreateField",
+            "model": "Tag",
+            "field": "posts",
+            "type": "Post",
+            "arity": "List"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Tag",
+                    "field": "posts"
+                },
+                "directive": "relation"
+            }
+        },
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Tag",
+                    "field": "posts"
+                },
+                "directive": "relation"
+            },
+            "argument": "references",
+            "value": "[id]"
+        }
+    ]
 }

@@ -19,9 +19,8 @@ import { GetStaticPaths } from 'next'
 // import { GetStaticPaths } from 'next'
 
 export type GetStaticPathsWithPrisma<P extends ParsedUrlQuery> = (
-    prisma: PrismaClient 
+    prisma: PrismaClient
 ) => ReturnType<GetStaticPaths<P>>
-
 
 let globalApolloClient: ApolloClient<NormalizedCacheObject> | null = null
 

@@ -1,3 +1,3 @@
 declare module 'remark-slug' {
-    export default () => any;
+    export default () => any
 }

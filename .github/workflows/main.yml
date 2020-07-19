@@ -3,35 +3,35 @@
 name: CI
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    push:
+        branches: [master]
+    pull_request:
+        branches: [master]
 
 jobs:
-  publish:
-    runs-on: ubuntu-latest
+    publish:
+        runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@master
-      
-#     - name: Install
-#       uses: CultureHQ/actions-yarn@master
-#       with:
-#         args: install
-    
-#     - name: Build
-#       uses: CultureHQ/actions-yarn@master
-#       with:
-#         args: build
-    
-    - name: Publish to Zeit
-      uses: amondnet/vercel-action@v19.0.1+1
-      with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        github-comment: true,
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        github-deployment: false
-        vercel-project-id: ${{ secrets.PROJECT_ID }}
-        vercel-org-id: ${{ secrets.ORG_ID }}
-        vercel-args: '--prod'
+        steps:
+            - uses: actions/checkout@master
+
+            #     - name: Install
+            #       uses: CultureHQ/actions-yarn@master
+            #       with:
+            #         args: install
+
+            #     - name: Build
+            #       uses: CultureHQ/actions-yarn@master
+            #       with:
+            #         args: build
+
+            - name: Publish to Zeit
+              uses: amondnet/vercel-action@v19.0.1+1
+              with:
+                  vercel-token: ${{ secrets.VERCEL_TOKEN }}
+                  github-comment: true,
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  github-deployment: false
+                  vercel-project-id: ${{ secrets.PROJECT_ID }}
+                  vercel-org-id: ${{ secrets.ORG_ID }}
+                  vercel-args: '--prod'

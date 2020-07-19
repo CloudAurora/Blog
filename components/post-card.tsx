@@ -46,7 +46,7 @@ const useStyle = makeStyles((theme: Theme) =>
             paddingTop: theme.spacing(0),
             paddingBottom: theme.spacing(0),
             marginBottom: theme.spacing(1),
-            marginTop: theme.spacing(1)
+            marginTop: theme.spacing(1),
         },
     })
 )
@@ -96,17 +96,17 @@ export const PostCard = ({ post }: PropsWithChildren<Props>) => {
                     <Grid container wrap={'wrap'} spacing={1}>
                         {post.tags.map((tag) => (
                             <Grid item key={tag.id}>
-                            <Chip
-                                clickable
-                                // variant="outlined"
-                                // color="primary"
-                                icon={<StyleOutlinedIcon />}
-                                component={MyLink}
-                                href={'/tags/[slug]'}
-                                as={`/tags/${tag.slug}`}
-                                size="small"
-                                label={tag.name}
-                            />
+                                <Chip
+                                    clickable
+                                    // variant="outlined"
+                                    // color="primary"
+                                    icon={<StyleOutlinedIcon />}
+                                    component={MyLink}
+                                    href={'/tags/[slug]'}
+                                    as={`/tags/${tag.slug}`}
+                                    size="small"
+                                    label={tag.name}
+                                />
                             </Grid>
                         ))}
                     </Grid>

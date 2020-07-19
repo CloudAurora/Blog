@@ -80,4 +80,3 @@ export function hljsDefineGraphQL(fn: typeof highlightjs) {
         illegal: /([;<']|BEGIN)/,
     }
 }
-

@@ -2,52 +2,75 @@
 title: JS DOM API分析
 date: '2016-11-03T05:07:21+08:00'
 categories:
-  - Web
+    - Web
 tags:
-  - javascirpt
-  - dom
-  - html
+    - javascirpt
+    - dom
+    - html
 ---
 
 ## Element.classList
-返回DOMTokenList,IE version>=10不完全支持。
-1. 不支持classList.contains的第二个参数(force)
-2. add和remove方法不支持多参数
-3. SVG,MathML结点没有classList属性
+
+返回 DOMTokenList,IE version>=10 不完全支持。
+
+1. 不支持 classList.contains 的第二个参数(force)
+2. add 和 remove 方法不支持多参数
+3. SVG,MathML 结点没有 classList 属性
 
 <!--more-->
-## Node种类
-### Node.nodeName
-|Interface|nodeName|
-|:---------|:--------|
-|Comment|#comment|
-|Document|#document|
-|DocumentFragment|#document-fragment|
 
-## Node的树遍历
-Node树遍历普遍要考虑空白文字结点。(whitespace textNode)。
+## Node 种类
+
+### Node.nodeName
+
+| Interface        | nodeName           |
+| :--------------- | :----------------- |
+| Comment          | #comment           |
+| Document         | #document          |
+| DocumentFragment | #document-fragment |
+
+## Node 的树遍历
+
+Node 树遍历普遍要考虑空白文字结点。(whitespace textNode)。
+
 ### Node.childNodes
-返回一个NodeList，表示该结点的所有子结点，包括文字结点和注释，该NodeList里面全部是object，并没有string。可以使用ParentNode.children来获得所有纯Element结点集合。
+
+返回一个 NodeList，表示该结点的所有子结点，包括文字结点和注释，该 NodeList 里面全部是 object，并没有 string。可以使用 ParentNode.children 来获得所有纯 Element 结点集合。
+
 ### Node.firstChild
-返回结点的第一个子结点。可能是whitespace textNode。
-可以使用Element.firstElementChild来获得Element结点。
+
+返回结点的第一个子结点。可能是 whitespace textNode。
+可以使用 Element.firstElementChild 来获得 Element 结点。
+
 ### Node.lastChild
-返回结点的最后一个子结点。可能是whitespace textNode。
-可以使用Element.lastElementChild来获得Element结点。
+
+返回结点的最后一个子结点。可能是 whitespace textNode。
+可以使用 Element.lastElementChild 来获得 Element 结点。
+
 ### Node.nextSibling
-返回下一个兄弟结点，可能是whitespace textNode。可以使用Element.nextElementSibling获得Element结点。
+
+返回下一个兄弟结点，可能是 whitespace textNode。可以使用 Element.nextElementSibling 获得 Element 结点。
+
 ### Node.previousSibling
-返回前一个兄弟结点，可能whitespace textNode。可以使用Element.previousElementSibling获得Element结点。
+
+返回前一个兄弟结点，可能 whitespace textNode。可以使用 Element.previousElementSibling 获得 Element 结点。
 
 ## Node.innerText
-是一个非标准的属性，返回当前结点包括其子结点的所有文字。可以使用标准方法Node.textContent代替。
+
+是一个非标准的属性，返回当前结点包括其子结点的所有文字。可以使用标准方法 Node.textContent 代替。
+
 ## Node.textContent
+
 ## Node.parentElement
-返回当前Node的父Element元素，如果没有父Element元素，返回null。
+
+返回当前 Node 的父 Element 元素，如果没有父 Element 元素，返回 null。
+
 ## Node.parentNode
-一个元素的parentNode可能是另一个元素、Document或者DocumentFragment。
-Document和DocumentFragment的parentNode是null，同样，一个刚刚创建的node，如果还没有加到dom树里面，它的parentNode同样是null。
+
+一个元素的 parentNode 可能是另一个元素、Document 或者 DocumentFragment。
+Document 和 DocumentFragment 的 parentNode 是 null，同样，一个刚刚创建的 node，如果还没有加到 dom 树里面，它的 parentNode 同样是 null。
+
 ```javascript
 //移除某element：
-ele.parentNode.removeChild(ele);
+ele.parentNode.removeChild(ele)
 ```

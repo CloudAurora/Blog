@@ -14,7 +14,7 @@ import { CssBaseline, Grid, Hidden } from '@material-ui/core'
 import { SideMenu } from 'components/side-menu'
 import { withApollo } from 'apollo/client'
 import 'styles/global.css'
-import 'gitalk/dist/gitalk.css';
+import 'gitalk/dist/gitalk.css'
 import { SideDrawer } from 'components/side-drawer'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flexGrow: 1,
             padding: theme.spacing(2, 3),
             [theme.breakpoints.down('xs')]: {
-                padding: 0
+                padding: 0,
             },
             minHeight: '100%',
             height: '100%',
@@ -51,10 +51,10 @@ const useStyles = makeStyles((theme: Theme) =>
             flexGrow: 1,
             [theme.breakpoints.down('lg')]: {
                 paddingLeft: '0 !important',
-                paddingRight: '0 !important'
+                paddingRight: '0 !important',
             },
             minHeight: '100%',
-            maxWidth: '100%'
+            maxWidth: '100%',
         },
         partSide: {
             height: '100%',

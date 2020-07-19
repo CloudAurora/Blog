@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next"
+import { NextApiRequest, NextApiResponse } from 'next'
 
 export const config = {
     api: {
@@ -7,5 +7,5 @@ export const config = {
 }
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-    res.send('hello world');
+    res.send('hello world')
 }

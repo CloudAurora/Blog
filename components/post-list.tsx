@@ -8,7 +8,7 @@ import {
     ListItemText,
     Grid,
 } from '@material-ui/core'
-import {  PostEntity } from 'types'
+import { PostEntity } from 'types'
 import { MyLink } from './my-link'
 import { PostMeta } from './post-meta'
 

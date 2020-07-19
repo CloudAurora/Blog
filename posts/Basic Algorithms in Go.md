@@ -1,16 +1,19 @@
 ---
 title: Basic Algorithms in Go
 tags:
-  - algorithm
-  - golang
+    - algorithm
+    - golang
 categories:
-  - ACM
+    - ACM
 date: '2017-01-10T08:00:00+08:00'
 grammar_cjkRuby: true
 ---
-最近学Go，感觉挺不错的。闲来无事用它写了几种常用的基础算法。
+
+最近学 Go，感觉挺不错的。闲来无事用它写了几种常用的基础算法。
+
 ## 快排
-思想很简单，实现起来为了方便每次以left作为基准，也可以使用BFS来节省递归栈：
+
+思想很简单，实现起来为了方便每次以 left 作为基准，也可以使用 BFS 来节省递归栈：
 
 ```golang
 // QuickSort returns a sorted slice
@@ -34,11 +37,15 @@ func QuickSort(arr []int) {
 ```
 
 <!--more-->
+
 ## 最短路
-最短路核心思想就是Relax操作。效率高的单源最短路有下面两种算法：
+
+最短路核心思想就是 Relax 操作。效率高的单源最短路有下面两种算法：
+
 1. Dijikstra，不能处理负权路,但是时间复杂度比较稳定.
-2. SPFA是我比较喜欢的一种算法，可以判断负权路。正常情况的时间复杂度为`O(kE)`  其中`k<<V`；最好的情况即一次BFS，时间复杂度为 `O(E)`，然而对于某些精心构造的图，复杂度可以达到Bellman-ford级别：`O(VE)`。
-下面构图使用的是邻接表（适用于稀疏图），也可以用邻接矩阵（适用于稠密图）。
+2. SPFA 是我比较喜欢的一种算法，可以判断负权路。正常情况的时间复杂度为`O(kE)` 其中`k<<V`；最好的情况即一次 BFS，时间复杂度为 `O(E)`，然而对于某些精心构造的图，复杂度可以达到 Bellman-ford 级别：`O(VE)`。
+   下面构图使用的是邻接表（适用于稀疏图），也可以用邻接矩阵（适用于稠密图）。
+
 ```go
 // adjacency list definition
 type edge struct {
@@ -95,8 +102,11 @@ func (G *Graph) SPFA(begin, end int) int {
 	return dist[end]
 }
 ```
+
 ## KMP
+
 字符串匹配经典算法。关键在于维护一个这样的关系：`x[i-next[i]...i-1]=x[0...next[i]-1]`
+
 ```go
 type Kmp struct {
 	pattern string
@@ -142,5 +152,4 @@ func (K *Kmp) match(matcher string) int {
 }
 ```
 
-
-___To Be Continue...___
+**_To Be Continue..._**
