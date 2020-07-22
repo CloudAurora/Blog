@@ -31,7 +31,7 @@ jobs:
             
             - name: generate sqlite db and members
               run: |
-                sudo apt-get install sqlite3
+                sudo snap install sqlite3
                 pip install -r ./scripts/requirements.txt
                 python scripts/get_members.py --token ${{ secrets.GITHUB_TOKEN }}
                 python scripts/init_database.py -r ./posts --token ${{ secrets.GITHUB_TOKEN }}
