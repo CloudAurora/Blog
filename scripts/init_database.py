@@ -9,6 +9,7 @@ import pysqlite3 as sqlite3
 from github import Github
 from sql_statements import *
 
+print("sqlite version", sqlite3.version)
 
 def get_params(key: str):
     flag = False
