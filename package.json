@@ -3,16 +3,14 @@
     "version": "2.0.0",
     "scripts": {
         "dev": "next",
-        "prebuild": "yarn -s gen && yarn -s run setup:db && yarn -s run index",
+        "prebuild": "yarn -s fix:env && yarn -s gen",
         "build": "next build",
         "start": "next start",
-        "setup:db": "rm -rf prisma/dev.db && cp -f prisma/new.db prisma/dev.db && yarn migrate:up",
         "gen:prisma": "prisma generate",
         "gen:nexus": "ts-node -P tsconfig.node.json --transpile-only apollo/schema",
         "gen": "yarn -s run gen:prisma && yarn -s run gen:nexus",
         "gen:graphql": "graphql-codegen",
-        "index": "ts-node -P tsconfig.node.json ./scripts/create-db.ts",
-        "members": "ts-node -P tsconfig.node.json ./scripts/get-members.ts",
+        "fix:env": "ts-node -P tsconfig.node.json ./scripts/fixDbEnv.ts",
         "migrate:save": "prisma migrate save --name init --experimental",
         "migrate:up": "prisma migrate up --experimental",
         "studio": "prisma studio --experimental"
@@ -50,10 +48,8 @@
         "gitalk": "^1.6.2",
         "graphql": "^15.3.0",
         "graphql-tag": "^2.10.4",
-        "gray-matter": "^4.0.2",
         "jsonwebtoken": "8.5.1",
         "less": "^3.12.2",
-        "lodash": "^4.17.19",
         "mdast-util-toc": "^5.0.3",
         "moment": "^2.27.0",
         "next": "latest",
@@ -87,10 +83,9 @@
         "typescript": "^3.9.7",
         "typescript-plugin-css-modules": "^2.4.0"
     },
-
     "optionalDependencies": {
-        "prettier": "^2.0.5",
         "husky": "^4.2.5",
-        "lint-staged": "^10.2.11"
+        "lint-staged": "^10.2.11",
+        "prettier": "^2.0.5"
     }
 }

@@ -7,6 +7,7 @@ categories:
     - ACM
 date: '2017-01-10T08:00:00+08:00'
 grammar_cjkRuby: true
+author: stkevintan
 ---
 
 最近学 Go，感觉挺不错的。闲来无事用它写了几种常用的基础算法。

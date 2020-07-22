@@ -14,7 +14,6 @@ jobs:
 
         steps:
             - uses: actions/checkout@master
-
             #     - name: Install
             #       uses: CultureHQ/actions-yarn@master
             #       with:
@@ -25,6 +24,17 @@ jobs:
             #       with:
             #         args: build
 
+            - uses: actions/setup-python@v2
+              with:
+                python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+                architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+            
+            - name: generate sqlite db and members
+              run: |
+                pip install -r ./scripts/requirements.txt
+                python scripts/get_members.py --token ${{ secrets.GITHUB_TOKEN }}
+                python scripts/init_database.py -r ./posts --token ${{ secrets.GITHUB_TOKEN }}
+                
             - name: Publish to Zeit
               uses: amondnet/vercel-action@v19.0.1+1
               with:
