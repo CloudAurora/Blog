@@ -106,7 +106,7 @@ if __name__ == "__main__":
             author = meta['author']
             author_info = get_members(meta['author'])
             if author not in AuthorId:
-                print("INSERT_USER_STATEMENT", INSERT_USER_STATEMENT, author_info)
+                print("INSERT_USER_STATEMENT", INSERT_USER_STATEMENT)
                 c.execute(INSERT_USER_STATEMENT, author_info)
                 AuthorId[author] = c.lastrowid
 
