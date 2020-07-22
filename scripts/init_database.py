@@ -5,11 +5,12 @@ import os
 import sys
 from typing import (IO, Any)
 from datetime import datetime
-import pysqlite3 as sqlite3
+import sqlite3
 from github import Github
 from sql_statements import *
 
 print("sqlite version", sqlite3.version)
+
 
 def get_params(key: str):
     flag = False
