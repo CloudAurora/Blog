@@ -9,7 +9,8 @@ import sqlite3
 from github import Github
 from sql_statements import *
 
-print("sqlite version", sqlite3.version)
+print("sqlite3 version:", sqlite3.version)
+print("sqlite3.sqlite_version:", sqlite3.sqlite_version)
 
 
 def get_params(key: str):
