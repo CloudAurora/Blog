@@ -1,3 +1,5 @@
 casestyle==0.0.4
+pysqlite3_binary==0.4.3
 PyGithub==1.51
+pysqlite3==0.4.3
 python_frontmatter==0.5.0

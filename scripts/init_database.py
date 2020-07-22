@@ -5,8 +5,7 @@ import os
 import sys
 from typing import (IO, Any)
 from datetime import datetime
-import sqlite3
-from sqlite3 import Connection
+import pysqlite3 as sqlite3
 from github import Github
 from sql_statements import *
 
