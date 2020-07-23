@@ -28,7 +28,8 @@ def slugfy(name: str):
     return urllib.parse.quote(url, safe='')
 
 def to_timestamp(iso_datetime: str):
-    return datetime.fromisoformat(iso_datetime).timestamp()
+    dt = datetime.fromisoformat(iso_datetime).timestamp()
+    return int(round(dt * 1000))
 
 def read_file(f: IO[Any], path: str, base: str):
     metadata, content = frontmatter.parse(f.read())
