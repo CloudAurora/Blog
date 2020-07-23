@@ -7,5 +7,5 @@ export const config = {
 }
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-    res.send('hello world')
+    res.send(__dirname)
 }

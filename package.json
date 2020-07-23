@@ -3,7 +3,7 @@
     "version": "2.0.0",
     "scripts": {
         "dev": "next",
-        "prebuild": "yarn -s fix:env && yarn -s gen",
+        "prebuild": "yarn -s gen",
         "build": "next build",
         "start": "next start",
         "gen:prisma": "prisma generate",
