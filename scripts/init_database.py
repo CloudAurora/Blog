@@ -27,6 +27,8 @@ def slugfy(name: str):
     url = casestyle.kebabcase(name)
     return urllib.parse.quote(url, safe='')
 
+def to_timestamp(iso_datetime: str):
+    return datetime.fromisoformat(iso_datetime).timestamp()
 
 def read_file(f: IO[Any], path: str, base: str):
     metadata, content = frontmatter.parse(f.read())
@@ -35,8 +37,8 @@ def read_file(f: IO[Any], path: str, base: str):
         'slug': slugfy(metadata.get('slug', base)),
         'title': metadata.get('title', base.capitalize()),
         'author': metadata.get('author'),
-        'createdAt': metadata.get('date', mtime.isoformat()),
-        'updatedAt': mtime.isoformat(),
+        'createdAt': to_timestamp(metadata.get('date', mtime.isoformat())),
+        'updatedAt': to_timestamp(mtime.isoformat()),
         'draft': False,
         'tags': metadata.get('tags', []),
         'categories': metadata.get('categories', []),
