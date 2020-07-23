@@ -7,6 +7,6 @@ if (!fs.existsSync(relativePath)) {
 }
 
 const absPath = path.resolve(relativePath)
-fs.writeFileSync('./prisma/.env', `SQLITE_DB_URL="${absPath}"`, { encoding: 'utf-8' });
+fs.writeFileSync('./prisma/.env', `SQLITE_DB_URL="file:${absPath}"`, { encoding: 'utf-8' });
 
 console.log("set sqlite db path env to ", absPath);
