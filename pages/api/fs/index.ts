@@ -11,7 +11,11 @@ export const config = {
 const prefix = '/api/fs'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    const paths = (req.query.path as string[]) ?? []
+    const paths = Array.isArray(req.query.path)
+        ? req.query.path
+        : req.query.path
+        ? [req.query.path]
+        : []
     const filePath = path.join(__dirname, ...paths)
     console.log('file path', filePath)
     try {
@@ -30,9 +34,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 function navi(cur: string) {
     const parent = path.resolve(cur, '../')
     return `
-        <p>current dir: ${cur}  <a href="${path.join(prefix, parent)}">../</a></p>
+        <p>current dir: ${cur}</p>
         <small>cwd: ${process.cwd()}</small>
         <hr />
+        <ul>
+        <li><a href="${prefix}?path=${parent}">../</a></li>
+        </ul>
     `
 }
 
@@ -45,8 +52,7 @@ function directory(res: NextApiResponse, cur: string) {
              ${list
                  .map(
                      (item) =>
-                         `<li><a href="${path.join(
-                             prefix,
+                         `<li><a href="${prefix}?path=${path.join(
                              cur,
                              item
                          )}">${item}</a></li>`
