@@ -6,7 +6,7 @@ if (!fs.existsSync(sourcePath)) {
     throw new Error(`Cannot find sqlite database at: ${sourcePath}`);
 }
 
-const targetPath = './node_modules/dev.db' 
+const targetPath = './node_modules/dev.sqlite' 
 
 fs.copyFileSync(sourcePath, targetPath);
 
