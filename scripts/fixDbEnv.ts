@@ -11,7 +11,7 @@ const targetPath = './node_modules/dev.db'
 fs.copyFileSync(sourcePath, targetPath);
 
 const text = fs.readFileSync('./prisma/schema.prisma', {encoding: 'utf-8'});
-fs.writeFileSync('./prisma/schema.prisma', text.replace(/^(\s*url\s*=\s*)\S*$/m, `$1"file:${path.resolve('../', targetPath)}"`));
+fs.writeFileSync('./prisma/schema.prisma', text.replace(/^(\s*url\s*=\s*)\S*$/m, `$1"file:${path.join('../', targetPath)}"`));
 // fs.writeFileSync('./prisma/.env', `SQLITE_DB_URL="file:${absPath}"`, { encoding: 'utf-8' });
 
-console.log("set sqlite db path env to ", targetPath);
+console.log("set sqlite db path env to ", path.join('../', targetPath));
