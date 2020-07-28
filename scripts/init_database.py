@@ -65,7 +65,7 @@ def walk():
                 yield read_file(f, p, base)
 
 
-DB_FILE = os.path.join('./public', 'dev.db')
+DB_FILE = os.path.join('./prisma', 'dev.db')
 
 
 def create_db():
