@@ -51,7 +51,7 @@
         "jsonwebtoken": "8.5.1",
         "less": "^3.12.2",
         "mdast-util-toc": "^5.0.3",
-        "moment": "^2.27.0",
+        "moment": "^2.29.2",
         "next": "latest",
         "nexus-plugin-prisma": "^0.16.1",
         "prop-types": "^15.7.2",
