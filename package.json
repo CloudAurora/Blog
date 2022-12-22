@@ -48,7 +48,7 @@
         "gitalk": "^1.6.2",
         "graphql": "^15.3.0",
         "graphql-tag": "^2.10.4",
-        "jsonwebtoken": "8.5.1",
+        "jsonwebtoken": "9.0.0",
         "less": "^3.12.2",
         "mdast-util-toc": "^5.0.3",
         "moment": "^2.27.0",
